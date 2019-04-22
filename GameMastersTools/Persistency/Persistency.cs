@@ -15,17 +15,17 @@ namespace NoteMVVM
     {
         private static string JsonFileName = "Notes.json";
 
-        public static async void SaveNotesAsJsonAsync(ObservableCollection<Note> notes)
+        public static async void SaveNotesAsJsonAsync(ObservableCollection<string> notes)
         {
             string notesJsonString = JsonConvert.SerializeObject(notes);
             SerializeNotesFileAsync(notesJsonString, JsonFileName);
         }
 
-        public static async Task<List<Note>> LoadNotesFromJsonAsync()
+        public static async Task<List<string>> LoadNotesFromJsonAsync()
         {
             string notesJsonString = await DeserializeNotesFileAsync(JsonFileName);
             if (notesJsonString != null)
-                return (List<Note>) JsonConvert.DeserializeObject(notesJsonString, typeof (List<Note>));
+                return (List<string>) JsonConvert.DeserializeObject(notesJsonString, typeof (List<string>));
             return null;
         }
 
