@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Common\RelayArgCommand.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Model\Npc.cs" />
     <Compile Include="Persistency\Persistency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,7 +153,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="ViewModel\" />
     <Folder Include="View\" />
   </ItemGroup>
