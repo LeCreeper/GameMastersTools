@@ -26,5 +26,43 @@ namespace GameMastersTools.View
         {
             this.InitializeComponent();
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
+        }
+
+        private void IconsListbox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Campaign.IsSelected)
+            {
+                MainFrame.Navigate(typeof(CampaignPage));
+                
+            }
+            else if (NPCs.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(NPCPage));
+            }
+            else if (PCs.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(PCPage));
+            }
+            else if (Encounters.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(EncountersPage));
+            }
+            else if (Locations.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(LocationPage));
+            }
+            else if (Items.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(ItemPage));
+            }
+            else if (Lore.IsSelected)
+            {
+                //MainFrame.Navigate(typeof(LorePage));
+            }
+        }
     }
 }
