@@ -7,25 +7,26 @@ using Windows.Storage;
 using Windows.UI.Popups;
 using Newtonsoft.Json;
 
-namespace NoteMVVM
+namespace GameMastersTools.Persistency
 {
-    //Json.Net er downloaded til projektet via NuGet: Højreklik på projektet -> Manage NuGet Package
+   
 
-    class PersistencyService
+    //TODO DoubleCheck this class - It's imported from a different project
+    class Persistency<T>
     {
         private static string JsonFileName = "Notes.json";
 
-        public static async void SaveNotesAsJsonAsync(ObservableCollection<Note> notes)
+        public static async void SaveNotesAsJsonAsync(ObservableCollection<T> notes)
         {
             string notesJsonString = JsonConvert.SerializeObject(notes);
             SerializeNotesFileAsync(notesJsonString, JsonFileName);
         }
 
-        public static async Task<List<Note>> LoadNotesFromJsonAsync()
+        public static async Task<List<T>> LoadNotesFromJsonAsync()
         {
             string notesJsonString = await DeserializeNotesFileAsync(JsonFileName);
             if (notesJsonString != null)
-                return (List<Note>) JsonConvert.DeserializeObject(notesJsonString, typeof (List<Note>));
+                return (List<T>) JsonConvert.DeserializeObject(notesJsonString, typeof (List<T>));
             return null;
         }
 
