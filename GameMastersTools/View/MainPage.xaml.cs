@@ -41,27 +41,27 @@ namespace GameMastersTools.View
             }
             else if (NPCs.IsSelected)
             {
-                //MainFrame.Navigate(typeof(NPCPage));
+                MainFrame.Navigate(typeof(NPCPage));
             }
             else if (PCs.IsSelected)
             {
-                //MainFrame.Navigate(typeof(PCPage));
+                MainFrame.Navigate(typeof(PCPage));
             }
             else if (Encounters.IsSelected)
             {
-                //MainFrame.Navigate(typeof(EncountersPage));
+                MainFrame.Navigate(typeof(EncounterPage));
             }
             else if (Locations.IsSelected)
             {
-                //MainFrame.Navigate(typeof(LocationPage));
+                MainFrame.Navigate(typeof(LocationPage));
             }
             else if (Items.IsSelected)
             {
-                //MainFrame.Navigate(typeof(ItemPage));
+                MainFrame.Navigate(typeof(ItemPage));
             }
             else if (Lore.IsSelected)
             {
-                //MainFrame.Navigate(typeof(LorePage));
+                MainFrame.Navigate(typeof(LorePage));
             }
         }
     }

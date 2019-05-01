@@ -18,7 +18,7 @@
 </Grid.RowDefinitions>
 
     <!-- Splitview Menu -->
-<Button Name="MenuButton" FontFamily="Segoe MDL2 Assets" Content="&#xe700;" Click="MenuButton_Click"></Button>
+<Button Name="MenuButton" FontFamily="Segoe MDL2 Assets" Content="&#xe700;" Click="MenuButton_Click" FontSize="29"></Button>
         <!-- ListBox til sidemenu -->
 <SplitView Grid.Row="1" Grid.RowSpan="2" Name="MenuSplitView" CompactPaneLength="50" DisplayMode="CompactOverlay" IsPaneOpen="false" OpenPaneLength="250">
     <SplitView.Pane>
