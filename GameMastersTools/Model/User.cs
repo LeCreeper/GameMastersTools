@@ -8,7 +8,8 @@ namespace GameMastersTools.Model
 {
     class User
     {
-        
+        public int UserId { get; }
+
         public string UserName { get; set; }
 
         public string Password { get; set; }
