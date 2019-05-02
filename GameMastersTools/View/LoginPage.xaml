@@ -10,5 +10,33 @@
 
     <Grid>
 
+        <!-- Row + Coloumn definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!-- Login Panel -->
+        <StackPanel Name="LoginPanel" Height="500" Width="500" Background="Gray" Grid.Column="1" Grid.Row="1">
+                
+            <StackPanel Name="Username + Password" Orientation="Vertical" Margin="0,50,0,0">
+                <TextBlock Margin="0,0,0,70" Text="Login" FontSize="50" TextAlignment="Center"/>
+                <TextBox Name="UsernameBox" PlaceholderText="Enter Username" FontSize="25" Margin="40,0,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                <TextBox Name="PasswordBox" PlaceholderText="Enter Password" FontSize="25" Margin="40,15,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+                <Button Name ="Login" Width="125" Content="Login" FontSize="30" Margin="0,15,0,0"/>
+                <Button Name ="Sign Up" Width="125" Content="Sign Up" FontSize="30" Margin="20,15,0,0" />
+            </StackPanel>
+
+        </StackPanel>
+      </StackPanel>
     </Grid>
 </Page>
