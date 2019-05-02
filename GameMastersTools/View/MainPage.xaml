@@ -2,84 +2,145 @@
     x:Class="GameMastersTools.View.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:GameMastersTools.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
 
     <Grid>
 
-    <!-- Row Definitions -->
-<Grid.RowDefinitions>
-    <RowDefinition Height="Auto"> </RowDefinition>
-    <RowDefinition Height="Auto"> </RowDefinition>
-    <RowDefinition Height="*">    </RowDefinition>
-</Grid.RowDefinitions>
+        <!--  Row Definitions  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <!-- Splitview Menu -->
-<Button Name="MenuButton" FontFamily="Segoe MDL2 Assets" Content="&#xe700;" Click="MenuButton_Click" FontSize="29"></Button>
-        <!-- ListBox til sidemenu -->
-<SplitView Grid.Row="1" Grid.RowSpan="2" Name="MenuSplitView" CompactPaneLength="50" DisplayMode="CompactOverlay" IsPaneOpen="false" OpenPaneLength="250">
-    <SplitView.Pane>
-        <ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
+        <!--  Splitview Menu  -->
+        <Button
+            Name="MenuButton"
+            Click="MenuButton_Click"
+            Content="&#xe700;"
+            FontFamily="Segoe MDL2 Assets"
+            FontSize="29" />
+        <!--  ListBox til sidemenu  -->
+        <SplitView
+            Name="MenuSplitView"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            CompactPaneLength="50"
+            DisplayMode="CompactOverlay"
+            IsPaneOpen="false"
+            OpenPaneLength="250">
+            <SplitView.Pane>
+                <ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
 
-            <ListBoxItem Name ="Campaign">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE705;" FontSize="25"></TextBlock>
-                    <TextBlock Text="Campaigns" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
-                </StackPanel>
-            </ListBoxItem>
-
-            <ListBoxItem Name="NPCs">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE99A;" FontSize="25"></TextBlock>
-                            <TextBlock Text="NPC's" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="Campaign">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xE705;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Campaigns" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
 
-            <ListBoxItem Name="PCs">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xED53;" FontSize="25"></TextBlock>
-                            <TextBlock Text="Players" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="NPCs">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xE99A;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="NPC's" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
 
-            <ListBoxItem Name="Encounters">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF272;" FontSize="25"></TextBlock>
-                            <TextBlock Text="Encounters" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="PCs">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xED53;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Players" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
 
-            <ListBoxItem Name="Locations">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE707;" FontSize="25"></TextBlock>
-                    <TextBlock Text="Locations" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="Encounters">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xF272;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Encounters" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
 
-            <ListBoxItem Name="Items">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF133;" FontSize="25"></TextBlock>
-                            <TextBlock Text="Items" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="Locations">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xE707;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Locations" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
 
-            <ListBoxItem Name="Lore">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="25"></TextBlock>
-                            <TextBlock Text="Lore" FontSize="18" Margin="14,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <ListBoxItem Name="Items">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xF133;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Items" />
                         </StackPanel>
-            </ListBoxItem>
+                    </ListBoxItem>
+
+                    <ListBoxItem Name="Lore">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="25"
+                                Text="&#xE7BE;" />
+                            <TextBlock
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="Lore" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
-    </SplitView.Pane>
+            </SplitView.Pane>
 
-    <!-- MainFrame --> 
-    <SplitView.Content>
-        <Frame Name="MainFrame"></Frame>
-    </SplitView.Content>
-</SplitView>
+            <!--  MainFrame  -->
+            <SplitView.Content>
+                <Frame Name="MainFrame" />
+            </SplitView.Content>
+        </SplitView>
 
     </Grid>
 </Page>
