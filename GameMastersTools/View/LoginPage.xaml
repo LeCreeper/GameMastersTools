@@ -33,7 +33,9 @@
                 
             <StackPanel Name="UsernamePassword" Orientation="Vertical" Margin="0,50,0,0">
                 <TextBlock Margin="0,0,0,70" Text="Login" FontSize="50" TextAlignment="Center"/>
-                <TextBox Name="UsernameBox" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Username" FontSize="25" Margin="40,0,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                <TextBox Name="UsernameBox" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Username" FontSize="25" Margin="40,0,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    
+                </TextBox>
                 <TextBox Name="PasswordBox" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Password" FontSize="25" Margin="40,15,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">

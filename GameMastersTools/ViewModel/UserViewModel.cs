@@ -22,27 +22,58 @@ namespace GameMastersTools.ViewModel
 
         public string Password { get; set; }
 
+        public static int LoggedInUserId { get; set; }
+
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
             
             Users =  DatabasePersistency.LoadUsers().Result.ToList();
-            
+            LoggedInUserId = 0;
         }
 
-        
 
+
+        /// <summary>
+        /// This method checks if the inputted UserName and Password matches a users UserName and UserPassword in the database.
+        /// If it does the user is logged in, if not then an error message is shown
+        /// </summary>
         public void Login()
         {
+            bool userDoesNotExist = true;
+            bool passwordIsInCorrect = true;
             foreach (var user in Users)
             {
-                if (UserName == user.UserName && Password == user.UserPassword)
+                if (UserName == user.UserName)
                 {
-                    new MessageDialog("USER LOGGED IN").ShowAsync();
+                    userDoesNotExist = false;
+                    if (Password == user.UserPassword)
+                    {
+                        new MessageDialog("USER LOGGED IN").ShowAsync();
 
+                        //Static ID for logged in User
+                        LoggedInUserId = user.UserId;
+                        passwordIsInCorrect = false;
+
+                        //Returned User Object
+
+                        break;
+                    }
+                
                 }
 
             }
+
+            if (userDoesNotExist)
+            {
+                new MessageDialog("Invalid Username").ShowAsync();
+            }
+
+            else if (passwordIsInCorrect)
+            {
+                new MessageDialog("Invalid Password").ShowAsync();
+            }
+
             
         }
 
@@ -54,7 +85,9 @@ namespace GameMastersTools.ViewModel
                 await messageDialog.ShowAsync();
             }
         }
+
+
+
     }
 
-    
-}
+    }
