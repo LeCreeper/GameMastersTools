@@ -10,7 +10,7 @@ namespace GMToolsWeb.Models
         public DnDatabaseContext()
             : base("name=DnDatabaseContext")
         {
-            Configuration.ProxyCreationEnabled = false;
+            base.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<CampaignTable> CampaignTable { get; set; }
