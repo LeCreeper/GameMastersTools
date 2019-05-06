@@ -55,7 +55,7 @@
                             <TextBlock
                                 FontFamily="Segoe MDL2 Assets"
                                 FontSize="25"
-                                Text="&#xE705;" />
+                                Text="&#xE82D;" />
                             <TextBlock
                                 Margin="14,0,0,0"
                                 VerticalAlignment="Center"

@@ -13,7 +13,5 @@ namespace GameMastersTools.Model
 
         /// <summary>  This property is the description of the object made from the class </summary>
         public string Description { get; set; }
-
-        public int Id { get; set; }
     }
 }
