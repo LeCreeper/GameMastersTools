@@ -14,7 +14,7 @@ namespace GameMastersTools.Persistency
 {
     class DatabasePersistency
     {
-        const string serverUrl = "https://gmtoolsweb.azurewebsites.net/";
+        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
         static HttpClientHandler handler = new HttpClientHandler();
 
 
@@ -33,7 +33,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/usertables").Result;
+                    var response = client.GetAsync("api/Users").Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -69,7 +69,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/usertables/" + userId).Result;
+                    var response = client.GetAsync("api/Users/" + userId).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -103,7 +103,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PostAsJsonAsync("api/usertables", user);
+                    await client.PostAsJsonAsync("api/Users", user);
                     
                 }
                 catch (Exception e)
@@ -132,7 +132,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     //TODO check if UserId works
-                     await client.PutAsJsonAsync("api/usertables/" + user.UserId, user);
+                     await client.PutAsJsonAsync("api/Users/" + user.UserId, user);
                     
                 }
                 catch (Exception e)
@@ -159,7 +159,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.DeleteAsync("api/usertables/" + user.UserId);
+                    await client.DeleteAsync("api/Users/" + user.UserId);
                    
                 }
                 catch (Exception e)
@@ -187,7 +187,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = await client.GetAsync("api/usertables");
+                    var response = await client.GetAsync("api/Users");
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -208,7 +208,7 @@ namespace GameMastersTools.Persistency
                                     return null;
                                 }
                             }
-                            var checkSuccesful = await client.PostAsJsonAsync("api/usertables", user);
+                            var checkSuccesful = await client.PostAsJsonAsync("api/Users", user);
 
                             if (checkSuccesful.IsSuccessStatusCode)
                             {

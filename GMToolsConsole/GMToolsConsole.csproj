@@ -56,11 +56,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GMToolsWeb\GMToolsWeb.csproj">
-      <Project>{75d46065-64ca-4c97-bfee-cb87e9b82c85}</Project>
-      <Name>GMToolsWeb</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
