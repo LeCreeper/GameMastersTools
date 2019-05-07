@@ -11,16 +11,16 @@ namespace GameMastersTools.Handler
 {
     class UserHandler
     {
-        public UserViewModel UserViewModel { get; set; }
+        public CreateUserViewModel CreateUserViewModel { get; set; }
 
-        public UserHandler(UserViewModel userViewModel)
+        public UserHandler(CreateUserViewModel createUserViewModel)
         {
-            UserViewModel = userViewModel;
+            CreateUserViewModel = createUserViewModel;
         }
 
         public void CreateUser()
         {
-                UserViewModel.Add(UserViewModel.UserName,UserViewModel.UserPassword);
+                CreateUserViewModel.Add(CreateUserViewModel.UserName,CreateUserViewModel.UserPassword);
         
         }
 

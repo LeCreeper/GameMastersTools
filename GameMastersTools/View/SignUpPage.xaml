@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <viewModel:UserViewModel />
+        <viewModel:CreateUserViewModel />
     </Page.DataContext>
 
     <Grid Background="#323232">
