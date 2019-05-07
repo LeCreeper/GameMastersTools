@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using GameMastersTools.Annotations;
 using GameMastersTools.Model;
 
 namespace GameMastersTools.ViewModel
@@ -14,7 +13,6 @@ namespace GameMastersTools.ViewModel
     class CampaignVM : INotifyPropertyChanged
     {
         private ObservableCollection<Campaign> _campaigns;
-        private static Campaign _selectedCampaign;
 
         public ObservableCollection<Campaign> Campaigns
         {
@@ -26,15 +24,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
-        public Campaign SelectedCampaign
-        {
-            get => _selectedCampaign;
-            set
-            {
-                _selectedCampaign = value;
-                OnPropertyChanged();
-            }
-        }
+        public static Campaign SelectedCampaign { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -56,13 +46,10 @@ namespace GameMastersTools.ViewModel
         #region INotify
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
         #endregion
     }

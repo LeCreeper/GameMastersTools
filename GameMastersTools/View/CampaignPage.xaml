@@ -11,7 +11,7 @@
 
     <Page.DataContext>
         <viewmodel:CampaignVM/>
-        </Page.DataContext>
+    </Page.DataContext>
 
     <Grid Background="white">
         <Grid.RowDefinitions>
