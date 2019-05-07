@@ -5,7 +5,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using GameMastersTools.Model;
+using GameMastersTools.View;
 
 namespace GameMastersTools.Persistency
 {
@@ -163,6 +166,77 @@ namespace GameMastersTools.Persistency
                 {
                     new MessageDialog(e.Message).ShowAsync();
 
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if username already exists, if it does, returns null. Otherwise, go and create the user in the database and navigate to login page
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static async Task<List<User>> CheckThenPost(User user, string name)
+        {
+
+            handler.UseDefaultCredentials = true;
+
+            using (HttpClient client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+
+                try
+                {
+                    var response = await client.GetAsync("api/usertables");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Get all users
+                        var users = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
+
+                        // Does users contain anything?
+                        if (users != null)
+                        {
+                            // Then check if name exists already
+                            foreach (var u in users)
+                            {
+                                if (name == u.UserName)
+                                {
+                                    // If name already exist, inform the user then return null 
+                                    //usm.UserErrorMessage = $"Name {name} is already in use. ";
+                                    await new MessageDialog($"Name {name} is already in use.").ShowAsync();
+                                    return null;
+                                }
+                            }
+                            var checkSuccesful = await client.PostAsJsonAsync("api/usertables", user);
+
+                            if (checkSuccesful.IsSuccessStatusCode)
+                            {
+                                // Navigating to LoginPage if successful
+                                if (Window.Current.Content is Frame frame) frame.Navigate(typeof(LoginPage));
+
+                                // Or like this:
+                                //Frame newFrame = Window.Current.Content as Frame;
+                                //if (newFrame != null) newFrame.Navigate(typeof(LoginPage));
+
+
+                                // Showing a message dialog if system is successful in adding the user to the database
+                                await new MessageDialog("Added " + user.UserName + " to the database. You can now log in.").ShowAsync();
+                            }
+
+
+
+
+                        }
+                        return users.ToList();
+                    }
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    new MessageDialog(e.Message).ShowAsync();
+                    //TODO remember to catch
+                    throw;
                 }
             }
         }

@@ -69,6 +69,7 @@ namespace GameMastersTools.ViewModel
                         
                         //Returned User Object
 
+
                         //LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
 
 

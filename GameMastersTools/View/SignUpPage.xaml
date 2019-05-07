@@ -2,13 +2,131 @@
     x:Class="GameMastersTools.View.SignUpPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:GameMastersTools.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:viewModel="using:GameMastersTools.ViewModel"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
 
-    <Grid>
-    
+    <Page.DataContext>
+        <viewModel:CreateUserViewModel />
+    </Page.DataContext>
+
+    <Grid Background="#323232">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <RelativePanel
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Padding="25,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Canvas.ZIndex="1">
+
+            <TextBlock
+                x:Name="TextBlockWelcome"
+                Margin="0,0,0,15"
+                FontSize="20"
+                Foreground="White"
+                Text="Signup below with a display name and a password"
+                TextWrapping="WrapWholeWords" />
+
+            <TextBox
+                Name="TextBoxUserName"
+                Width="240"
+                Height="35"
+                Background="white"
+                BorderBrush="#b92525"
+                BorderThickness="3,0,0,0"
+                FontSize="18"
+                PlaceholderText="Username"
+                RelativePanel.Below="TextBlockWelcome"
+                Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock
+                Name="TextBlockNameError"
+                Margin="15,5,0,5"
+                FontSize="18"
+                Foreground="White"
+                RelativePanel.Below="TextBoxUserName"
+                Text="{Binding UserErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding NameErrorVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+
+            <PasswordBox
+                Name="TextBoxPassWord"
+                Width="240"
+                Height="35"
+                Margin="0,7,0,0"
+                Background="White"
+                BorderBrush="#b92525"
+                BorderThickness="3,0,0,0"
+                FontSize="18"
+                Password="{Binding UserPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                PlaceholderText="Password"
+                RelativePanel.Below="TextBlockNameError" />
+
+            <PasswordBox
+                Name="TextBoxPassWordRepeat"
+                Width="240"
+                Height="35"
+                Margin="0,7,0,0"
+                Background="White"
+                BorderBrush="#b92525"
+                BorderThickness="3,0,0,0"
+                FontSize="18"
+                Password="{Binding UserPasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                PlaceholderText="Repeat Password"
+                RelativePanel.Below="TextBoxPassWord" />
+
+            <TextBlock
+                Name="TextBlockErrorPassword"
+                Padding="15,5,0,5"
+                FontSize="18"
+                Foreground="White"
+                RelativePanel.Below="TextBoxPassWordRepeat"
+                Text="{Binding PasswordErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding PasswordErrorVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button
+                Name="ButtonSignUp"
+                Width="117"
+                Height="35"
+                Margin="0,7,0,0"
+                Background="#262626"
+                BorderBrush="#b92525"
+                BorderThickness="3,0,0,0"
+                Command="{Binding AddUserCommand}"
+                Content="Signup"
+                FontSize="18"
+                Foreground="White"
+                RelativePanel.Below="TextBlockErrorPassword" />
+            <Button
+                Margin="7,7,0,0"
+                Background="#262626"
+                Click="Button_Click"
+                Content="&#xE72B;"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="22"
+                Foreground="White"
+                RelativePanel.Below="TextBlockErrorPassword"
+                RelativePanel.RightOf="ButtonSignUp" />
+
+        </RelativePanel>
+
+        <Image
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Source="../Assets/RødDrage.png"
+            Stretch="None" />
+
+
     </Grid>
 </Page>
