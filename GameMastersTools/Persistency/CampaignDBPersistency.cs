@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using GameMastersTools.Model;
+using GameMastersTools.ViewModel;
 
 namespace GameMastersTools.Persistency
 {
     class CampaignDBPersistency
     {
-        const string serverUrl = "https://gmtoolsweb.azurewebsites.net/";
+        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
         static HttpClientHandler handler = new HttpClientHandler();
+        private const string api = "api/Campaigns";
 
 
         #region Load Methods
@@ -25,26 +27,40 @@ namespace GameMastersTools.Persistency
         //TODO Make Load-function only load campaigns for a logged in user
         public static async Task<List<Campaign>> LoadCampaigns()
         {
-
+            HttpClientHandler handler2 = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    var response = client.GetAsync("api/CampaignTables/").Result;
+                    var response = client.GetAsync(api).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
                         var campaigns = response.Content.ReadAsAsync<IEnumerable<Campaign>>().Result;
 
-                        return campaigns.ToList();
+                        List<Campaign> usersCampaigns = new List<Campaign>();
 
+                        foreach (var campaign in campaigns)
+                        {
+                            if (campaign.UserId == UserViewModel.LoggedInUserId)
+                            {
+                                usersCampaigns.Add(campaign);
+                            }
+                        }
+
+                        return usersCampaigns.ToList();
 
                     }
-                    return null;
+                    else
+                    {
+                        new MessageDialog("Could not load campaigns").ShowAsync();
+                        return new List<Campaign>();
+                    }
+
                 }
                 catch (Exception e)
                 {
@@ -54,6 +70,8 @@ namespace GameMastersTools.Persistency
                 }
             }
         }
+
+
 
         /// <summary>
         /// This returns a single specified object from the database.
@@ -70,7 +88,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/CampaignTables/" + campaingId).Result;
+                    var response = client.GetAsync(api + campaingId).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -98,15 +116,16 @@ namespace GameMastersTools.Persistency
         /// <param name="campaign"></param>
         public async static void PostCampaigns(Campaign campaign)
         {
-            handler.UseDefaultCredentials = true;
+            HttpClientHandler handler2 = new HttpClientHandler();
+            handler2.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    await client.PostAsJsonAsync("api/CampaignTables", campaign);
+                    await client.PostAsJsonAsync(api, campaign);
 
                 }
                 catch (Exception e)
@@ -135,7 +154,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PutAsJsonAsync("api/CampaignTables/" + campaign.CampaignId, campaign);
+                    await client.PutAsJsonAsync(api + campaign.CampaignId, campaign);
 
                 }
                 catch (Exception e)
@@ -154,15 +173,16 @@ namespace GameMastersTools.Persistency
         /// <param name="CampaignId"></param>
         public static async void DeleteCampaign(Campaign campaign)
         {
+            HttpClientHandler handler2 = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    await client.DeleteAsync("api/CampaignTables/" + campaign.CampaignId);
+                    await client.DeleteAsync(api + campaign.CampaignId);
 
                 }
                 catch (Exception e)
