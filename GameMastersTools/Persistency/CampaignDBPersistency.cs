@@ -21,6 +21,8 @@ namespace GameMastersTools.Persistency
         /// This returns a list of specified objects from the database and adds them to a list. 
         /// </summary>
         /// <returns></returns>
+
+        //TODO Make Load-function only load campaigns for a logged in user
         public static async Task<List<Campaign>> LoadCampaigns()
         {
 
@@ -133,7 +135,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PutAsJsonAsync("api/CampaignTables/" + campaign.Id, campaign);
+                    await client.PutAsJsonAsync("api/CampaignTables/" + campaign.CampaignId, campaign);
 
                 }
                 catch (Exception e)
@@ -160,7 +162,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.DeleteAsync("api/CampaignTables/" + campaign.Id);
+                    await client.DeleteAsync("api/CampaignTables/" + campaign.CampaignId);
 
                 }
                 catch (Exception e)

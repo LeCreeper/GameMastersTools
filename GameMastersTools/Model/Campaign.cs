@@ -15,6 +15,8 @@ namespace GameMastersTools.Model
         /// <summary> This collection is a list of the chapters existing in the campaign. </summary>
         public ObservableCollection<Chapter> Chapters;
 
+        public int CampaignId { get; set; }
+
         public Campaign(string name)
         {
             Name = name;
