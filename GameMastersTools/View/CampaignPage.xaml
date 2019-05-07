@@ -141,7 +141,7 @@
             <Button
                 x:Name="NavigateToCampaignButton"
                 FontFamily="Segoe MDL2 Assets"
-                Content="&#xF0D2;"/>
+                Content="&#xF0D2;" Click="NavigateToCampaignButton_Click"/>
 
         </StackPanel>
 

@@ -12,10 +12,13 @@ namespace GameMastersTools.Persistency
 {
     class CampaignDBPersistency
     {
+        #region consts og statics
+
         const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
         static HttpClientHandler handler = new HttpClientHandler();
         private const string api = "api/Campaigns";
 
+        #endregion
 
         #region Load Methods
 
@@ -110,6 +113,8 @@ namespace GameMastersTools.Persistency
 
         #endregion
 
+        #region Create Method
+
         /// <summary>
         /// This adds a specified object to the database
         /// </summary>
@@ -136,6 +141,10 @@ namespace GameMastersTools.Persistency
                 }
             }
         }
+
+        #endregion
+
+        #region Update Method
 
         /// <summary>
         /// This edits a specified object in the database.
@@ -167,6 +176,10 @@ namespace GameMastersTools.Persistency
             }
         }
 
+        #endregion
+
+        #region DeleteMethod
+
         /// <summary>
         /// This removes a specified object from the database, but leaves the ID taken.
         /// </summary>
@@ -193,7 +206,9 @@ namespace GameMastersTools.Persistency
             }
         }
 
+        #endregion
 
+        #region MessageDiaglogHelper
 
         private class MessageDialogHelper
         {
@@ -203,5 +218,7 @@ namespace GameMastersTools.Persistency
                 await messageDialog.ShowAsync();
             }
         }
+
+        #endregion
     }
 }

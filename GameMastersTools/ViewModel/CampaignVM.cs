@@ -7,19 +7,33 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using GameMastersTools.Annotations;
 using GameMastersTools.Common;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
+using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
     class CampaignVM : INotifyPropertyChanged
     {
-        #region Properties
+        #region Backingfields
 
         private ObservableCollection<Campaign> _campaigns;
         private static Campaign _selectedCampaign;
+
+        #endregion
+
+        #region ICommands
+
+        public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<Campaign> Campaigns
         {
@@ -41,15 +55,12 @@ namespace GameMastersTools.ViewModel
             }
         }
 
-        public List<Campaign> X { get; set; }
-
         public string Name { get; set; }
         public string Description { get; set; }
 
         #endregion
 
-        public ICommand AddCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
+        #region Constructor
 
         public CampaignVM()
         {
@@ -58,20 +69,15 @@ namespace GameMastersTools.ViewModel
             DeleteCommand = new RelayCommand(DeleteCampaign);
             //UserViewModel.LoggedInUserId = 1;
             LoadUsersCampaigns();
-
         }
 
-        //public void AddCampaignsTest()
-        //{
-        //    Campaigns.Add(new Campaign("Lystfiskeren"){Description = "Der var engang en fiskermand..."});
-        //    Campaigns.Add(new Campaign("Giganternes flyvemaskine") { Description = "En gruppe giants har planer om at udvikle den første flyvemaskine..." });
-        //    Campaigns.Add(new Campaign("Tronspillet") { Description = "Go go, John Snow. Beat them walkers! You can do it!" });
-        //}
+        #endregion
 
+        #region Methods
 
         public void AddCampaign()
         {
-            CampaignDBPersistency.PostCampaigns(new Campaign(Name, Description, 1));
+            CampaignDBPersistency.PostCampaigns(new Campaign(Name, Description, UserViewModel.LoggedInUserId));
             Campaigns = new ObservableCollection<Campaign>();
             LoadUsersCampaigns();
         }
@@ -91,6 +97,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+        #endregion
 
         #region INotify
 

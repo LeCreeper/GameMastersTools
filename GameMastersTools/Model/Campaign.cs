@@ -9,6 +9,8 @@ namespace GameMastersTools.Model
 {
     class Campaign
     {
+        #region Properties
+
         /// <summary> This collection is a list of the PCs (Playable Characters) within the campaign.  </summary>
         public ObservableCollection<PC> PCs;
 
@@ -23,6 +25,10 @@ namespace GameMastersTools.Model
 
         public string CampaignDescription { get; set; }
 
+        #endregion
+
+        #region Constructor
+
         public Campaign(string name, string description, int userId)
         {
             CampaignName = name;
@@ -32,5 +38,7 @@ namespace GameMastersTools.Model
             UserId = userId;
 
         }
+
+        #endregion
     }
 }
