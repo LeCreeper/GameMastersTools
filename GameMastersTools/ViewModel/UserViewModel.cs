@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,11 +16,25 @@ using GameMastersTools.Common;
 using GameMastersTools.Handler;
 using GameMastersTools.Model;
 using GameMastersTools.View;
+using GameMastersTools.Persistency;
 
 namespace GameMastersTools.ViewModel
 {
     class UserViewModel : INotifyPropertyChanged
     {
+      //properties for login system
+      public ICommand LoginCommand { get; set; }
+
+        public List<User> Users { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
+        public static int LoggedInUserId { get; set; }
+
+        public static User LoggedInUser { get; set; }
+    
         // UserName & UserPassword properties | Med Fejlmeddelelser
         #region Fejl meddelelser i UserName & UserPassword properties
         private string _userName;
@@ -137,6 +152,10 @@ namespace GameMastersTools.ViewModel
         {
             
             UserHandler = new Handler.UserHandler(this);
+            LoginCommand = new RelayCommand(Login);
+            
+            Users =  DatabasePersistency.LoadUsers().Result.ToList();
+            LoggedInUserId = 0;
 
         }
 
@@ -168,6 +187,51 @@ namespace GameMastersTools.ViewModel
                     
                 }
             }
+            
+            /// <summary>
+        /// This method checks if the inputted UserName and Password matches a users UserName and UserPassword in the database.
+        /// If it does the user is logged in, if not then an error message is shown
+        /// </summary>
+        public void Login()
+        {
+            bool userDoesNotExist = true;
+            bool passwordIsInCorrect = true;
+            foreach (var user in Users)
+            {
+                if (UserName == user.UserName)
+                {
+                    userDoesNotExist = false;
+                    if (Password == user.UserPassword)
+                    {
+                        new MessageDialog("USER LOGGED IN").ShowAsync();
+
+                        //Static ID for logged in User
+                        LoggedInUserId = user.UserId;
+                        passwordIsInCorrect = false;
+
+
+                        //Returned User Object
+
+                        LoggedInUser = DatabasePersistency.GetSingleUser(user.UserId);
+                        break;
+                    }
+                
+                }
+
+            }
+            
+            if (userDoesNotExist)
+            {
+                //new MessageDialog("Invalid Username").ShowAsync();
+            }
+
+            else if (passwordIsInCorrect)
+            {
+                //new MessageDialog("Invalid Password").ShowAsync();
+            }
+
+            
+        }
         }
 
         #region OnPropertyChanged
@@ -181,3 +245,20 @@ namespace GameMastersTools.ViewModel
         #endregion
     }
 }
+
+                
+        
+        private class MessageDialogHelper
+        {
+            public static async void Show(string content, string title)
+            { 
+                MessageDialog messageDialog = new MessageDialog(content, title);
+                await messageDialog.ShowAsync();
+            }
+        }
+
+
+
+    }
+ }
+

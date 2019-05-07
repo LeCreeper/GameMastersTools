@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
+using GameMastersTools.ViewModel;
 using Newtonsoft.Json;
 
 namespace GameMastersTools.Persistency
@@ -20,6 +21,7 @@ namespace GameMastersTools.Persistency
         {
             string notesJsonString = JsonConvert.SerializeObject(notes);
             SerializeNotesFileAsync(notesJsonString, JsonFileName);
+           
         }
 
         public static async Task<List<T>> LoadNotesFromJsonAsync()

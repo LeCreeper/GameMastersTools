@@ -133,11 +133,13 @@
     <Compile Include="Model\NPC.cs" />
     <Compile Include="Model\PC.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Persistency\CampaignDBPersistency.cs" />
     <Compile Include="Persistency\DatabasePersistency.cs" />
     <Compile Include="Persistency\Persistency.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="ViewModel\CampaignVM.cs" />
     <Compile Include="View\CampaignPage.xaml.cs">
       <DependentUpon>CampaignPage.xaml</DependentUpon>
     </Compile>
