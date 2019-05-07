@@ -6,9 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using GameMastersTools.Common;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
+using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
@@ -51,16 +54,25 @@ namespace GameMastersTools.ViewModel
                     userDoesNotExist = false;
                     if (Password == user.UserPassword)
                     {
-                        new MessageDialog("USER LOGGED IN").ShowAsync();
+                        new MessageDialog($"Welcome {user.UserName}").ShowAsync();
 
                         //Static ID for logged in User
                         LoggedInUserId = user.UserId;
                         passwordIsInCorrect = false;
 
+                        Frame loginFrame = Window.Current.Content as Frame;
+                        if (loginFrame != null)
+                        {
+                            loginFrame.Navigate(typeof(MainPage));
+                        }
 
+                        
                         //Returned User Object
 
-                       // LoggedInUser = DatabasePersistency.GetSingleUser(user.UserId);
+
+                        //LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
+
+
                         break;
                     }
                 
@@ -70,12 +82,12 @@ namespace GameMastersTools.ViewModel
             
             if (userDoesNotExist)
             {
-                //new MessageDialog("Invalid Username").ShowAsync();
+                new MessageDialog("Invalid Username").ShowAsync();
             }
 
             else if (passwordIsInCorrect)
             {
-                //new MessageDialog("Invalid Password").ShowAsync();
+                new MessageDialog("Invalid Password").ShowAsync();
             }
 
             
@@ -94,4 +106,4 @@ namespace GameMastersTools.ViewModel
 
     }
 
-    }
+}
