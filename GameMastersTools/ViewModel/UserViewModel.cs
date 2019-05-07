@@ -20,9 +20,7 @@ namespace GameMastersTools.ViewModel
 {
     class UserViewModel : INotifyPropertyChanged
     {
-
-
-        // Fejlmeddelelser i UserName & UserPassword properties
+        // UserName & UserPassword properties | Med Fejlmeddelelser
         #region Fejl meddelelser i UserName & UserPassword properties
         private string _userName;
         public string UserName
@@ -30,21 +28,23 @@ namespace GameMastersTools.ViewModel
             get { return _userName; }
             set
             {
+                
+                UserErrorMessage = "Ok";
                 _userName = value;
 
-                UserErrorMessage = "Ok";
-
-                if (_userName.Length < 6)
-                {
-
-                    NameErrorVisibility = "Visible";
-                    UserErrorMessage = $"Your username needs to be greater than {_userName.Length} please | Six or more characters.";
-                }
-                else if (_userName.Length > 20)
+                if (value.Length < 6)
                 {
                     NameErrorVisibility = "Visible";
-                    UserErrorMessage = $"Username needs to be less than {_userName.Length} please | Max 20 characters";
+                    UserErrorMessage = $"Your username length needs to be greater than {_userName.Length} characters | At least 6";
                 }
+                else if (value.Length > 20)
+                {
+                    NameErrorVisibility = "Visible";
+                    UserErrorMessage = $"Username needs to be less than {_userName.Length} | Max 20 characters";
+                }
+
+               
+
             }
         }
 
@@ -59,9 +59,9 @@ namespace GameMastersTools.ViewModel
 
                 PasswordErrorMessage = "Ok";
 
-                if (_userPassword.Length < 8)
+                if (value.Length < 8)
                 {
-                    PasswordErrorMessage = $"Password needs to be greater than {_userPassword.Length} characters please | At least 8";
+                    PasswordErrorMessage = $"Password length needs to be greater than {_userPassword.Length} characters | At least 8";
                 }
             }
         }
@@ -74,9 +74,9 @@ namespace GameMastersTools.ViewModel
             {
                 _userPasswordRepeat = value;
 
-                PasswordErrorMessage = "Please write down your password, you WILL forget it.";
+                PasswordErrorMessage = "Please write down your password, you won't get a new one";
 
-                if (_userPasswordRepeat != _userPassword)
+                if (value != _userPassword)
                 {
                     PasswordErrorMessage = $"Passwords need to be the same";
                 }
@@ -100,8 +100,6 @@ namespace GameMastersTools.ViewModel
             set { _passwordErrorMessage = value; OnPropertyChanged(); }
         }
         #endregion
-
-
 
         // Skulle vise og gemme error tekstboksen - fungerer ikke helt optimalt
         #region Viser og skjuler en textboks der viser fejl
