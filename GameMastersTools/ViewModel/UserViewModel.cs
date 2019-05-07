@@ -57,6 +57,7 @@ namespace GameMastersTools.ViewModel
                         LoggedInUserId = user.UserId;
                         passwordIsInCorrect = false;
 
+
                         //Returned User Object
 
                         LoggedInUser = DatabasePersistency.GetSingleUser(user.UserId);
