@@ -179,5 +179,7 @@ namespace GameMastersTools.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+
     }
 }
