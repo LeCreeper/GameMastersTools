@@ -45,6 +45,7 @@ namespace GameMastersTools.ViewModel
         /// </summary>
         public void Login()
         {
+            //TODO fix dis shit!!! important! wtf?!
             Users = DatabasePersistency.LoadUsers().Result.ToList();
 
             bool userDoesNotExist = true;
