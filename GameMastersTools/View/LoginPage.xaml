@@ -32,14 +32,16 @@
         <StackPanel Name="LoginPanel" Height="500" Width="500" Background="Gray" Grid.Column="1" Grid.Row="1">
                 
             <StackPanel Name="UsernamePassword" Orientation="Vertical" Margin="0,50,0,0">
-                <TextBlock Margin="0,0,0,70" Text="Login" FontSize="50" TextAlignment="Center"/>
-                <TextBox Name="UsernameBox" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Username" FontSize="25" Margin="40,0,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                    
-                </TextBox>
+                <TextBlock Margin="0,0,0,70" Text="Login" FontSize="50" TextAlignment="Center" />
+                
+                <TextBox Name="UsernameBox" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Username" FontSize="25" Margin="40,0,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+               
                 <TextBox Name="PasswordBox" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter Password" FontSize="25" Margin="40,15,40,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
-                <Button Name ="Login" Command="{Binding LoginCommand, Mode=TwoWay}" Width="125" Content="Login" FontSize="30" Margin="0,15,0,0"/>
+                    <Button Name ="Login" Command="{Binding LoginCommand, Mode=TwoWay}" Width="125" Content="Login" FontSize="30" Margin="0,15,0,0" Click="Login_Click">
+                       
+                    </Button>
                 <Button Name ="SignUp" Width="125" Content="Sign Up" FontSize="30" Margin="20,15,0,0" />
             </StackPanel>
 

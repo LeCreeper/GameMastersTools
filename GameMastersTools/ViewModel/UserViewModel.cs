@@ -24,6 +24,8 @@ namespace GameMastersTools.ViewModel
 
         public static int LoggedInUserId { get; set; }
 
+        public static User LoggedInUser { get; set; }
+
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
@@ -57,30 +59,31 @@ namespace GameMastersTools.ViewModel
 
                         //Returned User Object
 
+                        LoggedInUser = DatabasePersistency.GetSingleUser(user.UserId);
                         break;
                     }
                 
                 }
 
             }
-
+            
             if (userDoesNotExist)
             {
-                new MessageDialog("Invalid Username").ShowAsync();
+                //new MessageDialog("Invalid Username").ShowAsync();
             }
 
             else if (passwordIsInCorrect)
             {
-                new MessageDialog("Invalid Password").ShowAsync();
+                //new MessageDialog("Invalid Password").ShowAsync();
             }
 
             
         }
-
+        
         private class MessageDialogHelper
         {
             public static async void Show(string content, string title)
-            {
+            { 
                 MessageDialog messageDialog = new MessageDialog(content, title);
                 await messageDialog.ShowAsync();
             }

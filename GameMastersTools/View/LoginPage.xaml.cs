@@ -25,6 +25,16 @@ namespace GameMastersTools.View
         public LoginPage()
         {
             this.InitializeComponent();
+            
+
+        
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            Flyout flyout = new Flyout();
+            flyout.ShowAt(UsernameBox);
+
         }
     }
 }
