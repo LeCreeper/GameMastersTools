@@ -148,7 +148,9 @@ namespace GameMastersTools.ViewModel
         {
             User user = new User(name, password);
             
-            if (name.Length > 5 && name.Length < 21)
+            
+
+            if (name != null && name.Length > 5 && name.Length < 21)
             {
                 if (password.Length > 7)
                 {
