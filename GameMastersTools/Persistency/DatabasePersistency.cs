@@ -120,7 +120,6 @@ namespace GameMastersTools.Persistency
         public static async void PutUsers(User user)
         {
             
-
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))

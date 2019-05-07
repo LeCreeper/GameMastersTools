@@ -136,7 +136,11 @@
     <Compile Include="Persistency\DatabasePersistency.cs" />
     <Compile Include="Persistency\Persistency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+
+    <Compile Include="ViewModel\UserViewModel.cs" />
+
     <Compile Include="ViewModel\CampaignVM.cs" />
+
     <Compile Include="View\CampaignPage.xaml.cs">
       <DependentUpon>CampaignPage.xaml</DependentUpon>
     </Compile>
