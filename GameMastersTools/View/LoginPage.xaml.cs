@@ -30,11 +30,25 @@ namespace GameMastersTools.View
         
         }
 
+        
+
+        
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SignUpPage));
+        }
+
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            Flyout flyout = new Flyout();
-            flyout.ShowAt(UsernameBox);
+            //Flyout flyout = new Flyout();
+            //TextBlock txtblock = new TextBlock();
+            //txtblock.Text = "dis is wrong";
 
+            //flyout.Content = txtblock;
+
+
+            //flyout.ShowAt(UsernameBox);
         }
     }
 }
