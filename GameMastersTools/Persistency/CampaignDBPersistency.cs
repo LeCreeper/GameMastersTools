@@ -14,7 +14,8 @@ namespace GameMastersTools.Persistency
     {
         #region consts og statics
 
-        const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net";
+        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
+        static HttpClientHandler handler = new HttpClientHandler();
         private const string api = "api/Campaigns";
 
         #endregion
@@ -29,10 +30,10 @@ namespace GameMastersTools.Persistency
         //TODO Make Load-function only load campaigns for a logged in user
         public static async Task<List<Campaign>> LoadCampaigns()
         {
-            HttpClientHandler handler = new HttpClientHandler();
+            HttpClientHandler handler2 = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
@@ -82,7 +83,6 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static Campaign GetSingleCampaign(int campaingId)
         {
-            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -121,10 +121,10 @@ namespace GameMastersTools.Persistency
         /// <param name="campaign"></param>
         public async static void PostCampaigns(Campaign campaign)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.UseDefaultCredentials = true;
+            HttpClientHandler handler2 = new HttpClientHandler();
+            handler2.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
@@ -153,7 +153,8 @@ namespace GameMastersTools.Persistency
         /// <param name="campaignId"></param>
         public static async void PutCampaigns(Campaign campaign)
         {
-            HttpClientHandler handler = new HttpClientHandler();
+
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -185,16 +186,20 @@ namespace GameMastersTools.Persistency
         /// <param name="CampaignId"></param>
         public static async void DeleteCampaign(Campaign campaign)
         {
-            HttpClientHandler handler = new HttpClientHandler();
+            HttpClientHandler handler2 = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler))
+            using (var client = new HttpClient(handler2))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    await client.DeleteAsync(api + campaign.CampaignId);
+                    var response = await client.DeleteAsync(api + campaign.CampaignId);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        new MessageDialog(response.ReasonPhrase + response.Content).ShowAsync();
+                    }
 
                 }
                 catch (Exception e)
