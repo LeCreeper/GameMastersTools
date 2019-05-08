@@ -144,6 +144,9 @@
     <Compile Include="View\CampaignPage.xaml.cs">
       <DependentUpon>CampaignPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ChapterList.xaml.cs">
+      <DependentUpon>ChapterList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EncounterPage.xaml.cs">
       <DependentUpon>EncounterPage.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="View\CampaignPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChapterList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
