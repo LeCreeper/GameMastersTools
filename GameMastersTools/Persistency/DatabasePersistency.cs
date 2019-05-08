@@ -15,7 +15,6 @@ namespace GameMastersTools.Persistency
     class DatabasePersistency
     {
         const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net/";
-        static HttpClientHandler handler = new HttpClientHandler();
 
 
         /// <summary>
@@ -24,7 +23,7 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static async Task<List<User>> LoadUsers()
         {
-
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -61,6 +60,8 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static User GetSingleUser(int userId)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -95,6 +96,8 @@ namespace GameMastersTools.Persistency
         /// <param name="user"></param>
         public async static void PostUsers(User user)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -122,7 +125,9 @@ namespace GameMastersTools.Persistency
         /// <param name="userId"></param>
         public static async void PutUsers(User user)
         {
-            
+            HttpClientHandler handler = new HttpClientHandler();
+
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -151,6 +156,8 @@ namespace GameMastersTools.Persistency
         /// <param name="userId"></param>
         public static async void DeleteUsers(User user)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -178,6 +185,9 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static async Task<List<User>> CheckThenPost(User user, string name)
         {
+
+            HttpClientHandler handler = new HttpClientHandler();
+
             using (HttpClient client = new HttpClient(handler))
             {
                 handler.UseDefaultCredentials = true;
