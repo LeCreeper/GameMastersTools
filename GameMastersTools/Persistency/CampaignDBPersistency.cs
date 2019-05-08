@@ -14,7 +14,7 @@ namespace GameMastersTools.Persistency
     {
         #region consts og statics
 
-        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
+        const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net";
         static HttpClientHandler handler = new HttpClientHandler();
         private const string api = "api/Campaigns";
 
