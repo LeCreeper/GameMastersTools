@@ -21,6 +21,9 @@ namespace GameMastersTools.ViewModel
 
         public List<User> Users { get; set; }
 
+        
+
+
         public string UserName { get; set; }
 
         public string Password { get; set; }
@@ -33,7 +36,7 @@ namespace GameMastersTools.ViewModel
         {
             LoginCommand = new RelayCommand(Login);
             
-            Users =  DatabasePersistency.LoadUsers().Result.ToList();
+
             LoggedInUserId = 0;
         }
 
@@ -47,6 +50,9 @@ namespace GameMastersTools.ViewModel
         {
             bool userDoesNotExist = true;
             bool passwordIsInCorrect = true;
+
+            Users = DatabasePersistency.LoadUsers().Result.ToList();
+
             foreach (var user in Users)
             {
                 if (UserName == user.UserName)

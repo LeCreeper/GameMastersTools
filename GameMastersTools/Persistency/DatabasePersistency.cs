@@ -14,7 +14,7 @@ namespace GameMastersTools.Persistency
 {
     class DatabasePersistency
     {
-        const string serverUrl = "https://gmtoolsweb.azurewebsites.net/";
+        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net/";
         static HttpClientHandler handler = new HttpClientHandler();
 
 
@@ -33,7 +33,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/usertables").Result;
+                    var response = client.GetAsync("api/users").Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -69,7 +69,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/usertables/" + userId).Result;
+                    var response = client.GetAsync("api/users/" + userId).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -103,7 +103,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PostAsJsonAsync("api/usertables", user);
+                    await client.PostAsJsonAsync("api/users", user);
                     
                 }
                 catch (Exception e)
@@ -132,7 +132,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     //TODO check if UserId works
-                     await client.PutAsJsonAsync("api/usertables/" + user.UserId, user);
+                     await client.PutAsJsonAsync("api/users/" + user.UserId, user);
                     
                 }
                 catch (Exception e)
@@ -159,7 +159,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.DeleteAsync("api/usertables/" + user.UserId);
+                    await client.DeleteAsync("api/users/" + user.UserId);
                    
                 }
                 catch (Exception e)
@@ -178,16 +178,14 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static async Task<List<User>> CheckThenPost(User user, string name)
         {
-
-            handler.UseDefaultCredentials = true;
-
             using (HttpClient client = new HttpClient(handler))
             {
+                handler.UseDefaultCredentials = true;
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    var response = await client.GetAsync("api/usertables");
+                    var response = await client.GetAsync("api/users");
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -208,7 +206,7 @@ namespace GameMastersTools.Persistency
                                     return null;
                                 }
                             }
-                            var checkSuccesful = await client.PostAsJsonAsync("api/usertables", user);
+                            var checkSuccesful = await client.PostAsJsonAsync("api/users", user);
 
                             if (checkSuccesful.IsSuccessStatusCode)
                             {
@@ -222,11 +220,8 @@ namespace GameMastersTools.Persistency
 
                                 // Showing a message dialog if system is successful in adding the user to the database
                                 await new MessageDialog("Added " + user.UserName + " to the database. You can now log in.").ShowAsync();
+                                
                             }
-
-
-
-
                         }
                         return users.ToList();
                     }
@@ -234,7 +229,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
                     //TODO remember to catch
                     throw;
                 }
