@@ -195,11 +195,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = await client.DeleteAsync(api + campaign.CampaignId);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        new MessageDialog(response.ReasonPhrase + response.Content).ShowAsync();
-                    }
+                    await client.DeleteAsync(api + campaign.CampaignId);
 
                 }
                 catch (Exception e)
