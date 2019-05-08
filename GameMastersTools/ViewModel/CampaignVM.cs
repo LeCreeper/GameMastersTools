@@ -138,7 +138,7 @@ namespace GameMastersTools.ViewModel
                 MessageDialog messageDialog = new MessageDialog(content, title);
                 await messageDialog.ShowAsync();
             }
-        }
+        } 
 
         #endregion
 
