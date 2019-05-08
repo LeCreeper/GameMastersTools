@@ -129,6 +129,7 @@ namespace GameMastersTools.ViewModel
 
         #endregion
 
+
         #region MessageDialogHelper
 
         private class MessageDialogHelper
