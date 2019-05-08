@@ -162,41 +162,11 @@
                 Text="Delete Campaign"
                 Margin="5"/>
             <Button
-                x:Name="DeletePopUpButton"
+                x:Name="DeleteCampaignButton"
                 FontFamily="Segoe MDL2 Assets"
                 Content="&#xE74D;"
-                Command="{Binding DeleteCommand}"
-                />
+                Command="{Binding DeleteCommand}"/>
         </StackPanel>
-
-        <!--<Popup
-            x:Name="DeletePopUp"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="200"
-            Height="200"
-            >
-            <StackPanel
-                Background="White"
-                BorderBrush="Black"
-                BorderThickness="0,2,0,2">
-                <TextBlock Text="Are you sure you want to delete this campaign?"/>
-                <StackPanel
-                    Orientation="Horizontal">
-                    <Button
-                        Margin="5"
-                        Content="Yes"
-                        Command="{Binding DeleteCommand}"
-                        Click="CloseDeletePopupClicked"/>
-                    <Button
-                        Margin="5"
-                        Content="No"
-                        Click="CloseDeletePopupClicked"/>
-                </StackPanel>
-            </StackPanel>
-        </Popup>-->
 
     </Grid>
 </Page>

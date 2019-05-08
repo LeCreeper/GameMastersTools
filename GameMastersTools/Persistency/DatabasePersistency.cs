@@ -17,7 +17,10 @@ namespace GameMastersTools.Persistency
 
         const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net/";
 
+        private const string userApi = "api/Users";
 
+
+        #region Load Methods
 
         /// <summary>
         /// This returns a list of specified objects from the database and adds them to a list. 
@@ -35,7 +38,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
 
-                    var response = client.GetAsync("api/Users").Result;
+                    var response = client.GetAsync(userApi).Result;
 
 
                     if (response.IsSuccessStatusCode)
@@ -75,7 +78,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
 
-                    var response = client.GetAsync("api/Users/" + userId).Result;
+                    var response = client.GetAsync(userApi + userId).Result;
 
 
                     if (response.IsSuccessStatusCode)
@@ -96,6 +99,10 @@ namespace GameMastersTools.Persistency
             }
         }
 
+        #endregion
+
+        #region Create Methods
+
         /// <summary>
         /// This adds a specified object to the database
         /// </summary>
@@ -113,7 +120,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
 
-                    await client.PostAsJsonAsync("api/Users", user);
+                    await client.PostAsJsonAsync(userApi, user);
 
                     
                 }
@@ -121,69 +128,6 @@ namespace GameMastersTools.Persistency
                 {
                     new MessageDialog(e.Message).ShowAsync();
                     
-
-                }
-            }
-        }
-
-        /// <summary>
-        /// This edits a specified object in the database.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="userId"></param>
-        public static async void PutUsers(User user)
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-
-
-            handler.UseDefaultCredentials = true;
-
-            using (var client = new HttpClient(handler))
-            {
-                client.BaseAddress = new Uri(serverUrl);
-
-                try
-                {
-                    //TODO check if UserId works
-
-                     await client.PutAsJsonAsync("api/Users/" + user.UserId, user);
-
-                    
-                }
-                catch (Exception e)
-                {
-                    new MessageDialog(e.Message).ShowAsync();
-                   
-                    
-
-                }
-            }
-        }
-
-        /// <summary>
-        /// This removes a specified object from the database, but leaves the ID taken.
-        /// </summary>
-        /// <param name="userId"></param>
-        public static async void DeleteUsers(User user)
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-
-            handler.UseDefaultCredentials = true;
-
-            using (var client = new HttpClient(handler))
-            {
-                client.BaseAddress = new Uri(serverUrl);
-
-                try
-                {
-
-                    await client.DeleteAsync("api/Users/" + user.UserId);
-
-                   
-                }
-                catch (Exception e)
-                {
-                    new MessageDialog(e.Message).ShowAsync();
 
                 }
             }
@@ -195,6 +139,7 @@ namespace GameMastersTools.Persistency
         /// <param name="user"></param>
         /// <param name="name"></param>
         /// <returns></returns>
+
         public static async Task<List<User>> CheckThenPost(User user, string name)
         {
 
@@ -208,7 +153,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
 
-                    var response = await client.GetAsync("api/Users");
+                    var response = await client.GetAsync(userApi);
 
 
                     if (response.IsSuccessStatusCode)
@@ -231,7 +176,7 @@ namespace GameMastersTools.Persistency
                                 }
                             }
 
-                            var checkSuccesful = await client.PostAsJsonAsync("api/Users", user);
+                            var checkSuccesful = await client.PostAsJsonAsync(userApi, user);
 
 
                             if (checkSuccesful.IsSuccessStatusCode)
@@ -246,7 +191,7 @@ namespace GameMastersTools.Persistency
 
                                 // Showing a message dialog if system is successful in adding the user to the database
                                 await new MessageDialog("Added " + user.UserName + " to the database. You can now log in.").ShowAsync();
-                                
+
                             }
                         }
                         return users.ToList();
@@ -262,7 +207,80 @@ namespace GameMastersTools.Persistency
             }
         }
 
+        #endregion
 
+        #region Update Method
+
+        /// <summary>
+        /// This edits a specified object in the database.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userId"></param>
+        public static async void PutUsers(User user)
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+
+
+            handler.UseDefaultCredentials = true;
+
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+
+                try
+                {
+                    //TODO check if UserId works
+
+                    await client.PutAsJsonAsync(userApi + user.UserId, user);
+
+                    
+                }
+                catch (Exception e)
+                {
+                    new MessageDialog(e.Message).ShowAsync();
+                   
+                    
+
+                }
+            }
+        }
+
+        #endregion
+
+        #region Delete Method
+
+        /// <summary>
+        /// This removes a specified object from the database, but leaves the ID taken.
+        /// </summary>
+        /// <param name="userId"></param>
+        public static async void DeleteUsers(User user)
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+
+            handler.UseDefaultCredentials = true;
+
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+
+                try
+                {
+
+                    await client.DeleteAsync(userApi + user.UserId);
+
+                   
+                }
+                catch (Exception e)
+                {
+                    new MessageDialog(e.Message).ShowAsync();
+
+                }
+            }
+        }
+
+        #endregion
+
+        #region MessageDiaglogHelper
 
         private class MessageDialogHelper
         {
@@ -273,4 +291,6 @@ namespace GameMastersTools.Persistency
             }
         }
     }
+
+    #endregion
 }
