@@ -13,16 +13,16 @@ namespace GameMastersTools.ViewModel
 {
     class MainPageViewModel
     {
-        public string LoggedInUserName { get; set; }
+        public static string LoggedInUserName { get; set; }
         public ICommand LogOutCommand { get; set; }
 
         public MainPageViewModel()
         {
-            LoggedInUserName = UserViewModel.LoggedInUser.UserName;
+            
             LogOutCommand = new RelayCommand(LogOut);
         }
 
-
+        /// <summary> This method logs the user out and returns the user to the login page </summary>
         public void LogOut()
         {
             Frame loginFrame = Window.Current.Content as Frame;
