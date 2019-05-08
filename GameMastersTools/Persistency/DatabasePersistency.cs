@@ -16,7 +16,9 @@ namespace GameMastersTools.Persistency
     {
 
         const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net/";
+
         private const string userApi = "api/Users";
+
 
         #region Load Methods
 
