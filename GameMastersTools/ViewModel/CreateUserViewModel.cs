@@ -130,7 +130,25 @@ namespace GameMastersTools.ViewModel
             set { _addUserCommand = value; }
         }
 
+        private ICommand _goBackCommand;
 
+        public ICommand GoBackCommand
+        {
+            get { return _goBackCommand ?? (_goBackCommand = new RelayCommand(GoBack));}
+            set { _goBackCommand = value; }
+        }
+
+        //private string _goBack;
+        //public string GoBack
+        //{
+        //    get { return _goBack; }
+        //    set
+        //    {
+        //        _goBack = Window.Current.Content as Frame;
+        //        _goBack = value;
+
+        //    }
+        //} 
 
         // Constructor
         public CreateUserViewModel()
@@ -140,6 +158,17 @@ namespace GameMastersTools.ViewModel
 
         }
 
+        public void GoBack()
+        {
+            Frame newFrame = Window.Current.Content as Frame;
+            if (newFrame != null)
+            {
+                if (newFrame.CanGoBack)
+                {
+                    newFrame.GoBack();
+                }
+            }
+        }
 
         // Add user method | Tjekker om navn og password har de rigtige længder,
         // hvis det er tilfældet, kører den en database metode (Hold musen over CheckThenPost metode for mere info)
@@ -155,16 +184,16 @@ namespace GameMastersTools.ViewModel
                 if (password.Length > 7)
                 {
 
-                    await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                    //await Persistency.DatabasePersistency.CheckThenPost(user, name);
 
-                    //try
-                    //{
-                    //    await Persistency.DatabasePersistency.CheckThenPost(user, name);
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    await new MessageDialog(e.Message).ShowAsync();
-                    //}
+                    try
+                    {
+                        await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                    }
+                    catch (Exception e)
+                    {
+                        await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
+                    }
 
                 }
             }

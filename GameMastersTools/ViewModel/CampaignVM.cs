@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using GameMastersTools.Annotations;
@@ -77,16 +79,44 @@ namespace GameMastersTools.ViewModel
 
         public void AddCampaign()
         {
-            CampaignDBPersistency.PostCampaigns(new Campaign(Name, Description, UserViewModel.LoggedInUserId));
-            Campaigns = new ObservableCollection<Campaign>();
-            LoadUsersCampaigns();
+            bool nameAlreadyExists = false;
+            foreach (var campaign in Campaigns)
+            {
+                if (Name == campaign.CampaignName)
+                {
+                    nameAlreadyExists = true;
+                }
+            }
+
+            if (nameAlreadyExists == false) 
+            {
+                CampaignDBPersistency.PostCampaigns(new Campaign(Name, Description, UserViewModel.LoggedInUserId));
+                Campaigns = new ObservableCollection<Campaign>();
+                LoadUsersCampaigns();
+            }
+
+            else
+            {
+                MessageDialogHelper.Show(
+                    "You already have a campaign with this name. Please choose a unique name for your campaign.",
+                    "Invalid campaign name");
+            }
         }
+
 
         public void DeleteCampaign()
         {
             CampaignDBPersistency.DeleteCampaign(SelectedCampaign);
             Campaigns = new ObservableCollection<Campaign>();
             LoadUsersCampaigns();
+        }
+
+        public async void DeleteButtonPressed()
+        {
+            MessageDialog deleteMessageHelper = new MessageDialog("The campaign will be permanently deleted",
+                "Are you sure you want to delete this campaign?");
+            await deleteMessageHelper.ShowAsync();
+            //deleteMessageHelper.Commands
         }
 
         public void LoadUsersCampaigns()
@@ -96,6 +126,19 @@ namespace GameMastersTools.ViewModel
                 Campaigns.Add(campaign);
             }
         }
+
+        #endregion
+
+        #region MessageDialogHelper
+
+        private class MessageDialogHelper
+        {
+            public static async void Show(string content, string title)
+            {
+                MessageDialog messageDialog = new MessageDialog(content, title);
+                await messageDialog.ShowAsync();
+            }
+        } 
 
         #endregion
 

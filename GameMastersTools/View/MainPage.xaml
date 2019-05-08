@@ -5,35 +5,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:GameMastersTools.ViewModel"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.DataContext>
+        <viewModel:MainPageViewModel/>
+    </Page.DataContext>
 
+    <Grid>
         <!--  Row Definitions  -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!-- Header -->
+        <!--  Header  -->
         <Grid>
             <TextBlock
-            Text="Game Masters Tools"
-            Foreground="#FFF91616"
-            HorizontalAlignment="Right"
-            FontSize="25"
-            Margin="0,0,10,0"
-            />
+                Margin="0,0,10,0"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                Foreground="#FFF91616"
+                Text="Game Masters Tools" />
         </Grid>
-
-
-
-
         <!--  Splitview Menu  -->
         <Button
-            Grid.Row="1"
             Name="MenuButton"
+            Grid.Row="1"
             Click="MenuButton_Click"
             Content="&#xe700;"
             FontFamily="Segoe MDL2 Assets"
@@ -42,15 +41,27 @@
         <SplitView
             Name="MenuSplitView"
             Grid.Row="2"
-            Grid.RowSpan="2"
             CompactPaneLength="50"
             DisplayMode="CompactOverlay"
             IsPaneOpen="false"
             OpenPaneLength="250">
-            <SplitView.Pane>
-                <ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
 
-                    <ListBoxItem Name="Campaign">
+            <SplitView.Pane>
+
+                
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="0" Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
+                   
+
+                            <ListBoxItem Name="Campaign">
+
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 FontFamily="Segoe MDL2 Assets"
@@ -147,14 +158,35 @@
                                 Text="Lore" />
                         </StackPanel>
                     </ListBoxItem>
+
+                    
+
+                   
+
                 </ListBox>
-            </SplitView.Pane>
+
+
+                    <!-- Logout Stuff -->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                        
+                            <StackPanel Orientation="Horizontal" Margin="50,0,0,20">
+                                <TextBlock
+                                    Name="LoggedInUserName"
+                                    
+                                    FontSize="25"
+                                    Text="{Binding LoggedInUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Segoe UI" FontStyle="Normal" />
+                                <Button Name="LogOutButton" Content="Log Out" Command="{Binding LogOutCommand, Mode=TwoWay}" Margin="10,0,0,0" />
+                            </StackPanel>
+                        
+                    </StackPanel>
+                </Grid>
+        </SplitView.Pane>
+
 
             <!--  MainFrame  -->
             <SplitView.Content>
                 <Frame Name="MainFrame" />
             </SplitView.Content>
         </SplitView>
-
     </Grid>
 </Page>

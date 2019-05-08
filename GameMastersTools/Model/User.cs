@@ -19,5 +19,7 @@ namespace GameMastersTools.Model
             UserName = userName;
             UserPassword = password;
         }
+
+       
     }
 }
