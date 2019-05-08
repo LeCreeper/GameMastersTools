@@ -183,18 +183,20 @@ namespace GameMastersTools.ViewModel
             {
                 if (password.Length > 7)
                 {
+                    if (UserPassword == UserPasswordRepeat)
+                    { 
 
-                    //await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                        //await Persistency.DatabasePersistency.CheckThenPost(user, name);
 
-                    try
-                    {
-                        await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                        try
+                        {
+                            await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                        }
+                        catch (Exception e)
+                        {
+                            await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
-                    }
-
                 }
             }
         }
