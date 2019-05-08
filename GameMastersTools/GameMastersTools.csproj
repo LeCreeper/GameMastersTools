@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Common\RelayArgCommand.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Handler\PcHandler.cs" />
     <Compile Include="Handler\UserHandler.cs" />
     <Compile Include="Model\BaseProperties.cs" />
     <Compile Include="Model\Campaign.cs" />
@@ -135,11 +136,14 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Persistency\CampaignDBPersistency.cs" />
     <Compile Include="Persistency\DatabasePersistency.cs" />
+    <Compile Include="Persistency\GenericDbPersistency.cs" />
     <Compile Include="Persistency\Persistency.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton\PcSingleton.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\PcViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\CampaignVM.cs" />
     <Compile Include="View\CampaignPage.xaml.cs">
