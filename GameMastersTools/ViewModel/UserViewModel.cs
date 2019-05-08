@@ -23,6 +23,7 @@ namespace GameMastersTools.ViewModel
         public List<User> Users { get; set; }
 
         /// <summary> This UserName property is used to store the users input from the usernamebox from the login page. </summary>
+
         public string UserName { get; set; }
 
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
@@ -38,7 +39,7 @@ namespace GameMastersTools.ViewModel
         {
             LoginCommand = new RelayCommand(Login);
             
-            
+
             LoggedInUserId = 0;
         }
 
@@ -55,6 +56,9 @@ namespace GameMastersTools.ViewModel
 
             bool userDoesNotExist = true;
             bool passwordIsInCorrect = true;
+
+            Users = DatabasePersistency.LoadUsers().Result.ToList();
+
             foreach (var user in Users)
             {
                 if (UserName == user.UserName)

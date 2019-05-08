@@ -14,8 +14,9 @@ namespace GameMastersTools.Persistency
 {
     class DatabasePersistency
     {
-        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
-        static HttpClientHandler handler = new HttpClientHandler();
+
+        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net/";
+
 
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static async Task<List<User>> LoadUsers()
         {
-
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -33,7 +34,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
+
                     var response = client.GetAsync("api/Users").Result;
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -61,6 +64,8 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static User GetSingleUser(int userId)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -69,7 +74,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
+
                     var response = client.GetAsync("api/Users/" + userId).Result;
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -95,6 +102,8 @@ namespace GameMastersTools.Persistency
         /// <param name="user"></param>
         public async static void PostUsers(User user)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -103,7 +112,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
+
                     await client.PostAsJsonAsync("api/Users", user);
+
                     
                 }
                 catch (Exception e)
@@ -122,7 +133,9 @@ namespace GameMastersTools.Persistency
         /// <param name="userId"></param>
         public static async void PutUsers(User user)
         {
-            
+            HttpClientHandler handler = new HttpClientHandler();
+
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -132,7 +145,9 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     //TODO check if UserId works
+
                      await client.PutAsJsonAsync("api/Users/" + user.UserId, user);
+
                     
                 }
                 catch (Exception e)
@@ -151,6 +166,8 @@ namespace GameMastersTools.Persistency
         /// <param name="userId"></param>
         public static async void DeleteUsers(User user)
         {
+            HttpClientHandler handler = new HttpClientHandler();
+
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -159,7 +176,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
+
                     await client.DeleteAsync("api/Users/" + user.UserId);
+
                    
                 }
                 catch (Exception e)
@@ -179,15 +198,18 @@ namespace GameMastersTools.Persistency
         public static async Task<List<User>> CheckThenPost(User user, string name)
         {
 
-            handler.UseDefaultCredentials = true;
+            HttpClientHandler handler = new HttpClientHandler();
 
             using (HttpClient client = new HttpClient(handler))
             {
+                handler.UseDefaultCredentials = true;
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
+
                     var response = await client.GetAsync("api/Users");
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -208,7 +230,9 @@ namespace GameMastersTools.Persistency
                                     return null;
                                 }
                             }
+
                             var checkSuccesful = await client.PostAsJsonAsync("api/Users", user);
+
 
                             if (checkSuccesful.IsSuccessStatusCode)
                             {
@@ -222,11 +246,8 @@ namespace GameMastersTools.Persistency
 
                                 // Showing a message dialog if system is successful in adding the user to the database
                                 await new MessageDialog("Added " + user.UserName + " to the database. You can now log in.").ShowAsync();
+                                
                             }
-
-
-
-
                         }
                         return users.ToList();
                     }
@@ -234,7 +255,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
                     //TODO remember to catch
                     throw;
                 }

@@ -109,7 +109,7 @@
             <Button
                 Margin="7,7,0,0"
                 Background="#262626"
-                Click="Button_Click"
+                Command="{Binding GoBackCommand}"
                 Content="&#xE72B;"
                 FontFamily="Segoe MDL2 Assets"
                 FontSize="22"
