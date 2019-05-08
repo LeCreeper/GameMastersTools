@@ -48,9 +48,6 @@
 
             <SplitView.Pane>
 
-                //<ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
-                  //<ListBoxItem Name="Campaign">
-
                 
                 <Grid>
 
@@ -61,7 +58,7 @@
                     </Grid.RowDefinitions>
 
                     <ListBox Grid.Row="0" Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
-                   <StackPanel>
+                   
 
                             <ListBoxItem Name="Campaign">
 
@@ -162,7 +159,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    </StackPanel>
+                    
 
                    
 
@@ -172,13 +169,13 @@
                     <!-- Logout Stuff -->
                     <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
                         
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <StackPanel Orientation="Horizontal" Margin="50,0,0,20">
                                 <TextBlock
                                     Name="LoggedInUserName"
-                                    FontFamily="Segoe MDL2 Assets"
+                                    
                                     FontSize="25"
-                                    Text="{Binding LoggedInUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Name="LogOutButton" Content="Log Out" Command="{Binding LogOutCommand, Mode=TwoWay}"></Button>
+                                    Text="{Binding LoggedInUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Segoe UI" FontStyle="Normal" />
+                                <Button Name="LogOutButton" Content="Log Out" Command="{Binding LogOutCommand, Mode=TwoWay}" Margin="10,0,0,0" />
                             </StackPanel>
                         
                     </StackPanel>

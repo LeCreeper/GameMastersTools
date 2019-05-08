@@ -23,8 +23,7 @@ namespace GameMastersTools.ViewModel
         public List<User> Users { get; set; }
 
         /// <summary> This UserName property is used to store the users input from the usernamebox from the login page. </summary>
-
-        public string UserName { get; set; }
+         public string UserName { get; set; }
 
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
         public string Password { get; set; }
@@ -66,24 +65,23 @@ namespace GameMastersTools.ViewModel
                     userDoesNotExist = false;
                     if (Password == user.UserPassword)
                     {
-                        new MessageDialog($"Welcome {user.UserName}").ShowAsync();
+                        //new MessageDialog($"Welcome {user.UserName}").ShowAsync();
 
                         //Static ID for logged in User
                         LoggedInUserId = user.UserId;
                         passwordIsInCorrect = false;
+                        
+                        //Returned User Object
+
+
+                        LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
+                        MainPageViewModel.LoggedInUserName = LoggedInUser.UserName;
 
                         Frame loginFrame = Window.Current.Content as Frame;
                         if (loginFrame != null)
                         {
                             loginFrame.Navigate(typeof(MainPage));
                         }
-
-                        
-                        //Returned User Object
-
-
-                       // LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
-
 
                         break;
                     }
