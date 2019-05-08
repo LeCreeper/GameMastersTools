@@ -20,21 +20,11 @@ namespace GameMastersTools.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CampaignPage : Page
+    public sealed partial class ChapterList : Page
     {
-        public CampaignPage()
+        public ChapterList()
         {
             this.InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void NavigateToCampaignButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ChapterList));
         }
     }
 }

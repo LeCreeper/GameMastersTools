@@ -36,7 +36,7 @@
                 <DataTemplate>
                     <StackPanel
                         Margin="5"
-                        Height="200"
+                        Height="500"
                         Width="210"
                         Padding="5"
                         Background="#C29C7A"
@@ -48,15 +48,15 @@
                             BorderBrush="Black"
                             BorderThickness="0,0,0,2"
                             Margin="0,0,0,5">
-                        <TextBlock
+                            <TextBlock
                             x:Name="CampaignName"
                             FontWeight="Bold"
-                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding CampaignName, UpdateSourceTrigger=PropertyChanged}"
                             TextAlignment="Center"/>
                         </StackPanel>
                         <TextBlock
                             x:Name="CampaignDescription"
-                            Text="{Binding Description}"
+                            Text="{Binding CampaignDescription}"
                             TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
@@ -66,15 +66,15 @@
         <StackPanel
             x:Name="AddCampaign"
             Grid.Column="1"
+           Grid.Row="2"
             Orientation="Horizontal"
             HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
+            VerticalAlignment="Top"
             Margin="5"
             BorderBrush="#282b30"
             BorderThickness="2,0,0,2"
             CornerRadius="5,5,5,5"
             Background="#F3D5BD">
-
 
             <TextBlock
                 Text="Add Campaign"
@@ -82,19 +82,20 @@
             <Button
                 x:Name="AddCampaignButton"
                 FontFamily="Segoe MDL2 Assets"
-                Content="&#xE710;">
-            <Button.Flyout>
-                <Flyout Placement="Right">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                Content="&#xE710;"
+                >
+                <Button.Flyout>
+                    <Flyout Placement="Right">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
                             <TextBlock
                                 Text="Name:"
@@ -114,19 +115,20 @@
                                     Grid.Column="1"/>
                             <Button
                                     Content="Add Campaign"
-                                    Grid.Row="2"/>
+                                    Grid.Row="2"
+                                    Command="{Binding AddCommand}"/>
                         </Grid>
                     </Flyout>
                 </Button.Flyout>
             </Button>
         </StackPanel>
         <StackPanel
-            Grid.Row="2"
+            Grid.Row="0"
             Grid.Column="1"
             x:Name="NavigateToCampaign"
             Orientation="Horizontal"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Margin="5"
             BorderBrush="#282b30"
             BorderThickness="2,0,0,2"
@@ -139,8 +141,32 @@
             <Button
                 x:Name="NavigateToCampaignButton"
                 FontFamily="Segoe MDL2 Assets"
-                Content="&#xF0D2;"/>
+                Content="&#xF0D2;" Click="NavigateToCampaignButton_Click"/>
 
         </StackPanel>
+
+        <StackPanel
+            x:Name="DeleteCampaign"
+            Grid.Column="1"
+            Grid.Row="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="5"
+            BorderBrush="#282b30"
+            BorderThickness="2,0,0,2"
+            CornerRadius="5,5,5,5"
+            Background="#F3D5BD">
+
+            <TextBlock
+                Text="Delete Campaign"
+                Margin="5"/>
+            <Button
+                x:Name="DeleteCampaignButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE74D;"
+                Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+
     </Grid>
 </Page>

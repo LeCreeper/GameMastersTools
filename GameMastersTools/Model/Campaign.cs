@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace GameMastersTools.Model
 {
-    class Campaign : BaseProperties
+    class Campaign
     {
+        #region Properties
+
         /// <summary> This collection is a list of the PCs (Playable Characters) within the campaign.  </summary>
         public ObservableCollection<PC> PCs;
 
@@ -17,12 +19,26 @@ namespace GameMastersTools.Model
 
         public int CampaignId { get; set; }
 
-        public Campaign(string name)
+        public int UserId { get; set; }
+
+        public string CampaignName { get; set; }
+
+        public string CampaignDescription { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public Campaign(string name, string description, int userId)
         {
-            Name = name;
+            CampaignName = name;
+            CampaignDescription = description;
             PCs = new ObservableCollection<PC>();
             Chapters = new ObservableCollection<Chapter>();
+            UserId = userId;
 
         }
+
+        #endregion
     }
 }

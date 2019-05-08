@@ -5,8 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:GameMastersTools.ViewModel"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModel:MainPageViewModel/>
+    </Page.DataContext>
 
     <Grid>
         <!--  Row Definitions  -->
@@ -42,8 +47,24 @@
             OpenPaneLength="250">
 
             <SplitView.Pane>
-                <ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
-                    <ListBoxItem Name="Campaign">
+
+                //<ListBox Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
+                  //<ListBoxItem Name="Campaign">
+
+                
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="0" Name="IconsListbox" SelectionChanged="IconsListbox_OnSelectionChanged">
+                   <StackPanel>
+
+                            <ListBoxItem Name="Campaign">
+
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 FontFamily="Segoe MDL2 Assets"
@@ -140,8 +161,31 @@
                                 Text="Lore" />
                         </StackPanel>
                     </ListBoxItem>
+
+                    </StackPanel>
+
+                   
+
                 </ListBox>
-            </SplitView.Pane>
+
+
+                    <!-- Logout Stuff -->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                        
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                <TextBlock
+                                    Name="LoggedInUserName"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="25"
+                                    Text="{Binding LoggedInUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Name="LogOutButton" Content="Log Out" Command="{Binding LogOutCommand, Mode=TwoWay}"></Button>
+                            </StackPanel>
+                        
+                    </StackPanel>
+                </Grid>
+        </SplitView.Pane>
+
+
             <!--  MainFrame  -->
             <SplitView.Content>
                 <Frame Name="MainFrame" />

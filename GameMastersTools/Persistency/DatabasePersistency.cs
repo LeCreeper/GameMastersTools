@@ -14,7 +14,9 @@ namespace GameMastersTools.Persistency
 {
     class DatabasePersistency
     {
+
         const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net/";
+
 
 
         /// <summary>
@@ -32,7 +34,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/users").Result;
+
+                    var response = client.GetAsync("api/Users").Result;
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -70,7 +74,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync("api/users/" + userId).Result;
+
+                    var response = client.GetAsync("api/Users/" + userId).Result;
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -106,7 +112,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PostAsJsonAsync("api/users", user);
+
+                    await client.PostAsJsonAsync("api/Users", user);
+
                     
                 }
                 catch (Exception e)
@@ -137,7 +145,9 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     //TODO check if UserId works
-                     await client.PutAsJsonAsync("api/users/" + user.UserId, user);
+
+                     await client.PutAsJsonAsync("api/Users/" + user.UserId, user);
+
                     
                 }
                 catch (Exception e)
@@ -166,7 +176,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.DeleteAsync("api/users/" + user.UserId);
+
+                    await client.DeleteAsync("api/Users/" + user.UserId);
+
                    
                 }
                 catch (Exception e)
@@ -195,7 +207,9 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = await client.GetAsync("api/users");
+
+                    var response = await client.GetAsync("api/Users");
+
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -216,7 +230,9 @@ namespace GameMastersTools.Persistency
                                     return null;
                                 }
                             }
-                            var checkSuccesful = await client.PostAsJsonAsync("api/users", user);
+
+                            var checkSuccesful = await client.PostAsJsonAsync("api/Users", user);
+
 
                             if (checkSuccesful.IsSuccessStatusCode)
                             {
