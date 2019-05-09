@@ -33,6 +33,8 @@ namespace GameMastersTools.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
+        public ICommand ClearCommand { get; set; }
+
         #endregion
 
         #region Properties
@@ -69,6 +71,7 @@ namespace GameMastersTools.ViewModel
             Campaigns = new ObservableCollection<Campaign>();
             AddCommand = new RelayCommand(AddCampaign);
             DeleteCommand = new RelayCommand(DeleteCampaign);
+            ClearCommand = new RelayCommand(ClearNameAndDescription);
             //UserViewModel.LoggedInUserId = 1;
             LoadUsersCampaigns();
             _selectedCampaign = null;
@@ -132,6 +135,12 @@ namespace GameMastersTools.ViewModel
             {
                 Campaigns.Add(campaign);
             }
+        }
+
+        public void ClearNameAndDescription()
+        {
+            Name = null;
+            Description = null;
         }
 
         #endregion

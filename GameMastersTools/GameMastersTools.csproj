@@ -179,6 +179,9 @@
     <Compile Include="View\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SignUpPage2.xaml.cs">
+      <DependentUpon>SignUpPage2.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -187,6 +190,9 @@
     <None Include="GameMastersTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\LoginBackground.jpg" />
+    <Content Include="Assets\MenuHeader.jpg" />
+    <Content Include="Assets\ParchmentBackground.jpg" />
     <Content Include="Assets\RødDrage.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -261,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SignUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SignUpPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
