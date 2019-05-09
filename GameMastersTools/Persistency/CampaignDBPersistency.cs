@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -14,9 +15,9 @@ namespace GameMastersTools.Persistency
     {
         #region consts og statics
 
-        const string serverUrl = "https://gamemasterstoolsweb.azurewebsites.net";
-        static HttpClientHandler handler = new HttpClientHandler();
-        private const string api = "api/Campaigns";
+        const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net";
+        private const string GetAndPostApi = "api/Campaigns";
+        private const string DeleteAndPutApi = "api/Campaigns/";
 
         #endregion
 
@@ -30,16 +31,16 @@ namespace GameMastersTools.Persistency
         //TODO Make Load-function only load campaigns for a logged in user
         public static async Task<List<Campaign>> LoadCampaigns()
         {
-            HttpClientHandler handler2 = new HttpClientHandler();
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler2))
+            using (var client = new HttpClient(handler))
             {
                 client.BaseAddress = new Uri(serverUrl);
 
                 try
                 {
-                    var response = client.GetAsync(api).Result;
+                    var response = client.GetAsync(GetAndPostApi).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -83,6 +84,7 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static Campaign GetSingleCampaign(int campaingId)
         {
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -91,7 +93,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    var response = client.GetAsync(api + campaingId).Result;
+                    var response = client.GetAsync(DeleteAndPutApi + campaingId).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -130,7 +132,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PostAsJsonAsync(api, campaign);
+                    await client.PostAsJsonAsync(GetAndPostApi, campaign);
 
                 }
                 catch (Exception e)
@@ -153,8 +155,7 @@ namespace GameMastersTools.Persistency
         /// <param name="campaignId"></param>
         public static async void PutCampaigns(Campaign campaign)
         {
-
-
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
             using (var client = new HttpClient(handler))
@@ -163,7 +164,7 @@ namespace GameMastersTools.Persistency
 
                 try
                 {
-                    await client.PutAsJsonAsync(api + campaign.CampaignId, campaign);
+                    await client.PutAsJsonAsync(DeleteAndPutApi + campaign.CampaignId, campaign);
 
                 }
                 catch (Exception e)
@@ -186,21 +187,22 @@ namespace GameMastersTools.Persistency
         /// <param name="CampaignId"></param>
         public static async void DeleteCampaign(Campaign campaign)
         {
-            HttpClientHandler handler2 = new HttpClientHandler();
+            HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
 
-            using (var client = new HttpClient(handler2))
+            using (var client = new HttpClient(handler))
             {
                 client.BaseAddress = new Uri(serverUrl);
+                //client.DefaultRequestHeaders.Clear();
+                //client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                 try
                 {
-                    var response = await client.DeleteAsync(api + campaign.CampaignId);
+                    var response = await client.DeleteAsync(DeleteAndPutApi + campaign.CampaignId);
                     if (!response.IsSuccessStatusCode)
                     {
-                        new MessageDialog(response.ReasonPhrase + response.Content).ShowAsync();
+                        new MessageDialog(response.ToString()).ShowAsync();
                     }
-
                 }
                 catch (Exception e)
                 {

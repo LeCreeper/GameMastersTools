@@ -106,9 +106,21 @@ namespace GameMastersTools.ViewModel
 
         public void DeleteCampaign()
         {
-            CampaignDBPersistency.DeleteCampaign(SelectedCampaign);
-            Campaigns = new ObservableCollection<Campaign>();
-            LoadUsersCampaigns();
+            if (SelectedCampaign == null)
+            {
+                new MessageDialog("Please select a campaign to delete", "No campaign selected");
+            }
+
+            try
+            {
+                CampaignDBPersistency.DeleteCampaign(SelectedCampaign);
+                Campaigns = new ObservableCollection<Campaign>();
+                LoadUsersCampaigns();
+            }
+            catch (Exception e)
+            {
+                new MessageDialog(e.Message);
+            }
         }
 
         public async void DeleteButtonPressed()
