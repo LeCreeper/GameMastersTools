@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,16 +33,20 @@ namespace GameMastersTools.View
             Frame.Navigate(typeof(ChapterList));
         }
 
-        //private void ShowDeletePopupOffsetClicked(object sender, RoutedEventArgs e)
-        //{
-        //    // open the Popup if it isn't open already 
-        //    if (!DeletePopUp.IsOpen) { DeletePopUp.IsOpen = true; }
-        //}
+        private void ShowDeletePopupOffsetClicked(object sender, RoutedEventArgs e)
+        {
+            // open the Popup if it isn't open already 
+            if (!DeletePopUp.IsOpen) { DeletePopUp.IsOpen = true; }
+        }
 
-        //private void CloseDeletePopupClicked(object sender, RoutedEventArgs e)
-        //{
-        //    // if the Popup is open, then close it 
-        //    if (DeletePopUp.IsOpen) { DeletePopUp.IsOpen = false; }
-        //}
+        private void CloseDeletePopupClicked(object sender, RoutedEventArgs e)
+        {
+            // if the Popup is open, then close it 
+            if (DeletePopUp.IsOpen) { DeletePopUp.IsOpen = false; }
+        }
+
+
+
+
     }
 }

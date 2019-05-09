@@ -150,8 +150,8 @@
             Grid.Column="1"
             Grid.Row="2"
             Orientation="Horizontal"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
             Margin="5"
             BorderBrush="#282b30"
             BorderThickness="2,0,0,2"
@@ -160,31 +160,32 @@
 
             <TextBlock
                 Text="Delete Campaign"
-                Margin="5"/>
+                Margin="5" VerticalAlignment="Stretch"/>
             <Button
                 x:Name="DeletePopUpButton"
                 FontFamily="Segoe MDL2 Assets"
-                Content="&#xE74D;"
-                Command="{Binding DeleteCommand}"
+                Content="&#xE74D;" Click="ShowDeletePopupOffsetClicked"
                 />
         </StackPanel>
 
-        <!--<Popup
+        <Popup
             x:Name="DeletePopUp"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Grid.Row="1"
             Grid.Column="1"
             Width="200"
-            Height="200"
             >
             <StackPanel
                 Background="White"
                 BorderBrush="Black"
-                BorderThickness="0,2,0,2">
-                <TextBlock Text="Are you sure you want to delete this campaign?"/>
+                BorderThickness="1">
+                <TextBlock
+                    Text="Are you sure you want to delete this campaign?"
+                    Margin="5"/>
                 <StackPanel
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
                     <Button
                         Margin="5"
                         Content="Yes"
@@ -196,7 +197,7 @@
                         Click="CloseDeletePopupClicked"/>
                 </StackPanel>
             </StackPanel>
-        </Popup>-->
+        </Popup>
 
     </Grid>
 </Page>
