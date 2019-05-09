@@ -71,6 +71,7 @@ namespace GameMastersTools.ViewModel
             DeleteCommand = new RelayCommand(DeleteCampaign);
             //UserViewModel.LoggedInUserId = 1;
             LoadUsersCampaigns();
+            _selectedCampaign = null;
         }
 
         #endregion
@@ -123,13 +124,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
-        public async void DeleteButtonPressed()
-        {
-            MessageDialog deleteMessageHelper = new MessageDialog("The campaign will be permanently deleted",
-                "Are you sure you want to delete this campaign?");
-            await deleteMessageHelper.ShowAsync();
-            //deleteMessageHelper.Commands
-        }
+        
 
         public void LoadUsersCampaigns()
         {
