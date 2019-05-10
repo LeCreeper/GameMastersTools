@@ -10,6 +10,7 @@ namespace GMToolsUnitTest
         [TestMethod]
         public void TestMethod1()
         {
+            
         }
     }
 }

@@ -15,7 +15,7 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class UserViewModel
+     public class UserViewModel
     {
         #region Properties
 
@@ -29,6 +29,10 @@ namespace GameMastersTools.ViewModel
 
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
         public string Password { get; set; }
+        
+        public bool UserDoesNotExist { get; set; }
+
+        public bool PasswordIsIncorrect { get; set; }
 
         /// <summary> This static LoggedInUserId stores the ID of the user who logs in. </summary>
         public static int LoggedInUserId { get; set; }
@@ -45,7 +49,11 @@ namespace GameMastersTools.ViewModel
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
-            LoggedInUserId = 0;
+
+            
+
+
+            
 
         }
 
@@ -60,56 +68,36 @@ namespace GameMastersTools.ViewModel
         /// Once a user has logged in it then stores the user as an object as well as stores the users UserId
         /// </summary>
         public void Login()
-        {
-            //TODO fix dis shit!!! important! wtf?!
-            Users = DatabasePersistency.LoadUsers().Result.ToList();
-
-            bool userDoesNotExist = true;
-            bool passwordIsInCorrect = true;
-
-            Users = DatabasePersistency.LoadUsers().Result.ToList();
-
+        {   Users = DatabasePersistency.LoadUsers().Result.ToList();
+            UserDoesNotExist = true;
+            PasswordIsIncorrect = true;
+            
             foreach (var user in Users)
             {
                 if (UserName == user.UserName)
                 {
-                    userDoesNotExist = false;
+                    UserDoesNotExist = false;
                     if (Password == user.UserPassword)
                     {
-                        //new MessageDialog($"Welcome {user.UserName}").ShowAsync();
-
                         //Static ID for logged in User
                         LoggedInUserId = user.UserId;
-                        passwordIsInCorrect = false;
-                        
+                        PasswordIsIncorrect = false;
+
                         //Returned User Object
-
-
                         LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
                         MainPageViewModel.LoggedInUserName = LoggedInUser.UserName;
 
+                        //Navigation
                         Frame loginFrame = Window.Current.Content as Frame;
                         if (loginFrame != null)
-                        {
-                            loginFrame.Navigate(typeof(MainPage));
-                        }
-
-                        break;
+                        { loginFrame.Navigate(typeof(MainPage)); } break;
                     }
-                
                 }
-
             }
-            
-            if (userDoesNotExist)
-            {
-                new MessageDialog("Invalid Username").ShowAsync();
-            }
-
-            else if (passwordIsInCorrect)
-            {
-                new MessageDialog("Invalid Password").ShowAsync();
-            }
+            if (UserDoesNotExist)
+            { new MessageDialog("Invalid Username").ShowAsync();}
+            else if (PasswordIsIncorrect)
+            { new MessageDialog("Invalid Password").ShowAsync();}
 
             
         }
