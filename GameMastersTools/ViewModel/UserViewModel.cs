@@ -30,8 +30,10 @@ namespace GameMastersTools.ViewModel
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
         public string Password { get; set; }
         
+        /// <summary> This property is used to check whether a username exists in the database </summary>
         public bool UserDoesNotExist { get; set; }
 
+        /// <summary> This property is used to check whether a password matches the password of the user in the database. </summary>
         public bool PasswordIsIncorrect { get; set; }
 
         /// <summary> This static LoggedInUserId stores the ID of the user who logs in. </summary>
@@ -49,12 +51,7 @@ namespace GameMastersTools.ViewModel
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
-
-            
-
-
-            
-
+            Users = DatabasePersistency.LoadUsers().Result.ToList();
         }
 
         #endregion
@@ -68,8 +65,7 @@ namespace GameMastersTools.ViewModel
         /// Once a user has logged in it then stores the user as an object as well as stores the users UserId
         /// </summary>
         public void Login()
-        {   Users = DatabasePersistency.LoadUsers().Result.ToList();
-            UserDoesNotExist = true;
+        {   UserDoesNotExist = true;
             PasswordIsIncorrect = true;
             
             foreach (var user in Users)
@@ -87,10 +83,11 @@ namespace GameMastersTools.ViewModel
                         LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
                         MainPageViewModel.LoggedInUserName = LoggedInUser.UserName;
 
-                        //Navigation
+                        //Navigation (must be commented out when UnitTesting)
                         Frame loginFrame = Window.Current.Content as Frame;
                         if (loginFrame != null)
-                        { loginFrame.Navigate(typeof(MainPage)); } break;
+                        { loginFrame.Navigate(typeof(MainPage)); }
+                        break;
                     }
                 }
             }
@@ -98,9 +95,7 @@ namespace GameMastersTools.ViewModel
             { new MessageDialog("Invalid Username").ShowAsync();}
             else if (PasswordIsIncorrect)
             { new MessageDialog("Invalid Password").ShowAsync();}
-
-            
-        }
+            }
 
         #endregion
 
