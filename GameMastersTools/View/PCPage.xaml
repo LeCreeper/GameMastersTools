@@ -2,7 +2,9 @@
     x:Class="GameMastersTools.View.PCPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:GameMastersTools.ViewModel"
@@ -13,16 +15,114 @@
         <viewModel:PcViewModel />
     </Page.DataContext>
 
-    <Grid Background="Purple">
-        <ListView ItemsSource="{Binding PcSingleton.Pcs}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <RelativePanel>
-                        <TextBlock FontSize="30" Text="{Binding Name}" />
-                        <TextBlock FontSize="30" Text="{Binding Description}" />
-                    </RelativePanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+            <TextBox
+                Grid.Row="0"
+                Height="40"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Players" />
+
+            <GridView
+                x:Name="PcGridView"
+                Grid.Row="1"
+                ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <RelativePanel>
+                            <TextBlock
+                                Name="PcNameTextBlock"
+                                FontSize="30"
+                                Text="{Binding PcName}" />
+                            <TextBlock
+                                Name="PcDescriptionTextBlock"
+                                FontSize="30"
+                                RelativePanel.Below="PcNameTextBlock"
+                                Text="{Binding PcDescription}" />
+                            <TextBlock
+                                Name="PcUserIdTextBlock"
+                                FontSize="30"
+                                RelativePanel.Below="PcDescriptionTextBlock"
+                                Text="{Binding UserId}" />
+                            <Button
+                                Name="EnkanpButton"
+                                HorizontalAlignment="Stretch"
+                                Content="Hej hej"
+                                RelativePanel.Below="PcUserIdTextBlock" />
+                        </RelativePanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{Binding SelectedPcCommand}" CommandParameter="{Binding SelectedItem, ElementName=PcGridView}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
+            </GridView>
+
+            <Button
+                Grid.Row="2"
+                Command="{Binding DeletePcCommand}"
+                Content="Delete selected Player" />
+
+        </Grid>
+
+        <RelativePanel
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <!--<Button
+
+                Name="AvatarButton"
+                Background="{x:Null}"
+                RelativePanel.RightOf="PlayerDescriptionTextBox">
+                <Image
+                    Name="AvatarImage"
+                    Width="150"
+
+                    VerticalAlignment="Top"
+                    RelativePanel.RightOf="PlayerDescriptionTextBox"
+                    Source="../Assets/Red.jpg" />
+            </Button>-->
+            <TextBox
+                Name="PlayerNameTextBox"
+                MinWidth="150"
+                PlaceholderText="Player name"
+                Text="{Binding PcName, Mode=TwoWay}" />
+            <TextBox
+                Name="PlayerDescriptionTextBox"
+                Height="70"
+                MinWidth="300"
+                PlaceholderText="Player Description"
+                RelativePanel.Below="PlayerNameTextBox"
+                Text="{Binding PcDescription, Mode=TwoWay}"
+                TextWrapping="Wrap" />
+            <!--<ComboBox
+                Name="AvatarComboBox"
+                ItemsSource="{Binding Avatars}"
+                PlaceholderText="Pick a suitable avatar"
+                RelativePanel.Below="AvatarButton" RelativePanel.RightOf="PlayerDescriptionTextBox" />-->
+            <Button
+                Name="AddPlayerButton"
+                Command="{Binding CreatePcCommand}"
+                Content="Add new player"
+                Foreground="White"
+                RelativePanel.Below="PlayerDescriptionTextBox" />
+        </RelativePanel>
+
     </Grid>
 </Page>

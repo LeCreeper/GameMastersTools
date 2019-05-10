@@ -67,6 +67,30 @@ namespace GameMastersTools.Persistency
             }
         }
 
+
+        public static async void DeleteObj(string api, int id )
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.UseDefaultCredentials = true;
+
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+
+                try
+                {
+                    var response = await client.DeleteAsync(api + id);
+
+
+                }
+                catch (Exception e)
+                {
+                    MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
+                    throw;
+                }
+            }
+        }
+
         private class MessageDialogHelper
         {
             public static async void Show(string content, string title)
