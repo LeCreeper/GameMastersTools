@@ -11,7 +11,7 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class MainPageViewModel
+    public class MainPageViewModel
     {
         public static string LoggedInUserName { get; set; }
         public ICommand LogOutCommand { get; set; }
