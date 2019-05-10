@@ -8,7 +8,7 @@ namespace GameMastersTools.Model
 {
     class LoreSubject : BaseProperties
     {
-        //TODO IMAGE!!!
+        //TODO Image?
 
         public LoreSubject(string name)
         {

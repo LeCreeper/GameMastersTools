@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameMastersTools.Model
 {
-    class User
+    public class User
     {
         public int UserId { get; set; }
 
