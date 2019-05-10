@@ -169,12 +169,14 @@
                     <Button
                         Margin="5"
                         Click="CloseDeletePopupClicked"
-                        Command="{Binding DeleteCommand}"
-                        Content="Yes" />
+                        Content="No"
+                        Style="{StaticResource StandardButton}"/>
                     <Button
                         Margin="5"
                         Click="CloseDeletePopupClicked"
-                        Content="No" />
+                        Command="{Binding DeleteCommand}"
+                        Content="Yes"
+                        Style="{StaticResource RedButton}"/>
                 </StackPanel>
             </StackPanel>
         </Popup>

@@ -49,13 +49,15 @@
             <StackPanel
                 Height="150"
                 Background="#FFE65757">
-                <TextBlock
-                    Text="Game Master Tools"
-                    Foreground="White"
-                    HorizontalAlignment="Center"
+
+                <Image
+                    Source="../Assets/Version1-hvid.png"
                     VerticalAlignment="Center"
-                    FontSize="40"
-                    Margin="50"/>
+                    HorizontalAlignment="Center"
+                    Margin="30"
+                    Height="95"
+                    />
+
             </StackPanel>
                 
             <StackPanel Name="UsernamePassword"

@@ -34,12 +34,12 @@
                     />
             </Grid.Background>
 
-            <TextBlock
-                Margin="0,0,10,0"
+            <Image
+                Source="../Assets/Version1-hvid.png"
                 HorizontalAlignment="Right"
-                FontSize="25"
-                Foreground="White"
-                Text="Game Masters Tools" />
+                Stretch="Uniform"
+                Height="100"
+                Margin="20"/>
         </Grid>
         <!--  Splitview Menu  -->
 
