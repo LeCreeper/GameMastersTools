@@ -17,13 +17,15 @@ namespace GameMastersTools.ViewModel
 {
      public class UserViewModel
     {
+        #region Properties
+
         public ICommand LoginCommand { get; set; }
 
         /// <summary> This is a list of User objects that stores Users from the database.  </summary>
         public List<User> Users { get; set; }
 
         /// <summary> This UserName property is used to store the users input from the usernamebox from the login page. </summary>
-         public string UserName { get; set; }
+        public string UserName { get; set; }
 
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
         public string Password { get; set; }
@@ -38,13 +40,28 @@ namespace GameMastersTools.ViewModel
         /// <summary>  This property stores the user, who logs in, as a static object. </summary>
         public static User LoggedInUser { get; set; }
 
+        public string BackgroundImage { get; set; }
+
+        #endregion
+
+        #region Constructor
+
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
+
             
+
+
+            
+
         }
 
-        
+        #endregion
+
+
+        #region Methods
+
         /// <summary>
         /// This method checks if the inputted UserName and Password matches a users UserName and UserPassword in the database.
         /// If it does the user is logged in, if not then an error message is shown.
@@ -84,7 +101,11 @@ namespace GameMastersTools.ViewModel
 
             
         }
-        
+
+        #endregion
+
+        #region MessageDialogHelper
+
         private class MessageDialogHelper
         {
             public static async void Show(string content, string title)
@@ -93,6 +114,8 @@ namespace GameMastersTools.ViewModel
                 await messageDialog.ShowAsync();
             }
         }
+
+        #endregion
 
 
 

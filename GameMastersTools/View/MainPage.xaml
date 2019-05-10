@@ -9,6 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Page.Resources>
+
     <Page.DataContext>
         <viewModel:MainPageViewModel />
     </Page.DataContext>
@@ -17,49 +21,71 @@
         <!--  Row Definitions  -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <!--  Header  -->
-        <Grid>
+        <Grid 
+            Height="180">
+            <Grid.Background>
+                <ImageBrush
+                    Stretch="UniformToFill"
+                    ImageSource="../Assets/MenuHeader.jpg"
+                    />
+            </Grid.Background>
+
             <TextBlock
                 Margin="0,0,10,0"
                 HorizontalAlignment="Right"
                 FontSize="25"
-                Foreground="#FFF91616"
+                Foreground="White"
                 Text="Game Masters Tools" />
         </Grid>
         <!--  Splitview Menu  -->
-        <Button
-            Name="MenuButton"
-            Grid.Row="1"
-            Click="MenuButton_Click"
-            Content="&#xe700;"
-            FontFamily="Segoe MDL2 Assets"
-            FontSize="29" />
+
         <!--  ListBox til sidemenu  -->
         <SplitView
             Name="MenuSplitView"
-            Grid.Row="2"
-            CompactPaneLength="50"
-            DisplayMode="CompactOverlay"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            CompactPaneLength="55"
+            DisplayMode ="CompactOverlay"
             IsPaneOpen="false"
             OpenPaneLength="250">
 
             <SplitView.Pane>
 
 
-                <Grid>
+                <Grid
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,2,0">
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
 
                     </Grid.RowDefinitions>
 
+                    <Button
+                        Name="MenuButton"
+                        Grid.Row="0"
+                        Click="MenuButton_Click"
+                        Content="&#xe700;"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="29"
+                        Height="50"
+                        Foreground="White"
+                        Width="55"
+                        FocusVisualPrimaryBrush="{x:Null}"
+                        Background="#FFE65757"
+                        FocusVisualSecondaryBrush="{x:Null}"
+                        BorderBrush="{x:Null}"
+                    />
+
                     <ListBox
                         Name="IconsListbox"
-                        Grid.Row="0"
+                        Grid.Row="1"
                         SelectionChanged="IconsListbox_OnSelectionChanged">
 
 
@@ -67,13 +93,10 @@
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
-                                    Text="&#xE82D;" />
+                                    Style="{StaticResource MenuIcon}"
+                                    Text="&#xE82D;"/>
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Campaigns" />
                             </StackPanel>
                         </ListBoxItem>
@@ -81,13 +104,10 @@
                         <ListBoxItem Name="NPCs">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xE99A;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="NPC's" />
                             </StackPanel>
                         </ListBoxItem>
@@ -95,13 +115,10 @@
                         <ListBoxItem Name="PCs">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xED53;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Players" />
                             </StackPanel>
                         </ListBoxItem>
@@ -109,13 +126,10 @@
                         <ListBoxItem Name="Encounters">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xF272;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Encounters" />
                             </StackPanel>
                         </ListBoxItem>
@@ -123,13 +137,10 @@
                         <ListBoxItem Name="Locations">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xE707;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Locations" />
                             </StackPanel>
                         </ListBoxItem>
@@ -137,13 +148,10 @@
                         <ListBoxItem Name="Items">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xF133;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Items" />
                             </StackPanel>
                         </ListBoxItem>
@@ -151,39 +159,38 @@
                         <ListBoxItem Name="Lore">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="25"
+                                    Style="{StaticResource MenuIcon}"
                                     Text="&#xE7BE;" />
                                 <TextBlock
-                                    Margin="14,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
+                                    Style="{StaticResource MenuValues}"
                                     Text="Lore" />
                             </StackPanel>
                         </ListBoxItem>
-
-
-
-
 
                     </ListBox>
 
 
                     <!--  Logout Stuff  -->
-                    <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                    <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
 
-                        <StackPanel Margin="50,0,0,20" Orientation="Horizontal">
+                        <StackPanel
+                            Margin="55,0,0,20"
+                            Padding="10">
                             <TextBlock
                                 Name="LoggedInUserName"
                                 FontFamily="Segoe UI"
-                                FontSize="25"
+                                FontSize="15"
                                 FontStyle="Normal"
+                                TextWrapping="Wrap"
                                 Text="{Binding LoggedInUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button
                                 Name="LogOutButton"
-                                Margin="10,0,0,0"
+                                Margin="0,8,0,0"
                                 Command="{Binding LogOutCommand, Mode=TwoWay}"
-                                Content="Log Out" />
+                                Content="Log Out"
+                                Background="White"
+                                BorderBrush="Gray"
+                                BorderThickness="2"/>
                         </StackPanel>
 
                     </StackPanel>
