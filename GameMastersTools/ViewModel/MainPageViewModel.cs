@@ -25,12 +25,18 @@ namespace GameMastersTools.ViewModel
         /// <summary> This method logs the user out and returns the user to the login page </summary>
         public void LogOut()
         {
+            //Logging User Out
+            UserViewModel.LoggedInUser = null;
+            UserViewModel.LoggedInUserId = 0;
+
+            //Navigation
             Frame loginFrame = Window.Current.Content as Frame;
             if (loginFrame != null)
             {
                 loginFrame.Navigate(typeof(LoginPage));
             }
 
+            
         }
     }
 }
