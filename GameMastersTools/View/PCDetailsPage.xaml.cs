@@ -20,26 +20,27 @@ namespace GameMastersTools.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PCPage : Page
+    public sealed partial class PCDetailsPage : Page
     {
-        public PCPage()
+        public PCDetailsPage()
         {
             this.InitializeComponent();
         }
 
-        private void EnkanpButton_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PCDetailsPage));
+            Frame.Navigate(typeof(PCPage));
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PopupAddNewStackPanel.Visibility = Visibility.Visible;
+            PopupEditStackPanel.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PopupAddNewStackPanel.Visibility = Visibility.Collapsed;
+            PopupEditStackPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

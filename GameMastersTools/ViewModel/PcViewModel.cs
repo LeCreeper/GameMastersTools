@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using GameMastersTools.Annotations;
 using GameMastersTools.Common;
 using GameMastersTools.Handler;
@@ -21,16 +23,15 @@ namespace GameMastersTools.ViewModel
     {
         // Fields
         private ObservableCollection<PC> _userPcs;
-
+        private string _filterText;
         private ICommand _createPcCommand;
-
         private ICommand _selectedPcCommand;
-
         private ICommand _deletePcCommand;
+        private ICommand _updatePcCommand;
         // Properties
 
         public PcSingleton PcSingleton { get; set; }
-    
+
         public ObservableCollection<PC> UserPcs
         {
             get { return _userPcs; }
@@ -39,17 +40,30 @@ namespace GameMastersTools.ViewModel
                 _userPcs = value;
                 OnPropertyChanged();
             }
-
         }
 
         //public ObservableCollection<string> Avatars { get; set; }
 
-        public PC SelectedPc { get; set; }
+        public static PC SelectedPc { get; set; }
         public PcHandler PcHandler { get; set; }
         public string  PcName { get; set; }
         public string PcDescription { get; set; }
         public int UserId { get; set; }
-        
+
+        public string FilterText
+        {
+            get { return _filterText; }
+            set
+            {
+                if (_filterText != null)
+                {
+                    _filterText = value;
+                    OnPropertyChanged();
+                }
+                FilterPc();
+            }
+        }
+
         public ICommand SelectedPcCommand
         {
             get { return _selectedPcCommand ?? (_selectedPcCommand = new RelayArgCommand<PC>(pc => PcHandler.SetSelectedPc(pc))); }
@@ -74,6 +88,14 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+        public ICommand UpdatePcCommand
+        {
+            get { return _updatePcCommand ?? (_updatePcCommand = new RelayCommand(PcHandler.UpdatePc));}
+            set { _updatePcCommand = value; }
+        }
+
+
+
         // Constructor
         public PcViewModel()
         {
@@ -81,8 +103,8 @@ namespace GameMastersTools.ViewModel
             PcHandler = new PcHandler(this);
 
 
+            // Having all the Players in the database loaded into the list from the start, then we sort it later, so it fits the logged in user
             UserPcs = PcSingleton.Pcs;
-            //Avatars = new ObservableCollection<string>();
             
             SortPc();
             
@@ -104,16 +126,28 @@ namespace GameMastersTools.ViewModel
           
         }
 
+        public void FilterPc()
+        {
+            if (_filterText == null) _filterText = "";
 
+            UserPcs = new ObservableCollection<PC>(PcSingleton.Instance.Pcs.Where
+                     (e => (e.UserId == UserViewModel.LoggedInUserId) &&
+                            e.PcName.ToLower().Contains(FilterText.ToLower())));
+        }
 
-        //public void LoadAvatars()
-        //{
-        //    Avatars.Add("../Assets/Blue.jpg");
-        //    Avatars.Add("../Assets/Red.jpg");
-        //    Avatars.Add("../Assets/Brown.jpg");
-        //    Avatars.Add("../Assets/Purple.jpg");
-        //    Avatars.Add("../Assets/Green.jpg");
-        //}
+        // More testing needed - Can this change the frame in frame where it's needed in PlayerDetailsPage
+        public void GoBack()
+        {
+            Frame newFrame = Window.Current.Content as Frame;
+            if (newFrame != null)
+            {
+                if (newFrame.CanGoBack)
+                {
+                    newFrame.GoBack();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

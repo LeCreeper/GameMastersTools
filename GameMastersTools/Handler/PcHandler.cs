@@ -24,17 +24,12 @@ namespace GameMastersTools.Handler
             PcViewModel.PcSingleton.PostPc(
                 PcViewModel.PcName,
                 PcViewModel.PcDescription);
-
-
-            // Making sure we update the sorted list
+            
+            // Making sure we update the sorted list whenever
+            // an object is added or deleted from the main observable collection
             PC pc = new PC(PcViewModel.PcName,PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
             PcViewModel.UserPcs.Add(pc);
 
-            //PcViewModel.PcSingleton.PostPc(
-            //    PcViewModel.PcName, 
-            //    PcViewModel.PcDescription);
-            //PcViewModel.UserId
-            //);
         }
 
         public void SetSelectedPc(PC selectedPc)
@@ -67,8 +62,14 @@ namespace GameMastersTools.Handler
         {
             PcViewModel.PcSingleton.DeletePc(PcViewModel.SelectedPc);
 
-            // Making sure we update the sorted list
+
+            // Making sure we update the sorted list whenever an object is added or deleted to the main observable collection
             PcViewModel.UserPcs.Remove(PcViewModel.SelectedPc);
+        }
+
+        public void UpdatePc()
+        {
+            PcViewModel.PcSingleton.UpdatePc(PcViewModel.SelectedPc);
         }
 
 

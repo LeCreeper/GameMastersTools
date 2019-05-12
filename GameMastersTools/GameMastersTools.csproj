@@ -141,7 +141,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\PcSingleton.cs" />
-    <Compile Include="Singleton\PcSingletonGeneric.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PcViewModel.cs" />
@@ -173,6 +172,9 @@
     </Compile>
     <Compile Include="View\NPCPage.xaml.cs">
       <DependentUpon>NPCPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PCDetailsPage.xaml.cs">
+      <DependentUpon>PCDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PCPage.xaml.cs">
       <DependentUpon>PCPage.xaml</DependentUpon>
@@ -258,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NPCPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PCDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
