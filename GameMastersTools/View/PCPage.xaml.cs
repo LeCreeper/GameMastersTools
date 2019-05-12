@@ -32,14 +32,16 @@ namespace GameMastersTools.View
             Frame.Navigate(typeof(PCDetailsPage));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PopupAddNewStackPanel.Visibility = Visibility.Visible;
-        }
+
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             PopupAddNewStackPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            PopupAddNewStackPanel.Visibility = Visibility.Visible;
         }
     }
 }

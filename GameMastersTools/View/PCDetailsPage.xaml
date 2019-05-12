@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="using:FontAwesome.UWP"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:GameMastersTools.ViewModel"
@@ -14,24 +15,50 @@
     </Page.DataContext>
 
     <Grid>
-        <StackPanel>
+        <StackPanel Padding="4">
             <TextBlock FontSize="20" Text="{Binding SelectedPc.PcName}" />
-            <TextBlock FontSize="20" Text="{Binding SelectedPc.PcDescription}" />
+            <TextBlock
+                FontSize="20"
+                Text="{Binding SelectedPc.PcDescription}"
+                TextWrapping="Wrap" />
             <StackPanel Orientation="Horizontal">
+
                 <Button
-                    Width="200"
-                    Height="30"
+                    Background="Crimson"
                     Click="ButtonBase_OnClick"
-                    Content="Go back" />
+                    RelativePanel.AlignRightWithPanel="True"
+                    ToolTipService.ToolTip="Back to players page">
+                    <fa:FontAwesome
+                        FontSize="24"
+                        Foreground="White"
+                        Icon="ArrowLeft" />
+                </Button>
+
                 <Button
-                    Width="200"
-                    Height="30"
+                    Background="Crimson"
                     Click="Button_Click"
-                    Content="Edit player" />
-                <Button
-                    Width="200"
-                    Height="30"
-                    Content="Add to campaign" />
+                    RelativePanel.AlignRightWithPanel="True"
+                    ToolTipService.ToolTip="Edit player">
+                    <fa:FontAwesome
+                        FontSize="24"
+                        Foreground="White"
+                        Icon="Edit" />
+                </Button>
+
+
+                <Button Background="Crimson" RelativePanel.AlignRightWithPanel="True">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome
+                            FontSize="24"
+                            Foreground="White"
+                            Icon="AngleDoubleDown" />
+                        <TextBlock
+                            Padding="4,0,0,0"
+                            Foreground="White"
+                            Text="Add player to campaign" />
+                    </StackPanel>
+
+                </Button>
             </StackPanel>
         </StackPanel>
 
@@ -64,6 +91,7 @@
                     Height="200"
                     Margin="0,5,0,0"
                     HorizontalAlignment="Left"
+                    AcceptsReturn="True"
                     FontSize="20"
                     Foreground="#323232"
                     PlaceholderText="Description"
@@ -79,9 +107,14 @@
                     Foreground="White"
                     RelativePanel.Below="PopUpDescriptionTextBox" />
                 <Button
+                    Background="Crimson"
                     Click="Button_Click_1"
-                    Content="X"
-                    RelativePanel.AlignRightWithPanel="True" />
+                    RelativePanel.AlignRightWithPanel="True">
+                    <fa:FontAwesome
+                        FontSize="24"
+                        Foreground="White"
+                        Icon="Close" />
+                </Button>
             </RelativePanel>
         </StackPanel>
     </Grid>
