@@ -50,7 +50,7 @@ namespace GameMastersTools.Persistency
             }
             catch (FileNotFoundException ex)
             {
-                MessageDialogHelper.Show("Loading for the first time? - Try Add and Save some Notes before trying to Save for the first time", "File not Found");
+                MessageDialogHelper.Show("Loading for the first time? - Try Add and Save some Notes before trying to Save for the first time", "File not Found" + ex.Message);
                 return null;
             }
         }

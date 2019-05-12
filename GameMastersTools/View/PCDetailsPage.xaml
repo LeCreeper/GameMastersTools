@@ -15,58 +15,87 @@
     </Page.DataContext>
 
     <Grid>
-        <StackPanel Padding="4">
-            <TextBlock FontSize="20" Text="{Binding SelectedPc.PcName}" />
-            <TextBlock
-                FontSize="20"
-                Text="{Binding SelectedPc.PcDescription}"
-                TextWrapping="Wrap" />
-            <StackPanel Orientation="Horizontal">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-                <Button
-                    Background="Crimson"
-                    Click="ButtonBase_OnClick"
-                    RelativePanel.AlignRightWithPanel="True"
-                    ToolTipService.ToolTip="Back to players page">
-                    <fa:FontAwesome
+        <ScrollViewer Grid.Row="0">
+            <StackPanel Padding="4">
+                <Border Background="#eeeeee">
+                    <TextBlock
+                        MinWidth="200"
+                        Margin="4"
                         FontSize="24"
-                        Foreground="White"
-                        Icon="ArrowLeft" />
-                </Button>
+                        FontWeight="Bold"
+                        Foreground="#323232"
+                        Text="{Binding SelectedPc.PcName}" />
+                </Border>
+                <Border Background="#eeeeee">
+                    <TextBlock
+                        Margin="4"
+                        FontSize="20"
+                        Foreground="#323232"
+                        Text="{Binding SelectedPc.PcDescription}"
+                        TextWrapping="Wrap" />
+                </Border>
 
-                <Button
-                    Background="Crimson"
-                    Click="Button_Click"
-                    RelativePanel.AlignRightWithPanel="True"
-                    ToolTipService.ToolTip="Edit player">
-                    <fa:FontAwesome
-                        FontSize="24"
-                        Foreground="White"
-                        Icon="Edit" />
-                </Button>
-
-
-                <Button Background="Crimson" RelativePanel.AlignRightWithPanel="True">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome
-                            FontSize="24"
-                            Foreground="White"
-                            Icon="AngleDoubleDown" />
-                        <TextBlock
-                            Padding="4,0,0,0"
-                            Foreground="White"
-                            Text="Add player to campaign" />
-                    </StackPanel>
-
-                </Button>
             </StackPanel>
+        </ScrollViewer>
+        <StackPanel
+            Grid.Row="1"
+            Padding="4"
+            Orientation="Horizontal">
+
+            <Button
+                Background="Crimson"
+                Click="ButtonBase_OnClick"
+                RelativePanel.AlignRightWithPanel="True"
+                ToolTipService.ToolTip="Back to players page">
+                <fa:FontAwesome
+                    FontSize="24"
+                    Foreground="White"
+                    Icon="ArrowLeft" />
+            </Button>
+
+            <Button
+                Margin="4,0,0,0"
+                Background="Crimson"
+                Click="Button_Click"
+                RelativePanel.AlignRightWithPanel="True"
+                ToolTipService.ToolTip="Edit player">
+                <fa:FontAwesome
+                    FontSize="24"
+                    Foreground="White"
+                    Icon="Edit" />
+            </Button>
+
+
+            <Button
+                Margin="4,0,0,0"
+                Background="Crimson"
+                RelativePanel.AlignRightWithPanel="True">
+                <StackPanel Orientation="Horizontal">
+                    <fa:FontAwesome
+                        FontSize="24"
+                        Foreground="White"
+                        Icon="AngleDoubleDown" />
+                    <TextBlock
+                        Padding="4,0,0,0"
+                        Foreground="White"
+                        Text="Add player to campaign" />
+                </StackPanel>
+
+            </Button>
         </StackPanel>
 
         <StackPanel
             Name="PopupEditStackPanel"
+            Grid.Row="0"
+            Grid.RowSpan="2"
             Grid.Column="0"
-            Width="500"
-            Height="300"
+            Width="600"
+            Height="400"
             Padding="5"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -79,7 +108,7 @@
             <RelativePanel>
                 <TextBox
                     Name="PopUpNameTextBox"
-                    MinWidth="200"
+                    MinWidth="350"
                     HorizontalAlignment="Left"
                     FontSize="20"
                     Foreground="#323232"
@@ -87,8 +116,8 @@
                     Text="{Binding SelectedPc.PcName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox
                     Name="PopUpDescriptionTextBox"
-                    Width="400"
-                    Height="200"
+                    Width="580"
+                    Height="300"
                     Margin="0,5,0,0"
                     HorizontalAlignment="Left"
                     AcceptsReturn="True"
