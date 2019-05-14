@@ -27,8 +27,11 @@ namespace GameMastersTools.Persistency
         /// <returns></returns>
         public static async Task<List<User>> LoadUsers()
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.UseDefaultCredentials = true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                UseDefaultCredentials = true
+            };
+         
 
             using (var client = new HttpClient(handler))
             {
@@ -42,7 +45,7 @@ namespace GameMastersTools.Persistency
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var users = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
+                        var users = await response.Content.ReadAsAsync<IEnumerable<User>>();
 
                         return users.ToList();
 
@@ -52,7 +55,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
                     //TODO remember to catch
                     throw;
                 }
@@ -102,7 +105,7 @@ namespace GameMastersTools.Persistency
         /// This adds a specified object to the database
         /// </summary>
         /// <param name="user"></param>
-        public async static void PostUsers(User user)
+        public static async void PostUsers(User user)
         {
             HttpClientHandler handler = new HttpClientHandler();
 
@@ -121,7 +124,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
                     
 
                 }
@@ -154,7 +157,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
                    
                     
 
@@ -185,7 +188,7 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog(e.Message).ShowAsync();
 
                 }
             }

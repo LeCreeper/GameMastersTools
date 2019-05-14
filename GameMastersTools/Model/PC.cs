@@ -9,14 +9,15 @@ namespace GameMastersTools.Model
     class PC
     {
         //TODO Image property
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int PcId { get; set; }
+        public string PcName { get; set; }
+        public string PcDescription { get; set; }
         public int UserId { get; set; }
 
-        public PC(string name, string description, int userId)
+        public PC(string pcName, string pcDescription, int userId)
         {
-            Name = name;
-            Description = description;
+            PcName = pcName;
+            PcDescription = pcDescription;
             UserId = userId;
 
         }

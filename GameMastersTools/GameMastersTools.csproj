@@ -178,6 +178,9 @@
     <Compile Include="View\NPCPage.xaml.cs">
       <DependentUpon>NPCPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PCDetailsPage.xaml.cs">
+      <DependentUpon>PCDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PCPage.xaml.cs">
       <DependentUpon>PCPage.xaml</DependentUpon>
     </Compile>
@@ -195,9 +198,13 @@
     <None Include="GameMastersTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+
+    <Content Include="Assets\Blue.jpg" />
+    
     <Content Include="Assets\LoginBackground.jpg" />
     <Content Include="Assets\MenuHeader.jpg" />
     <Content Include="Assets\ParchmentBackground.jpg" />
+
     <Content Include="Assets\RødDrage.png" />
     <Content Include="Assets\Version1-hvid.png" />
     <Content Include="Assets\Version2-hvid.png" />
@@ -219,11 +226,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FontAwesome.UWP">
+      <Version>4.7.0.9</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
       <Version>5.2.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
@@ -272,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NPCPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PCDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
