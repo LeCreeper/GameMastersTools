@@ -24,13 +24,14 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="180" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border
-                Grid.Row="0"
+                Grid.Row="1"
                 Background="#eeeeee"
                 CornerRadius="2,2,2,2">
                 <TextBox
@@ -43,10 +44,9 @@
             </Border>
             <GridView
                 x:Name="PcGridView"
-                Grid.Row="1"
+                Grid.Row="2"
                 Padding="0,4,0,0"
-                ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedIndex="0">
+                ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
@@ -103,7 +103,7 @@
             </GridView>
 
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
                 <Border CornerRadius="2,2,2,2">
                     <Button
                         Background="White"
