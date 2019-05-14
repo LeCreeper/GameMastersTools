@@ -38,6 +38,7 @@
                     Height="40"
                     HorizontalAlignment="Stretch"
                     FontFamily="Calibri"
+                    FontSize="20"
                     PlaceholderText="Find player..."
                     Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Border>
