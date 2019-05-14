@@ -145,6 +145,7 @@
     <Compile Include="ViewModel\ChapterListViewModel.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\NPCViewModel.cs" />
     <Compile Include="ViewModel\PcViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\CampaignVM.cs" />

@@ -46,7 +46,7 @@
                 Grid.Row="1"
                 Padding="0,4,0,0"
                 ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedIndex="0">
+                >
 
                 <GridView.ItemTemplate>
                     <DataTemplate>

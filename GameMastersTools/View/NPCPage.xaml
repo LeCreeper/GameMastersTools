@@ -5,10 +5,76 @@
     xmlns:local="using:GameMastersTools.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:GameMastersTools.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Brown">
+    <Page.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Page.Resources>
+
+    <Page.DataContext>
+        <viewModel:NPCViewModel/>
+    </Page.DataContext>
+    
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="180"/>
+            <RowDefinition Height ="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height ="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ListView With NPCs -->
+        <ListView Grid.Row="2" Grid.Column="1" 
+            Width="Auto"
+            HorizontalAlignment="Center"
+            MinWidth="170"
+            ItemsSource="{Binding NPCs, Mode=TwoWay, 
+            UpdateSourceTrigger=PropertyChanged}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+            <TextBlock 
+             Name="Name" 
+             Text="{Binding NPCName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+             Padding="5,5,5,5"
+             />
+                    
+                   
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+        </ListView>
+
+        <!-- Buttons for adding and deleting -->
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            
+            <!-- AddButton -->
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
+                <TextBlock Text="Add NPC" VerticalAlignment="Center" Margin="10"/> 
+                <Button  Style="{StaticResource AddButton}"/>
+            </StackPanel>
+
+            <!-- RemoveButton -->
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
+                <TextBlock Text="Remove NPC" VerticalAlignment="Center" Margin="10"/>
+                <Button  Style="{StaticResource DeleteButton}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!-- Navigation to NPCDetails page -->
+       <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+           <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
+               <TextBlock Text="Navigate To NPC" VerticalAlignment="Center" Margin="10"/>
+                <Button Height="40" FontFamily="Segoe MDL2 Assets" Content="&#xF0D2;"/>
+           </StackPanel>
+        </StackPanel>
 
     </Grid>
 </Page>
