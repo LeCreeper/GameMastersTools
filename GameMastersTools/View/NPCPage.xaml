@@ -57,7 +57,7 @@
             <!-- AddButton -->
             <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
                 <TextBlock Text="Add NPC" VerticalAlignment="Center" Margin="10"/> 
-                <Button  Style="{StaticResource AddButton}"/>
+                <Button Style="{StaticResource AddButton}"/>
             </StackPanel>
 
             <!-- RemoveButton -->
