@@ -24,6 +24,8 @@ namespace GameMastersTools.ViewModel
         #region Backingfields
 
         private ObservableCollection<Campaign> _campaigns;
+        private string _name;
+        private string _description;
         private static Campaign _selectedCampaign;
 
         #endregion
@@ -32,8 +34,6 @@ namespace GameMastersTools.ViewModel
 
         public ICommand AddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-
-        public ICommand ClearCommand { get; set; }
 
         #endregion
 
@@ -60,10 +60,31 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+
         public static int SelectedCampaignId { get; set; }
 
-        public string Name { get; set; }
-        public string Description { get; set; }
+        
+
 
         #endregion
 
@@ -74,7 +95,6 @@ namespace GameMastersTools.ViewModel
             Campaigns = new ObservableCollection<Campaign>();
             AddCommand = new RelayCommand(AddCampaign);
             DeleteCommand = new RelayCommand(DeleteCampaign);
-            ClearCommand = new RelayCommand(ClearNameAndDescription);
             //UserViewModel.LoggedInUserId = 1;
             LoadUsersCampaigns();
             _selectedCampaign = null;
@@ -108,6 +128,8 @@ namespace GameMastersTools.ViewModel
                     "You already have a campaign with this name. Please choose a unique name for your campaign.",
                     "Invalid campaign name");
             }
+
+            ClearNameAndDescription();
         }
 
 
@@ -140,7 +162,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
-        public void ClearNameAndDescription()
+        private void ClearNameAndDescription()
         {
             Name = null;
             Description = null;
