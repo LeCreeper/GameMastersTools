@@ -14,6 +14,7 @@ namespace GameMastersTools.Model
         /// <summary> This collection is a list of the PCs (Playable Characters) within the campaign.  </summary>
         public ObservableCollection<PC> PCs;
 
+        //Todo Behøver jeg overhovedet denne prop?
         /// <summary> This collection is a list of the chapters existing in the campaign. </summary>
         public ObservableCollection<Chapter> Chapters;
 

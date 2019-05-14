@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,32 +20,11 @@ namespace GameMastersTools.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CampaignPage : Page
+    public sealed partial class SignUpPage2 : Page
     {
-        public CampaignPage()
+        public SignUpPage2()
         {
             this.InitializeComponent();
         }
-
-        private void NavigateToCampaignButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ChapterList));
-        }
-
-        private void ShowDeletePopupOffsetClicked(object sender, RoutedEventArgs e)
-        {
-            // open the Popup if it isn't open already 
-            if (!DeletePopUp.IsOpen) { DeletePopUp.IsOpen = true; }
-        }
-
-        private void CloseDeletePopupClicked(object sender, RoutedEventArgs e)
-        {
-            // if the Popup is open, then close it 
-            if (DeletePopUp.IsOpen) { DeletePopUp.IsOpen = false; }
-        }
-
-
-
-
     }
 }

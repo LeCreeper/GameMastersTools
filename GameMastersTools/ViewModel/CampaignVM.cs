@@ -24,6 +24,8 @@ namespace GameMastersTools.ViewModel
         #region Backingfields
 
         private ObservableCollection<Campaign> _campaigns;
+        private string _name;
+        private string _description;
         private static Campaign _selectedCampaign;
 
         #endregion
@@ -54,11 +56,35 @@ namespace GameMastersTools.ViewModel
             {
                 _selectedCampaign = value;
                 OnPropertyChanged();
+                SelectedCampaignId = _selectedCampaign.CampaignId;
             }
         }
 
-        public string Name { get; set; }
-        public string Description { get; set; }
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public static int SelectedCampaignId { get; set; }
+
+        
+
 
         #endregion
 
@@ -71,6 +97,7 @@ namespace GameMastersTools.ViewModel
             DeleteCommand = new RelayCommand(DeleteCampaign);
             //UserViewModel.LoggedInUserId = 1;
             LoadUsersCampaigns();
+            _selectedCampaign = null;
         }
 
         #endregion
@@ -101,6 +128,8 @@ namespace GameMastersTools.ViewModel
                     "You already have a campaign with this name. Please choose a unique name for your campaign.",
                     "Invalid campaign name");
             }
+
+            ClearNameAndDescription();
         }
 
 
@@ -123,13 +152,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
-        public async void DeleteButtonPressed()
-        {
-            MessageDialog deleteMessageHelper = new MessageDialog("The campaign will be permanently deleted",
-                "Are you sure you want to delete this campaign?");
-            await deleteMessageHelper.ShowAsync();
-            //deleteMessageHelper.Commands
-        }
+        
 
         public void LoadUsersCampaigns()
         {
@@ -137,6 +160,12 @@ namespace GameMastersTools.ViewModel
             {
                 Campaigns.Add(campaign);
             }
+        }
+
+        private void ClearNameAndDescription()
+        {
+            Name = null;
+            Description = null;
         }
 
         #endregion

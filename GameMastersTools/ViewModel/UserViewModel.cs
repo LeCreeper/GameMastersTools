@@ -15,18 +15,26 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class UserViewModel
+     public class UserViewModel
     {
+        #region Properties
+
         public ICommand LoginCommand { get; set; }
 
         /// <summary> This is a list of User objects that stores Users from the database.  </summary>
         public List<User> Users { get; set; }
 
         /// <summary> This UserName property is used to store the users input from the usernamebox from the login page. </summary>
-         public string UserName { get; set; }
+        public string UserName { get; set; }
 
         /// <summary> This password property is used to store the users input from the passwordbox from the login page. </summary>
         public string Password { get; set; }
+        
+        /// <summary> This property is used to check whether a username exists in the database </summary>
+        public bool UserDoesNotExist { get; set; }
+
+        /// <summary> This property is used to check whether a password matches the password of the user in the database. </summary>
+        public bool PasswordIsIncorrect { get; set; }
 
         /// <summary> This static LoggedInUserId stores the ID of the user who logs in. </summary>
         public static int LoggedInUserId { get; set; }
@@ -34,75 +42,65 @@ namespace GameMastersTools.ViewModel
         /// <summary>  This property stores the user, who logs in, as a static object. </summary>
         public static User LoggedInUser { get; set; }
 
+        public string BackgroundImage { get; set; }
+
+        #endregion
+
+        #region Constructor
+
         public UserViewModel()
         {
             LoginCommand = new RelayCommand(Login);
-            
-
-            LoggedInUserId = 0;
+            Users = DatabasePersistency.LoadUsers().Result.ToList();
         }
 
-        
+        #endregion
+
+
+        #region Methods
+
         /// <summary>
         /// This method checks if the inputted UserName and Password matches a users UserName and UserPassword in the database.
         /// If it does the user is logged in, if not then an error message is shown.
         /// Once a user has logged in it then stores the user as an object as well as stores the users UserId
         /// </summary>
         public void Login()
-        {
-            //TODO fix dis shit!!! important! wtf?!
-            Users = DatabasePersistency.LoadUsers().Result.ToList();
-
-            bool userDoesNotExist = true;
-            bool passwordIsInCorrect = true;
-
-            Users = DatabasePersistency.LoadUsers().Result.ToList();
-
+        {   UserDoesNotExist = true;
+            PasswordIsIncorrect = true;
+            
             foreach (var user in Users)
             {
                 if (UserName == user.UserName)
                 {
-                    userDoesNotExist = false;
+                    UserDoesNotExist = false;
                     if (Password == user.UserPassword)
                     {
-                        //new MessageDialog($"Welcome {user.UserName}").ShowAsync();
-
                         //Static ID for logged in User
                         LoggedInUserId = user.UserId;
-                        passwordIsInCorrect = false;
-                        
+                        PasswordIsIncorrect = false;
+
                         //Returned User Object
-
-
                         LoggedInUser =  DatabasePersistency.GetSingleUser(user.UserId);
                         MainPageViewModel.LoggedInUserName = LoggedInUser.UserName;
 
+                        //Navigation (must be commented out when UnitTesting)
                         Frame loginFrame = Window.Current.Content as Frame;
                         if (loginFrame != null)
-                        {
-                            loginFrame.Navigate(typeof(MainPage));
-                        }
-
+                        { loginFrame.Navigate(typeof(MainPage)); }
                         break;
                     }
-                
                 }
-
             }
-            
-            if (userDoesNotExist)
-            {
-                new MessageDialog("Invalid Username").ShowAsync();
-            }
-
-            else if (passwordIsInCorrect)
-            {
-                new MessageDialog("Invalid Password").ShowAsync();
+            if (UserDoesNotExist)
+            { new MessageDialog("Invalid Username").ShowAsync();}
+            else if (PasswordIsIncorrect)
+            { new MessageDialog("Invalid Password").ShowAsync();}
             }
 
-            
-        }
-        
+        #endregion
+
+        #region MessageDialogHelper
+
         private class MessageDialogHelper
         {
             public static async void Show(string content, string title)
@@ -111,6 +109,8 @@ namespace GameMastersTools.ViewModel
                 await messageDialog.ShowAsync();
             }
         }
+
+        #endregion
 
 
 
