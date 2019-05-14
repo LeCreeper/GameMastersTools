@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fa="using:FontAwesome.UWP"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -61,7 +60,7 @@
                             BorderThickness="1,1,1,1">
                             <Border
                                 Name="TextBlockBorder"
-                                BorderBrush="Crimson"
+                                BorderBrush="#FFE65757"
                                 BorderThickness="0,0,0,3">
                                 <TextBlock
                                     Name="PcNameTextBlock"
@@ -84,7 +83,7 @@
                                 <Button
                                     Name="EnkanpButton"
                                     Width="200"
-                                    Background="Crimson"
+                                    Background="#FFE65757"
                                     BorderBrush="#323232"
                                     BorderThickness="1,1,1,1"
                                     Click="EnkanpButton_OnClick"
@@ -112,10 +111,13 @@
                         BorderThickness="1,1,1,1"
                         Click="Button_Click_2">
                         <StackPanel Orientation="Horizontal">
-                            <fa:FontAwesome
-                                FontSize="24"
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="20"
+                                FontWeight="Bold"
                                 Foreground="#323232"
-                                Icon="PlusSquare" />
+                                Text="&#xE710;" />
+
                             <TextBlock
                                 Padding="4,0,0,0"
                                 Foreground="#323232"
@@ -126,15 +128,17 @@
 
                 <Border CornerRadius="2,2,2,2">
                     <Button
-                        Background="Crimson"
-                        BorderBrush="Crimson"
+                        Background="#FFE65757"
+                        BorderBrush="#FFE65757"
                         BorderThickness="1,1,1,1"
                         Command="{Binding DeletePcCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:FontAwesome
-                                FontSize="24"
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="20"
+                                FontWeight="Bold"
                                 Foreground="White"
-                                Icon="Trash" />
+                                Text="&#xE74D;" />
 
                         </StackPanel>
                     </Button>
@@ -229,19 +233,21 @@
                 <Button
                     Name="PopupButton"
                     Margin="0,5,0,0"
-                    Background="Crimson"
+                    Background="#FFE65757"
                     Command="{Binding CreatePcCommand}"
                     Content="Add"
                     Foreground="White"
                     RelativePanel.Below="PopUpDescriptionTextBox" />
                 <Button
-                    Background="Crimson"
+                    Background="#FFE65757"
                     Click="Button_Click_1"
                     RelativePanel.AlignRightWithPanel="True">
-                    <fa:FontAwesome
-                        FontSize="24"
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="20"
+                        FontWeight="Bold"
                         Foreground="White"
-                        Icon="Close" />
+                        Text="&#xE711;" />
                 </Button>
             </RelativePanel>
         </StackPanel>

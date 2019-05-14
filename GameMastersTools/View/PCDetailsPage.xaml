@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fa="using:FontAwesome.UWP"
     xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:GameMastersTools.ViewModel"
@@ -47,41 +46,51 @@
             Padding="4"
             Orientation="Horizontal">
 
+            <!--  ArrowLeft  -->
             <Button
-                Background="Crimson"
+                Background="#FFE65757"
                 Click="ButtonBase_OnClick"
                 RelativePanel.AlignRightWithPanel="True"
                 ToolTipService.ToolTip="Back to players page">
-                <fa:FontAwesome
-                    FontSize="24"
+                <TextBlock
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="30"
                     Foreground="White"
-                    Icon="ArrowLeft" />
+                    Text="&#xE72B;" />
+
             </Button>
 
+            <!--  Edit  -->
             <Button
                 Margin="4,0,0,0"
-                Background="Crimson"
+                Background="#FFE65757"
                 Click="Button_Click"
                 RelativePanel.AlignRightWithPanel="True"
                 ToolTipService.ToolTip="Edit player">
-                <fa:FontAwesome
-                    FontSize="24"
+                <TextBlock
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="30"
                     Foreground="White"
-                    Icon="Edit" />
+                    Text="&#xE70F;" />
+
+
+
             </Button>
 
-
+            <!--  Add New  -->
             <Button
                 Margin="4,0,0,0"
-                Background="Crimson"
+                Background="#FFE65757"
                 RelativePanel.AlignRightWithPanel="True">
                 <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome
-                        FontSize="24"
-                        Foreground="White"
-                        Icon="AngleDoubleDown" />
                     <TextBlock
-                        Padding="4,0,0,0"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="30"
+                        Foreground="White"
+                        Text="&#xE8A0;" />
+                    <TextBlock
+                        Padding="6,0,0,0"
+                        FontSize="18"
                         Foreground="White"
                         Text="Add player to campaign" />
                 </StackPanel>
@@ -130,19 +139,22 @@
                 <Button
                     Name="PopupButton"
                     Margin="0,5,0,0"
-                    Background="Crimson"
+                    Background="#FFE65757"
                     Command="{Binding UpdatePcCommand}"
                     Content="Add"
                     Foreground="White"
                     RelativePanel.Below="PopUpDescriptionTextBox" />
                 <Button
-                    Background="Crimson"
+                    Background="#FFE65757"
                     Click="Button_Click_1"
                     RelativePanel.AlignRightWithPanel="True">
-                    <fa:FontAwesome
-                        FontSize="24"
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="20"
+                        FontWeight="Bold"
                         Foreground="White"
-                        Icon="Close" />
+                        Text="&#xE711;" />
+
                 </Button>
             </RelativePanel>
         </StackPanel>

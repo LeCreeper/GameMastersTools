@@ -198,13 +198,10 @@
     <None Include="GameMastersTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-
     <Content Include="Assets\Blue.jpg" />
-    
     <Content Include="Assets\LoginBackground.jpg" />
     <Content Include="Assets\MenuHeader.jpg" />
     <Content Include="Assets\ParchmentBackground.jpg" />
-
     <Content Include="Assets\RødDrage.png" />
     <Content Include="Assets\Version1-hvid.png" />
     <Content Include="Assets\Version2-hvid.png" />
@@ -226,9 +223,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FontAwesome.UWP">
-      <Version>4.7.0.9</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
       <Version>5.2.7</Version>
     </PackageReference>
