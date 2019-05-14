@@ -56,8 +56,11 @@ namespace GameMastersTools.ViewModel
             {
                 _selectedCampaign = value;
                 OnPropertyChanged();
+                SelectedCampaignId = _selectedCampaign.CampaignId;
             }
         }
+
+        public static int SelectedCampaignId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

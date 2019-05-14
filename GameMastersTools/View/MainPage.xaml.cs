@@ -25,6 +25,7 @@ namespace GameMastersTools.View
         public MainPage()
         {
             this.InitializeComponent();
+            MainFrame.Navigate(typeof(LogoPage));
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
