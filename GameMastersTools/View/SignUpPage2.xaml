@@ -46,7 +46,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="40"
-                    Margin="50"/>
+                    Margin="50"
+                    FontWeight="Bold"/>
             </StackPanel>
 
             <StackPanel Name="UsernamePassword"
@@ -59,7 +60,7 @@
                     PlaceholderText="Enter Username"
                     FontSize="25" Margin="40,0,40,0"
                     VerticalAlignment="Stretch"/>
-                
+
                 <PasswordBox
                     Name="PasswordBox"
                     Password="{Binding UserPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -105,5 +106,14 @@
 
             </StackPanel>
         </StackPanel>
+
+        <Image 
+            Grid.Column="1"
+            Source="../Assets/Version2-hvid.png"
+            Height="50"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="30"
+            />
     </Grid>
 </Page>

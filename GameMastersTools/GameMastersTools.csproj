@@ -135,12 +135,14 @@
     <Compile Include="Model\PC.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Persistency\CampaignDBPersistency.cs" />
+    <Compile Include="Persistency\ChapterPersistency.cs" />
     <Compile Include="Persistency\DatabasePersistency.cs" />
     <Compile Include="Persistency\GenericDbPersistency.cs" />
     <Compile Include="Persistency\Persistency.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\PcSingleton.cs" />
+    <Compile Include="ViewModel\ChapterListViewModel.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PcViewModel.cs" />
@@ -163,6 +165,9 @@
     </Compile>
     <Compile Include="View\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LogoPage.xaml.cs">
+      <DependentUpon>LogoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LorePage.xaml.cs">
       <DependentUpon>LorePage.xaml</DependentUpon>
@@ -194,6 +199,10 @@
     <Content Include="Assets\MenuHeader.jpg" />
     <Content Include="Assets\ParchmentBackground.jpg" />
     <Content Include="Assets\RødDrage.png" />
+    <Content Include="Assets\Version1-hvid.png" />
+    <Content Include="Assets\Version2-hvid.png" />
+    <Content Include="Assets\Version3-hvid.png" />
+    <Content Include="Assets\Version6.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -247,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

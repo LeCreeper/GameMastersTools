@@ -11,7 +11,7 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class MainPageViewModel
+    public class MainPageViewModel
     {
         public static string LoggedInUserName { get; set; }
         public ICommand LogOutCommand { get; set; }
@@ -29,14 +29,14 @@ namespace GameMastersTools.ViewModel
             UserViewModel.LoggedInUser = null;
             UserViewModel.LoggedInUserId = 0;
 
-            //Navigation
+            //Navigation (must be commented out when UnitTesting)
             Frame loginFrame = Window.Current.Content as Frame;
             if (loginFrame != null)
             {
                 loginFrame.Navigate(typeof(LoginPage));
             }
 
-            
+
         }
     }
 }
