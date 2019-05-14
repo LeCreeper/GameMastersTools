@@ -15,11 +15,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="180" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="1">
             <StackPanel Padding="4">
                 <Border Background="#eeeeee">
                     <TextBlock
@@ -42,7 +43,7 @@
             </StackPanel>
         </ScrollViewer>
         <StackPanel
-            Grid.Row="1"
+            Grid.Row="2"
             Padding="4"
             Orientation="Horizontal">
 
