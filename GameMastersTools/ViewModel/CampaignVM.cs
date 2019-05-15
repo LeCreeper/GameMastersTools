@@ -27,6 +27,7 @@ namespace GameMastersTools.ViewModel
         private string _name;
         private string _description;
         private static Campaign _selectedCampaign;
+        private static string _selectedCampaignName;
 
         #endregion
 
@@ -57,6 +58,7 @@ namespace GameMastersTools.ViewModel
                 _selectedCampaign = value;
                 OnPropertyChanged();
                 SelectedCampaignId = _selectedCampaign.CampaignId;
+                _selectedCampaignName = _selectedCampaign.CampaignName;
             }
         }
 
@@ -83,8 +85,11 @@ namespace GameMastersTools.ViewModel
 
         public static int SelectedCampaignId { get; set; }
 
-        
-
+        public static string SelectedCampaignName
+        {
+            get => _selectedCampaignName;
+            set => _selectedCampaignName = value;
+        }
 
         #endregion
 

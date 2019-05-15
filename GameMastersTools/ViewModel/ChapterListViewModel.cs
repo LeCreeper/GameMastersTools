@@ -6,8 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.UI.Popups;
 using GameMastersTools.Annotations;
+using GameMastersTools.Common;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 
@@ -15,8 +17,21 @@ namespace GameMastersTools.ViewModel
 {
     class ChapterListViewModel : INotifyPropertyChanged
     {
+        #region BackingFields
+
         private ObservableCollection<Chapter> _chapters;
-        private static Chapter _selectedCampaign;
+        private static Chapter _selectedChapter;
+
+        #endregion
+
+        #region ICommands
+
+        public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<Chapter> Chapters
         {
@@ -30,23 +45,38 @@ namespace GameMastersTools.ViewModel
 
         public Chapter SelectedChapter
         {
-            get => _selectedCampaign;
+            get => _selectedChapter;
             set
             {
-                _selectedCampaign = value;
+                _selectedChapter = value;
                 OnPropertyChanged();
             }
         }
 
+        public ObservableCollection<PC> PCs { get; set; }
+
+        public string SelectedCampaignName { get; set; }
+
         public string Name { get; set; }
         public string Description { get; set; }
 
+        #endregion
 
+        #region Constructor
 
         public ChapterListViewModel()
         {
+            Chapters = new ObservableCollection<Chapter>();
+            PCs = new ObservableCollection<PC>();
+            AddCommand = new RelayCommand(AddChapter);
+            DeleteCommand = new RelayCommand(DeleteChapter);
+            SelectedCampaignName = CampaignVM.SelectedCampaignName;
+            LoadCampaignChapters();
+            _selectedChapter = null;
 
         }
+
+        #endregion
 
         #region Methods
 
@@ -63,7 +93,7 @@ namespace GameMastersTools.ViewModel
 
             if (nameAlreadyExists == false)
             {
-                ChapterPersistency.PostChapter(new Chapter(Name, Description, CampaignVM.SelectedCampaignId));
+                GenericDbPersistency<Chapter>.PostObj(new Chapter(Name, Description, CampaignVM.SelectedCampaignId), "api/Chapters");
                 Chapters = new ObservableCollection<Chapter>();
                 LoadCampaignChapters();
             }
@@ -74,6 +104,8 @@ namespace GameMastersTools.ViewModel
                     "You already have a campaign with this name. Please choose a unique name for your campaign.",
                     "Invalid campaign name");
             }
+
+            ClearNameAndDescription();
         }
 
 
@@ -86,7 +118,7 @@ namespace GameMastersTools.ViewModel
 
             try
             {
-                ChapterPersistency.DeleteChapter(SelectedChapter);
+                GenericDbPersistency<Chapter>.DeleteObj("api/Chapters/", SelectedChapter.ChapterId);
                 Chapters = new ObservableCollection<Chapter>();
                 LoadCampaignChapters();
             }
@@ -98,15 +130,19 @@ namespace GameMastersTools.ViewModel
         //CampaignDBPersistency.LoadCampaigns().Result
 
 
+
         public void LoadCampaignChapters()
         {
-            foreach (var chapter in ChapterPersistency.LoadChapters().Result)
+            foreach (var chapter in GenericDbPersistency<Chapter>.GetObj("api/Chapters").Result)
             {
-                Chapters.Add(chapter);
+                if (chapter.CampaignId == CampaignVM.SelectedCampaignId)
+                {
+                    Chapters.Add(chapter);
+                }
             }
         }
 
-        public void ClearNameAndDescription()
+        private void ClearNameAndDescription()
         {
             Name = null;
             Description = null;
