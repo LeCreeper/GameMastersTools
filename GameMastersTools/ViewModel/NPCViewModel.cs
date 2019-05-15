@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameMastersTools.Annotations;
 using GameMastersTools.Model;
+using GameMastersTools.Persistency;
 
 namespace GameMastersTools.ViewModel
 {
@@ -18,12 +19,14 @@ namespace GameMastersTools.ViewModel
         private string _description;
         private string _name;
         private ObservableCollection<NPC> _npCs;
+        private const string PostNGet = "api/NPCs";
+        private const string PutNDelete = "api/NPCs/";
 
         #endregion
 
 
         #region Properties
-        
+
         public string Name
         {
             get => _name;
@@ -62,26 +65,34 @@ namespace GameMastersTools.ViewModel
 
         public NPCViewModel()
         {
-            
-            NPCs = new ObservableCollection<NPC>();
 
-            NPCs.Add(new NPC("Danny Boy","This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
-            NPCs.Add(new NPC("Danny Boy", "This Dude Sucks", UserViewModel.LoggedInUserId));
+            NPCs = new ObservableCollection<NPC>();
+            
+            GetNPCs();
+            
+           
         }
 
         #endregion
 
+        #region Methods
+        
+        public void AddNPC()
+        {
+           GenericDbPersistency<NPC>.PostObj(new NPC(Name, Description, UserViewModel.LoggedInUserId), PostNGet );
+           NPCs = new ObservableCollection<NPC>();
+           GetNPCs();
+        }
+
+        public void GetNPCs()
+        {
+            foreach (var npc in GenericDbPersistency<NPC>.GetObj(PostNGet).Result)
+            {
+                NPCs.Add(npc);
+            }
+           
+        }
+        #endregion
 
         #region INotifyPropertyChanged
 
