@@ -33,15 +33,23 @@ namespace GameMastersTools.Singleton
            LoadPc();
         }
 
-        public void PostPc(string name, string description)
+        public async void PostPc(string name, string description)
         {
             // Creating a new user to be added, with the values coming in from the view, through the PcHandler and PcViewModel - UserId is the one belonging to the logged in user
-            PC newPc = new PC(name, description, UserViewModel.LoggedInUserId);
+            try
+            {
+                PC newPc = new PC(name, description, UserViewModel.LoggedInUserId);
+                // Trying to post the user to the database, if successful, it returns and then adds it to the list in the app to be shown in the UI
+                GenericDbPersistency<PC>.PostObj(newPc, "api/pcs");
 
-            // Trying to post the user to the database, if successful, it returns and then adds it to the list in the app to be shown in the UI
-            GenericDbPersistency<PC>.PostObj(newPc, "api/pcs");
+                Pcs.Add(newPc);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog("ERROR" + e.Message).ShowAsync();
+            }
 
-            Pcs.Add(newPc);
+
             
         }
 
