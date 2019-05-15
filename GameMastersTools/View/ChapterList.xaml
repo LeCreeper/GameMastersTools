@@ -240,7 +240,7 @@
                         x:Name="CampaignImage"
                         Grid.Row="0"
                         Margin="10"
-                        Source="../Assets/LoginBackground.jpg"
+                        Source="../Assets/RødDrage.png"
                         Stretch="UniformToFill" />
 
                         <StackPanel
