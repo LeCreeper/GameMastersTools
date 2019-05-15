@@ -17,7 +17,7 @@ namespace GameMastersTools.Persistency
     class DatabasePersistency
     {
 
-        const string serverUrl = "https://gamemasterstools3.azurewebsites.net/";
+        const string serverUrl = "https://gamemastertools3.azurewebsites.net";
 
 
 
