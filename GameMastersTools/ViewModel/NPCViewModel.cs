@@ -117,7 +117,7 @@ namespace GameMastersTools.ViewModel
             }
             else
             {
-                new MessageDialog("Please choose a different name", "The name you're trying to use has already been taken!").ShowAsync();
+                new MessageDialog("The name you're trying to use has already been taken!", "Please choose a different name").ShowAsync();
             }
            
         }
@@ -142,7 +142,7 @@ namespace GameMastersTools.ViewModel
             }
             else
             {
-                new MessageDialog("Error! No NPC selected!", "Please select an NPC to delete.").ShowAsync();
+                new MessageDialog("Please select an NPC to delete.", "Error! No NPC selected!").ShowAsync();
             }
             
         }
