@@ -34,6 +34,7 @@ namespace GameMastersTools.ViewModel
 
         public ICommand AddCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
+        public ICommand TemplateCommand { get; set; }
 
         public NPC selectedNPC
         {
@@ -80,22 +81,29 @@ namespace GameMastersTools.ViewModel
         #endregion
 
 
-        #region MyRegion
+        #region Constructor
 
         public NPCViewModel()
         {
             NPCs = new ObservableCollection<NPC>();
             AddCommand = new RelayCommand(AddNPC);
             RemoveCommand = new RelayCommand(DeleteNPC);
+            TemplateCommand = new RelayCommand(NPCTemplate);
             GetNPCs();
+
             
-           
+
         }
 
         #endregion
 
         #region Methods
-        
+
+        public void NPCTemplate()
+        {
+            Description = "Gender: \nRace: \nVoice: \nPersonality: \nLikes: \nDislikes: \nQuirks: ";
+        }
+
         public void AddNPC()
         {
             bool nameAlreadyExist = false;

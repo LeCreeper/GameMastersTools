@@ -60,47 +60,10 @@
             <!-- AddButton -->
             <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
                 <TextBlock Text="Add NPC" VerticalAlignment="Center" Margin="10"/> 
-                <Button Style="{StaticResource AddButton}">
-                    <Button.Flyout>
-                        <Flyout Placement="Right">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="3*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Margin="0,0,2,0" Text="Name:" />
-                                <TextBox Grid.Column="1"
-                                         Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalAlignment="Stretch"
-                                         HorizontalAlignment="Stretch"
-                                         PlaceholderText="Name of your campaign"/>
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Margin="0,0,2,0"
-                                    Text="Description:" />
-                                <TextBox
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    PlaceholderText="Enter a description"/>
-                                <Button
-                                    Grid.Row="2"
-                                    Command="{Binding AddCommand}"
-                                    Content="Add NPC" />
-                            </Grid>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
+                <Button Command="{Binding TemplateCommand}"  Click="Button_Click_2" Style="{StaticResource AddButton}"/>
             </StackPanel>
+
+            
 
             <!-- RemoveButton -->
             <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
@@ -108,6 +71,66 @@
                 <Button  Style="{StaticResource DeleteButton}" Click="ShowDeletePopupOffsetClicked"/>
             </StackPanel>
 
+        </StackPanel>
+
+        <!-- Create NPC Popup -->
+        <StackPanel 
+            Name="PopupAddNewStackPanel"
+            Grid.Row="2"
+            Grid.Column="1"
+            
+            Width="600"
+            Height="400"
+            Padding="5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BorderBrush="#cfcfcf"
+            BorderThickness="2,2,2,2"
+            Visibility="Collapsed">
+            <StackPanel.Background>
+                <SolidColorBrush Opacity="0.9" Color="White" />
+            </StackPanel.Background>
+            <RelativePanel>
+                <TextBox
+                    Name="PopUpNameTextBox"
+                    HorizontalAlignment="Left"
+                    FontSize="20"
+                    Foreground="#323232"
+                    PlaceholderText="Name"
+                    Text="{Binding Name, Mode=TwoWay}" />
+                <TextBox
+                    Name="PopUpDescriptionTextBox"
+                    Width="400"
+                    Height="200"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Left"
+                    AcceptsReturn="True"
+                    FontSize="17"
+                    Foreground="#323232"
+                    PlaceholderText="Description"
+                    RelativePanel.Below="PopUpNameTextBox"
+                    Text="{Binding Description, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+                <Button
+                    Name="PopupButton"
+                    Margin="0,5,0,0"
+                    Background="#FFE65757"
+                    Command="{Binding AddCommand}"
+                    Content="Add"
+                    Foreground="White"
+                    RelativePanel.Below="PopUpDescriptionTextBox" />
+                <Button
+                    Background="#FFE65757"
+                    Click="Button_Click_1"
+                    RelativePanel.AlignRightWithPanel="True">
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="&#xE711;" />
+                </Button>
+            </RelativePanel>
         </StackPanel>
 
         <!-- Popup for deleting -->
