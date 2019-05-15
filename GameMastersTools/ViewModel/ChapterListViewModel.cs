@@ -20,6 +20,7 @@ namespace GameMastersTools.ViewModel
         #region BackingFields
 
         private ObservableCollection<Chapter> _chapters;
+        private ObservableCollection<PC> _campaignPCs;
         private static Chapter _selectedChapter;
 
         #endregion
@@ -52,6 +53,8 @@ namespace GameMastersTools.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public PC SelectedPC { get; set; }
 
         public ObservableCollection<PC> PCs { get; set; }
 

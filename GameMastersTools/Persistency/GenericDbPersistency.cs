@@ -11,7 +11,7 @@ namespace GameMastersTools.Persistency
 {
     class GenericDbPersistency<T>
     {
-        private const string serverUrl = "https://gamemasterstoolsweb2.azurewebsites.net";
+        private const string serverUrl = "https://gamemasterstoolsweb3.azurewebsites.net";
 
         public static async Task<List<T>> GetObj(string api)
         {
