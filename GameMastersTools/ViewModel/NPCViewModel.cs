@@ -6,7 +6,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.Devices.WiFiDirect.Services;
+using Windows.UI.Popups;
 using GameMastersTools.Annotations;
+using GameMastersTools.Common;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 
@@ -19,13 +23,27 @@ namespace GameMastersTools.ViewModel
         private string _description;
         private string _name;
         private ObservableCollection<NPC> _npCs;
+        private NPC _selectedNpc;
         private const string PostNGet = "api/NPCs";
         private const string PutNDelete = "api/NPCs/";
 
+
         #endregion
-
-
+        
         #region Properties
+
+        public ICommand AddCommand { get; set; }
+        public ICommand RemoveCommand { get; set; }
+
+        public NPC selectedNPC
+        {
+            get => _selectedNpc;
+            set
+            {
+                _selectedNpc = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Name
         {
@@ -58,6 +76,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+        
         #endregion
 
 
@@ -65,9 +84,9 @@ namespace GameMastersTools.ViewModel
 
         public NPCViewModel()
         {
-
             NPCs = new ObservableCollection<NPC>();
-            
+            AddCommand = new RelayCommand(AddNPC);
+            RemoveCommand = new RelayCommand(DeleteNPC);
             GetNPCs();
             
            
@@ -79,18 +98,53 @@ namespace GameMastersTools.ViewModel
         
         public void AddNPC()
         {
-           GenericDbPersistency<NPC>.PostObj(new NPC(Name, Description, UserViewModel.LoggedInUserId), PostNGet );
-           NPCs = new ObservableCollection<NPC>();
-           GetNPCs();
+            bool nameAlreadyExist = false;
+            foreach (var npc in NPCs)
+            {
+                if (Name == npc.NPCName)
+                {
+                   
+                    nameAlreadyExist = true;
+                }
+            }
+
+
+            if (nameAlreadyExist == false) 
+            {
+                GenericDbPersistency<NPC>.PostObj(new NPC(Name, Description, UserViewModel.LoggedInUserId), PostNGet);
+                NPCs = new ObservableCollection<NPC>();
+                GetNPCs();
+            }
+            else
+            {
+                new MessageDialog("Please choose a different name", "The name you're trying to use has already been taken!").ShowAsync();
+            }
+           
         }
 
         public void GetNPCs()
         {
             foreach (var npc in GenericDbPersistency<NPC>.GetObj(PostNGet).Result)
             {
-                NPCs.Add(npc);
+                if (npc.UserId == UserViewModel.LoggedInUserId)
+                {
+                    NPCs.Add(npc);
+                }
             }
-           
+        }
+
+        public void DeleteNPC()
+        {
+            if (selectedNPC != null)
+            {
+                GenericDbPersistency<NPC>.DeleteObj(PutNDelete, selectedNPC.NPCId);
+                NPCs.Remove(selectedNPC);
+            }
+            else
+            {
+                new MessageDialog("Error! No NPC selected!", "Please select an NPC to delete.").ShowAsync();
+            }
+            
         }
         #endregion
 
@@ -103,6 +157,20 @@ namespace GameMastersTools.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
+
+        #region MessageDialog
+
+        private class MessageDialogHelper
+        {
+            public static async void Show(string content, string title)
+            {
+                MessageDialog messageDialog = new MessageDialog(content, title);
+                await messageDialog.ShowAsync();
+            }
+        }
+
 
         #endregion
     }

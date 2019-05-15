@@ -8,6 +8,7 @@ namespace GameMastersTools.Model
 {
     class NPC : BaseProperties
     {
+        public int NPCId { get; set; }
 
         public string NPCName { get; set; }
 
