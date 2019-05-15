@@ -24,13 +24,14 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="180" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border
-                Grid.Row="0"
+                Grid.Row="1"
                 Background="#eeeeee"
                 CornerRadius="2,2,2,2">
                 <TextBox
@@ -43,54 +44,64 @@
             </Border>
             <GridView
                 x:Name="PcGridView"
-                Grid.Row="1"
+                Grid.Row="2"
                 Padding="0,4,0,0"
-                ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                >
+
+                ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <RelativePanel
+                        <Grid
                             Width="300"
-                            Height="250"
-                            Padding="5"
-                            VerticalAlignment="Top"
+                            Height="200"
+                            HorizontalAlignment="Left"
                             Background="#eeeeee"
                             BorderBrush="#cfcfcf"
                             BorderThickness="1,1,1,1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+
                             <Border
-                                Name="TextBlockBorder"
+                                Name="TextBlockBorder2"
+                                Grid.Row="0"
                                 BorderBrush="#FFE65757"
                                 BorderThickness="0,0,0,3">
                                 <TextBlock
-                                    Name="PcNameTextBlock"
+                                    Name="PcNameTextBlock2"
                                     FontSize="25"
+                                    Foreground="#323232"
                                     Text="{Binding PcName}" />
                             </Border>
                             <TextBlock
-                                Name="PcDescriptionTextBlock"
-                                MaxHeight="300"
+                                Name="PcDescriptionTextBlock2"
+                                Grid.Row="1"
                                 Padding="5"
                                 FontSize="18"
-                                RelativePanel.Below="TextBlockBorder"
+                                Foreground="#323232"
                                 Text="{Binding PcDescription}"
                                 TextWrapping="WrapWholeWords" />
 
+
                             <Border
-                                CornerRadius="3,3,3,3"
-                                RelativePanel.AlignBottomWithPanel="True"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True">
+                                Grid.Row="2"
+                                Padding="5"
+                                CornerRadius="3,3,3,3">
                                 <Button
-                                    Name="EnkanpButton"
+                                    Name="EnkanpButton2"
                                     Width="200"
+                                    HorizontalAlignment="Center"
                                     Background="#FFE65757"
-                                    BorderBrush="#323232"
+                                    BorderBrush="White"
                                     BorderThickness="1,1,1,1"
                                     Click="EnkanpButton_OnClick"
                                     Content="Details"
                                     Foreground="White" />
                             </Border>
-                        </RelativePanel>
+                        </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
 
@@ -102,8 +113,7 @@
 
             </GridView>
 
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
                 <Border CornerRadius="2,2,2,2">
                     <Button
                         Background="White"
@@ -145,53 +155,6 @@
                 </Border>
             </StackPanel>
         </Grid>
-
-        <!--<RelativePanel
-            Grid.Column="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-        -->
-        <!--<Button
-
-                Name="AvatarButton"
-                Background="{x:Null}"
-                RelativePanel.RightOf="PlayerDescriptionTextBox">
-                <Image
-                    Name="AvatarImage"
-                    Width="150"
-
-                    VerticalAlignment="Top"
-                    RelativePanel.RightOf="PlayerDescriptionTextBox"
-                    Source="../Assets/Red.jpg" />
-            </Button>-->
-        <!--
-            <TextBox
-                Name="PlayerNameTextBox"
-                MinWidth="150"
-                PlaceholderText="Player name"
-                Text="{Binding PcName, Mode=TwoWay}" />
-            <TextBox
-                Name="PlayerDescriptionTextBox"
-                Height="70"
-                MinWidth="300"
-                PlaceholderText="Player Description"
-                RelativePanel.Below="PlayerNameTextBox"
-                Text="{Binding PcDescription, Mode=TwoWay}"
-                TextWrapping="Wrap" />
-        -->
-        <!--<ComboBox
-                Name="AvatarComboBox"
-                ItemsSource="{Binding Avatars}"
-                PlaceholderText="Pick a suitable avatar"
-                RelativePanel.Below="AvatarButton" RelativePanel.RightOf="PlayerDescriptionTextBox" />-->
-        <!--
-            <Button
-                Name="AddPlayerButton"
-                Command="{Binding CreatePcCommand}"
-                Content="Add new player"
-                Foreground="White"
-                RelativePanel.Below="PlayerDescriptionTextBox" />
-        </RelativePanel>-->
 
         <!--  Popup stackpanel  -->
         <StackPanel

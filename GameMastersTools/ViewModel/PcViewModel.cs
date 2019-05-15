@@ -130,10 +130,16 @@ namespace GameMastersTools.ViewModel
         {
             if (_filterText == null) _filterText = "";
 
-            UserPcs = new ObservableCollection<PC>(PcSingleton.Instance.Pcs.Where
-                     (e => (e.UserId == UserViewModel.LoggedInUserId) &&
-                            e.PcName.ToLower().Contains(FilterText.ToLower())));
+            UserPcs = new ObservableCollection<PC>(PcSingleton.Instance.Pcs.Where(
+                e => 
+                    e.UserId == UserViewModel.LoggedInUserId &&
+                    (e.PcName.ToLower().Contains(FilterText.ToLower()) || 
+                    e.PcDescription.ToLower().Contains(FilterText.ToLower()))
+                ));
         }
+
+        // ||e.PcDescription.ToLower().Contains(FilterText.ToLower())
+
 
         // More testing needed - Can this change the frame in frame where it's needed in PlayerDetailsPage
         public void GoBack()

@@ -21,13 +21,13 @@
 
         <RelativePanel
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             Padding="25,0,0,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BorderBrush="#323232"
+            BorderBrush="White"
             BorderThickness="2,2,2,2"
-            Canvas.ZIndex="1">
+            Canvas.ZIndex="1"
+            CornerRadius="2,2,2,2">
 
             <RelativePanel.Background>
                 <SolidColorBrush Opacity="0.3" Color="White" />
@@ -103,7 +103,7 @@
                 Name="ButtonSignUp"
                 Width="117"
                 Height="35"
-                Margin="0,7,0,7"
+                Margin="0,7,0,11"
                 Background="#262626"
                 BorderBrush="#FFE65757"
                 BorderThickness="3,0,0,0"
@@ -113,7 +113,7 @@
                 Foreground="White"
                 RelativePanel.Below="TextBlockErrorPassword" />
             <Button
-                Margin="7,7,0,7"
+                Margin="7,7,0,11"
                 Background="#262626"
                 Command="{Binding GoBackCommand}"
                 Content="&#xE72B;"

@@ -18,7 +18,7 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class CreateUserViewModel : INotifyPropertyChanged
+    public class CreateUserViewModel : INotifyPropertyChanged
     {
         // UserName & UserPassword properties | Med Fejlmeddelelser
         #region Fejl meddelelser i UserName & UserPassword properties
@@ -120,7 +120,7 @@ namespace GameMastersTools.ViewModel
 
 
         // HandlerClass | Ikke helt sikker på hvad formålet med den her er endnu, om vi overhovedet vil beholde den
-        public Handler.UserHandler UserHandler { get; set; }
+        public UserHandler UserHandler { get; set; }
 
         // AddUser ICommand -> RelayCommand
         private ICommand _addUserCommand;
@@ -176,18 +176,14 @@ namespace GameMastersTools.ViewModel
         public async void Add(string name, string password)
         {
             User user = new User(name, password);
-
-
-
+            
             if (name != null && name.Length > 5 && name.Length < 21)
             {
                 if (password.Length > 7)
                 {
                     if (UserPassword == UserPasswordRepeat)
                     { 
-
                         //await Persistency.DatabasePersistency.CheckThenPost(user, name);
-
                         try
                         {
                             await Persistency.DatabasePersistency.CheckThenPost(user, name);
@@ -195,6 +191,7 @@ namespace GameMastersTools.ViewModel
                         catch (Exception e)
                         {
                             await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
+                        
                         }
                     }
                 }

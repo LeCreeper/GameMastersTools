@@ -9,7 +9,7 @@ namespace GameMastersTools.Handler
 
 
 {
-    class UserHandler
+    public class UserHandler
     {
         public CreateUserViewModel CreateUserViewModel { get; set; }
 
