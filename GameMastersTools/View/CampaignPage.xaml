@@ -14,7 +14,7 @@
     </Page.Resources>
 
     <Page.DataContext>
-        <viewmodel:CampaignVM />
+        <viewmodel:CampaignVM/>
     </Page.DataContext>
 
     <Grid>
