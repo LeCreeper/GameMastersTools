@@ -26,5 +26,19 @@ namespace GameMastersTools.View
         {
             this.InitializeComponent();
         }
+
+        private void ShowDeletePopupOffsetClicked(object sender, RoutedEventArgs e)
+        {
+            // open the Popup if it isn't open already 
+            if (!DeletePopUp.IsOpen) { DeletePopUp.IsOpen = true; }
+        }
+
+        private void CloseDeletePopupClicked(object sender, RoutedEventArgs e)
+        {
+            // if the Popup is open, then close it 
+            if (DeletePopUp.IsOpen) { DeletePopUp.IsOpen = false; }
+        }
+
+        
     }
 }
