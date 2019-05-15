@@ -258,9 +258,14 @@
                                 Foreground="#FFE65757"
                                 Text="Player Characters" />
                             </StackPanel>
-                            <ListView HorizontalAlignment="Center">
+                            <ListView x:Name="PCs"
+                                HorizontalAlignment="Center"
+                                ItemsSource="{Binding PCs, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectedPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.ItemTemplate>
-                                    <DataTemplate />
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PcName}"/>
+                                    </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>

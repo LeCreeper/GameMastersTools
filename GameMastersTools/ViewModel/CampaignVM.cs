@@ -122,7 +122,7 @@ namespace GameMastersTools.ViewModel
 
             if (nameAlreadyExists == false) 
             {
-                CampaignDBPersistency.PostCampaigns(new Campaign(Name, Description, UserViewModel.LoggedInUserId));
+                GenericDbPersistency<Campaign>.PostObj(new Campaign(Name, Description, UserViewModel.LoggedInUserId), "api/Campaigns");
                 Campaigns = new ObservableCollection<Campaign>();
                 LoadUsersCampaigns();
             }
@@ -147,7 +147,7 @@ namespace GameMastersTools.ViewModel
 
             try
             {
-                CampaignDBPersistency.DeleteCampaign(SelectedCampaign);
+                GenericDbPersistency<Campaign>.DeleteObj("api/Campaigns/", SelectedCampaignId);
                 Campaigns = new ObservableCollection<Campaign>();
                 LoadUsersCampaigns();
             }
@@ -161,9 +161,12 @@ namespace GameMastersTools.ViewModel
 
         public void LoadUsersCampaigns()
         {
-            foreach (var campaign in CampaignDBPersistency.LoadCampaigns().Result)
+            foreach (var campaign in GenericDbPersistency<Campaign>.GetObj("api/Campaigns").Result)
             {
-                Campaigns.Add(campaign);
+                if (campaign.UserId == UserViewModel.LoggedInUserId)
+                {
+                    Campaigns.Add(campaign);
+                }           
             }
         }
 
