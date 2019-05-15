@@ -20,20 +20,20 @@
     <Grid>
         <!--  Row Definitions  -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!--  Header  -->
-        <Grid>
+        <Grid Height="180">
             <Grid.Background>
                 <ImageBrush ImageSource="../Assets/MenuHeader.jpg" Stretch="UniformToFill" />
             </Grid.Background>
 
 
             <Image
-                Grid.Row="0"
-                Margin="50"
+                Height="100"
+                Margin="20"
                 HorizontalAlignment="Right"
                 Source="../Assets/Version1-hvid.png"
                 Stretch="Uniform" />

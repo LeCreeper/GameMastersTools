@@ -19,197 +19,189 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="180" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="5*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel x:Name="AddAndDeleteStackPanel"
-            Grid.Row="2"
+        <StackPanel
+            x:Name="AddAndDeleteStackPanel"
+            Grid.Row="3"
             Grid.Column="1"
             VerticalAlignment="Top"
             Orientation="Horizontal">
 
-                <StackPanel
+            <StackPanel
                 x:Name="AddChapter"
                 Margin="5"
                 Orientation="Horizontal"
                 Style="{StaticResource StandardStackPanelStyle}">
-                    <TextBlock
+                <TextBlock
                     Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Text="Add Chapter" />
-                    <Button Style="{StaticResource AddButton}">
-                        <Button.Flyout>
-                            <Flyout Placement="Right">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="3*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
+                <Button Style="{StaticResource AddButton}">
+                    <Button.Flyout>
+                        <Flyout Placement="Right">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-                                    <TextBlock Margin="0,0,2,0" Text="Name:" />
-                                    <TextBox
+                                <TextBlock Margin="0,0,2,0" Text="Name:" />
+                                <TextBox
                                     Grid.Column="1"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     PlaceholderText="Enter a chapter name"
                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <Button
+                                <Button
                                     Grid.Row="1"
                                     Command="{Binding AddCommand}"
                                     Content="Add Chapter"
                                     Style="{StaticResource StandardButton}" />
-                                </Grid>
-                            </Flyout>
-                        </Button.Flyout>
-                    </Button>
-                </StackPanel>
+                            </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
 
-                <StackPanel
+            <StackPanel
                 x:Name="DeleteChapter"
                 Margin="5"
                 Orientation="Horizontal"
                 Style="{StaticResource StandardStackPanelStyle}">
-                    <TextBlock
+                <TextBlock
                     Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Foreground="#FFE65757"
                     Text="Delete Chapter" />
-                    <Button Style="{StaticResource DeleteButton}" />
-                </StackPanel>
-
+                <Button Style="{StaticResource DeleteButton}" />
             </StackPanel>
 
-            <StackPanel x:Name="NavigationStackPanel"
-            Grid.Row="0"
+        </StackPanel>
+
+        <StackPanel
+            x:Name="NavigationStackPanel"
+            Grid.Row="1"
             Grid.Column="1"
             Margin="5"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Orientation="Horizontal"
             Style="{StaticResource StandardStackPanelStyle}">
-                <TextBlock
+            <TextBlock
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Text="Navigate to Chapter" />
-                <Button
+            <Button
                 x:Name="NavigateToCampaignButton"
                 Height="40"
                 Background="White"
                 Content="&#xF0D2;"
                 FontFamily="Segoe MDL2 Assets"
                 FontSize="18" />
-            </StackPanel>
+        </StackPanel>
 
-            <StackPanel x:Name="PageHeader"
-            Grid.Row="0"
+        <StackPanel
+            x:Name="PageHeader"
+            Grid.Row="1"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Orientation="Horizontal">
-                <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="{Binding SelectedCampaignName}" />
-                <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="Chapters" />
+            <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="{Binding SelectedCampaignName}" />
+            <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="Chapters" />
+        </StackPanel>
+
+
+        <Grid
+            x:Name="ContentGrid"
+            Grid.Row="2"
+            Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="ChapterListView"
+                Grid.Column="0"
+                Width="500"
+                Margin="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Style="{StaticResource StandardStackPanelStyle}">
+                <StackPanel
+                    x:Name="CampaignHeader"
+                    Height="55"
+                    Margin="0,0,0,5"
+                    Padding="10"
+                    Background="#FFE65757">
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="25"
+                        Foreground="White"
+                        Text="Chapters" />
+
+                </StackPanel>
+
+                <ListView
+                    ItemsSource="{Binding Chapters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollMode="Enabled"
+                    SelectedItem="{Binding SelectedChapter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ChapterName, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
 
+            <StackPanel x:Name="SeachBarStackPanel"
+                Grid.Column="0"
+                Margin="0,55,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
 
-            <Grid x:Name="ContentGrid"
-            Grid.Row="1"
-            Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.75*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+                <TextBlock Margin="10" Text="Seach Chapters" />
+                <SearchBox Width="150" />
+            </StackPanel>
 
-                    <StackPanel
-                    x:Name="ChapterListView"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource StandardStackPanelStyle}">
-                        <StackPanel
-                        x:Name="CampaignHeader"
-                        Margin="0,0,0,5"
-                        Padding="10"
-                        Background="#FFE65757">
-
-                            <TextBlock
-                            HorizontalAlignment="Center"
-                            FontSize="25"
-                            Foreground="White"
-                            Text="Chapters" />
-
-                        </StackPanel>
-
-                        <ListView
-                        ItemsSource="{Binding Chapters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        ScrollViewer.VerticalScrollMode="Enabled"
-                        SelectedItem="{Binding SelectedChapter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ChapterName, UpdateSourceTrigger=PropertyChanged}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-
-                    <StackPanel
-                    x:Name="SeachBarStackPanel"
-                    Grid.Column="1"
-                    Margin="10,55,10,0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
-
-                        <TextBlock Margin="10" Text="Seach Chapters" />
-                        <SearchBox />
-                    </StackPanel>
-                </Grid>
-
-                <Grid
-                x:Name="CampaignEdit"
+            <Grid x:Name="CampaignEdit"
                 Grid.Column="1"
                 Margin="10"
                 BorderBrush="Gray"
                 BorderThickness="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                    <StackPanel Grid.ColumnSpan="2" Background="#FFE65757">
+                <StackPanel Grid.ColumnSpan="2" Background="#FFE65757">
 
-                        <TextBlock
+                    <TextBlock
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -217,9 +209,9 @@
                         Foreground="White"
                         Text="Campaign Details" />
 
-                    </StackPanel>
+                </StackPanel>
 
-                    <TextBox
+                <TextBox
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="10"
@@ -227,55 +219,48 @@
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     TextWrapping="Wrap" />
 
-                    <Grid
+                <Grid
                     x:Name="CampaignEditRight"
                     Grid.Row="1"
                     Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                        <Image
-                        x:Name="CampaignImage"
+                    <Image x:Name="CampaignImage"
                         Grid.Row="0"
                         Margin="10"
-                        Source="../Assets/RødDrage.png"
+                        Source="../Assets/LoginBackground.jpg"
                         Stretch="UniformToFill" />
 
-                        <StackPanel
-                        x:Name="PCListview"
-                        Grid.Row="1"
+                    <StackPanel x:Name="PCListview"
+                        Grid.Row="1" 
                         Margin="10">
 
-                            <StackPanel
+                        <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             BorderBrush="#FFE65757"
                             BorderThickness="0,0,0,2">
-                                <TextBlock
+                            <TextBlock
                                 FontSize="18"
                                 Foreground="#FFE65757"
                                 Text="Player Characters" />
-                            </StackPanel>
-                            <ListView x:Name="PCs"
-                                HorizontalAlignment="Center"
-                                ItemsSource="{Binding PCs, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding SelectedPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding PcName}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
                         </StackPanel>
-
-                    </Grid>
+                        <ListView
+                            HorizontalAlignment="Center">
+                            <ListView.ItemTemplate>
+                                <DataTemplate></DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
 
                 </Grid>
 
             </Grid>
 
         </Grid>
+
     </Grid>
 </Page>
