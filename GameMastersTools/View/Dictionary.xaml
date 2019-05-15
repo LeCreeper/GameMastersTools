@@ -59,19 +59,29 @@
         <Setter Property="BorderThickness" Value="2"/>
     </Style>
 
-    <!--Style menu ikoner -->
+    <!--Style menu icons -->
     <Style TargetType="TextBlock" x:Key="MenuIcon">
         <Setter Property="FontFamily"  Value="Segoe MDL2 Assets"/>
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="Margin" Value="2,15,10,0"/>
     </Style>
 
-    <!--Style menu ikoner -->
+    <!--Style menu tekstblocks -->
     <Style TargetType="TextBlock" x:Key="MenuValues">
         <Setter Property="Margin" Value="10,10,0,0"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+
+
+    <!--Style til overskrifter på siderne -->
+    <Style TargetType="TextBlock" x:Key="PageHeaderTextBlock">
+        <Setter Property="Foreground" Value="#FFE65757"/>
+        <Setter Property="FontSize" Value="45"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="15"/>
+    </Style>
+
 
 </ResourceDictionary>
 <!--Height="50"
@@ -83,3 +93,10 @@
 FontSize="25"-->
 
 <!--<Setter/>-->
+
+<!--<TextBlock 
+    Text="{Binding SelectedCampaignName}"
+    FontSize="45"
+    Foreground="#FFE65757"
+    FontWeight="Bold"
+    Margin="15"/>-->
