@@ -62,7 +62,7 @@ namespace GameMastersTools.Persistency
                 catch (Exception e)
                 {
                     MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
-                    throw;
+                    
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace GameMastersTools.Persistency
                 catch (Exception e)
                 {
                     MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
-                    throw;
+                  
                 }
             }
         }

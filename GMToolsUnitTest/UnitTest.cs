@@ -1,5 +1,7 @@
 ﻿
 using System;
+using Windows.Security.Cryptography.Core;
+using Windows.UI.Popups;
 using GameMastersTools.View;
 using GameMastersTools.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -60,6 +62,58 @@ namespace GMToolsUnitTest
             MainPageViewModel mainPageViewModel = new MainPageViewModel();
             mainPageViewModel.LogOut();
             Assert.IsNull(UserViewModel.LoggedInUser); }
+        #endregion
+
+
+
+        #region CreateUserTest
+        // Name is empty, password is empty, password is below limit, password is below limit, both are below limit
+
+        [TestMethod]
+        public void NameCanBe_BelowLimit_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            string IllegalName = "Bob";
+            string LegalPassword = "123456";
+
+            // Assert
+            try
+            {
+                vm.Add(IllegalName, LegalPassword);
+               
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Der skete noget\n"+ e.Message);
+            }
+        }
+
+        [TestMethod]
+        public void NameCanBe_WithinTheLimit_ReturnTrue()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            string LegalName = "Bobbie";
+            string LegalPassword = "12345678";
+
+            // Assert
+            try
+            {
+                vm.Add(LegalName, LegalPassword);
+                Assert.Fail("Succesfully added user with " + LegalName + " and " + LegalPassword);
+
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Threw an exception\n\n" + e.Message);
+            }
+        }
+
         #endregion
 
 

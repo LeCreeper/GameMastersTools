@@ -29,7 +29,8 @@ namespace GameMastersTools.View
 
         private void EnkanpButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PCDetailsPage));
+
+            Frame.Navigate(typeof(PCDetailsPage),sender);
         }
 
 
