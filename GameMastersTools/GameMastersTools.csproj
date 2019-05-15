@@ -134,8 +134,6 @@
     <Compile Include="Model\NPC.cs" />
     <Compile Include="Model\PC.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Persistency\CampaignDBPersistency.cs" />
-    <Compile Include="Persistency\ChapterPersistency.cs" />
     <Compile Include="Persistency\DatabasePersistency.cs" />
     <Compile Include="Persistency\GenericDbPersistency.cs" />
     <Compile Include="Persistency\Persistency.cs" />
