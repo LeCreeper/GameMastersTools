@@ -36,7 +36,10 @@ namespace GameMastersTools.ViewModel
 
         public ICommand AddCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
+       
         public ICommand TemplateCommand { get; set; }
+        
+        
 
         /// <summary> This property is used to filter the list of NPCs. </summary>
         public string FilterText
@@ -113,7 +116,9 @@ namespace GameMastersTools.ViewModel
             NPCs = new ObservableCollection<NPC>();
             AddCommand = new RelayCommand(AddNPC);
             RemoveCommand = new RelayCommand(DeleteNPC);
+            
             TemplateCommand = new RelayCommand(NPCTemplate);
+            
             GetNPCs();
             NPCsToBeFiltered = NPCs;
 
@@ -148,6 +153,7 @@ namespace GameMastersTools.ViewModel
                 GenericDbPersistency<NPC>.PostObj(new NPC(Name, Description, UserViewModel.LoggedInUserId), PostNGet);
                 NPCs = new ObservableCollection<NPC>();
                 GetNPCs();
+                
             }
             else
             {
@@ -163,6 +169,7 @@ namespace GameMastersTools.ViewModel
                 if (npc.UserId == UserViewModel.LoggedInUserId)
                 {
                     NPCs.Add(npc);
+                    OnPropertyChanged();
                 }
             }
         }
@@ -177,6 +184,21 @@ namespace GameMastersTools.ViewModel
             else
             {
                 new MessageDialog("Please select an NPC to delete.", "Error! No NPC selected!").ShowAsync();
+            }
+            
+        }
+
+        /// <summary> This method updates the selected NPC that is being edited. it is called from NPCPage.xaml.cs </summary>
+        public void UpdateNPC()
+        {
+            
+            if (selectedNPC != null)
+            {
+                GenericDbPersistency<NPC>.UpdateObj(selectedNPC, PutNDelete + selectedNPC.NPCId);
+            }
+            else
+            {
+                new MessageDialog("Please select an NPC to update.", "Error! No NPC selected.").ShowAsync();
             }
             
         }

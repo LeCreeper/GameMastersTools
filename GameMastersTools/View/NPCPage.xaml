@@ -33,13 +33,14 @@
         </Grid.ColumnDefinitions>
 
         <!-- ListView With NPCs -->
-        <ListView Grid.Row="2" Grid.Column="1" 
+        <ListView Name="ListNPCS" Grid.Row="2" Grid.Column="1" 
             Width="Auto"
             HorizontalAlignment="Center"
             MinWidth="170"
+            
             ItemsSource="{Binding NPCsToBeFiltered, Mode=TwoWay, 
             UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding selectedNPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding selectedNPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListView_SelectionChanged"
              >
 
             <ListView.ItemTemplate>
@@ -171,6 +172,7 @@
                        Margin="0,5,0,0"
                        />
             <TextBox Name="DetailedNPCDescription"
+                     
                      Text="{Binding selectedNPC.NPCDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
                      Height="300"
                      AcceptsReturn="True"
@@ -183,20 +185,14 @@
                 Orientation="Horizontal">
                 <Button
                     Name="EditButton"
-                    Margin="0,5,10,0"
+                   
+                    Margin="0,3,0,0"
                     Background="#FFE65757"
-                    
+                    Click="EditMode"
                     Content="Edit Mode"
                     Foreground="White"
                     RelativePanel.Below="PopUpDescriptionTextBox" />
-                <Button
-                    Name="UpdateButton"
-                    Margin="10,5,0,0"
-                    Background="#FFE65757"
-                    
-                    Content="Save Changes"
-                    Foreground="White"
-                    RelativePanel.Below="PopUpDescriptionTextBox" />
+                
             </StackPanel>
         </StackPanel>
 
