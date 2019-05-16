@@ -57,6 +57,11 @@ namespace GameMastersTools.View
             npcViewModel.Description = "Gender: \nRace: \nVoice: \nPersonality: \nLikes: \nDislikes: \nQuirks: ";
         }
 
+        /// <summary>
+        /// This method is used to control the Edit and Update feature of the detailed NPC view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditMode(object sender, RoutedEventArgs e)
         {
 

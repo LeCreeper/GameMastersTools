@@ -224,15 +224,7 @@
             </StackPanel>
         </Popup>
 
-        <!-- Navigation to NPCDetails page --><!--
-       <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-           <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
-               <TextBlock Text="Navigate To NPC" VerticalAlignment="Center" Margin="10"/>
-                <Button Height="40" FontFamily="Segoe MDL2 Assets" Content="&#xF0D2;"/>
-           </StackPanel>
-        </StackPanel>-->
-
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+       <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
             <TextBox PlaceholderText="Search For Name Or Description" MinWidth="50" MinHeight="50" Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
 
