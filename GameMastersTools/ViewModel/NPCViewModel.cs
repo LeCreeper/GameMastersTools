@@ -24,6 +24,8 @@ namespace GameMastersTools.ViewModel
         private string _name;
         private ObservableCollection<NPC> _npCs;
         private NPC _selectedNpc;
+        private string _filterText;
+        private ObservableCollection<NPC> _npCsToBeFiltered;
         private const string PostNGet = "api/NPCs";
         private const string PutNDelete = "api/NPCs/";
 
@@ -35,6 +37,29 @@ namespace GameMastersTools.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
         public ICommand TemplateCommand { get; set; }
+
+        /// <summary> This property is used to filter the list of NPCs. </summary>
+        public string FilterText
+        {
+            get => _filterText;
+            set
+            {
+                _filterText = value; 
+                OnPropertyChanged();
+                FilterNPCs();
+            }
+
+        }
+
+        public ObservableCollection<NPC> NPCsToBeFiltered
+        {
+            get => _npCsToBeFiltered;
+            set
+            {
+                _npCsToBeFiltered = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public NPC selectedNPC
         {
@@ -90,8 +115,8 @@ namespace GameMastersTools.ViewModel
             RemoveCommand = new RelayCommand(DeleteNPC);
             TemplateCommand = new RelayCommand(NPCTemplate);
             GetNPCs();
+            NPCsToBeFiltered = NPCs;
 
-            
 
         }
 
@@ -99,6 +124,7 @@ namespace GameMastersTools.ViewModel
 
         #region Methods
 
+        /// <summary> This method makes a template for the description property that is entered in the UI. </summary>
         public void NPCTemplate()
         {
             Description = "Gender: \nRace: \nVoice: \nPersonality: \nLikes: \nDislikes: \nQuirks: ";
@@ -154,6 +180,23 @@ namespace GameMastersTools.ViewModel
             }
             
         }
+
+        public void FilterNPCs()
+        {
+            if (FilterText == null) _filterText = "";
+            {
+                NPCsToBeFiltered = new ObservableCollection<NPC>(NPCs.Where(
+                    e =>
+                        e.UserId == UserViewModel.LoggedInUserId 
+                        && (e.NPCName.ToLower().Contains(FilterText.ToLower()) 
+                        || e.NPCDescription.ToLower().Contains(FilterText.ToLower()))
+                    
+                    ));
+
+
+            }
+        }
+       
         #endregion
 
         #region INotifyPropertyChanged
