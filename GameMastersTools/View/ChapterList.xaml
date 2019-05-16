@@ -42,9 +42,8 @@
             VerticalAlignment="Top"
             Orientation="Horizontal">
 
-                <StackPanel
-                x:Name="AddChapter"
-                Margin="5"
+                <StackPanel x:Name="AddChapter"
+                Margin="10"
                 Orientation="Horizontal"
                 Style="{StaticResource StandardStackPanelStyle}">
                     <TextBlock
@@ -74,7 +73,7 @@
                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Button
                                     Grid.Row="1"
-                                    Command="{Binding AddCommand}"
+                                    Command="{Binding AddChapterCommand}"
                                     Content="Add Chapter"
                                     Style="{StaticResource StandardButton}" />
                                 </Grid>
@@ -83,9 +82,8 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel
-                x:Name="DeleteChapter"
-                Margin="5"
+                <StackPanel x:Name="DeleteChapter"
+                Margin="10"
                 Orientation="Horizontal"
                 Style="{StaticResource StandardStackPanelStyle}">
                     <TextBlock
@@ -94,32 +92,30 @@
                     VerticalAlignment="Center"
                     Foreground="#FFE65757"
                     Text="Delete Chapter" />
-                    <Button Style="{StaticResource DeleteButton}" />
+                    <Button Style="{StaticResource DeleteButton}"
+                            Click="ShowDeleteChapterPopupOffsetClicked"/>
                 </StackPanel>
 
             </StackPanel>
 
-            <StackPanel x:Name="NavigationStackPanel"
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="5"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal"
-            Style="{StaticResource StandardStackPanelStyle}">
-                <TextBlock
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="Navigate to Chapter" />
-                <Button
-                x:Name="NavigateToCampaignButton"
-                Height="40"
-                Background="White"
-                Content="&#xF0D2;"
-                FontFamily="Segoe MDL2 Assets"
-                FontSize="18" />
-            </StackPanel>
+
+
+            <Button x:Name="NavigationButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource StandardButton}"
+                    Padding="10" VerticalAlignment="Bottom"
+                    Click="NavigateToChapterButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Navigate To Chapter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock
+                            Margin="10,0,0,0"
+                            Text="&#xF0D2;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
 
             <StackPanel x:Name="PageHeader"
             Grid.Row="0"
@@ -128,7 +124,6 @@
             VerticalAlignment="Top"
             Orientation="Horizontal">
                 <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="{Binding SelectedCampaignName}" />
-                <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="Chapters" />
             </StackPanel>
 
 
@@ -145,8 +140,38 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel
-                    x:Name="ChapterListView"
+                    <Popup x:Name="DeleteChapterPopUp"
+                           Grid.Column="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           HorizontalOffset="100" >
+
+                        <StackPanel
+                            Style="{StaticResource StandardStackPanelStyle}"
+                            Padding="10">
+                            <TextBlock Margin="5"
+                                       Text="Are you sure you want to delete this chapter?" 
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Margin="0,0,0,5"
+                                       Text="Any work within the chapter will be permanently deleted"
+                                       FontSize="10"/>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button
+                                    Margin="5"
+                                    Click="CloseDeleteChapterPopupClicked"
+                                    Content="No"
+                                    Style="{StaticResource StandardButton}"/>
+                                <Button
+                                    Margin="5"
+                                    Click="CloseDeleteChapterPopupClicked"
+                                    Command="{Binding DeleteChapterCommand}"
+                                    Content="Yes"
+                                    Style="{StaticResource RedButton}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Popup>
+
+                    <StackPanel x:Name="ChapterListView"
                     Grid.Column="0"
                     Margin="10"
                     HorizontalAlignment="Stretch"
@@ -173,14 +198,13 @@
                         SelectedItem="{Binding SelectedChapter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ChapterName, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="{Binding ChapterName,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
 
-                    <StackPanel
-                    x:Name="SeachBarStackPanel"
+                    <StackPanel x:Name="SeachBarStackPanel"
                     Grid.Column="1"
                     Margin="10,55,10,0"
                     HorizontalAlignment="Stretch"
@@ -192,8 +216,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid
-                x:Name="CampaignEdit"
+                <Grid x:Name="CampaignEdit"
                 Grid.Column="1"
                 Margin="10"
                 BorderBrush="Gray"
@@ -207,7 +230,9 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.ColumnSpan="2" Background="#FFE65757">
+                    <StackPanel x:Name="CampaignDetailsHeader"
+                        Grid.ColumnSpan="2" 
+                        Background="#FFE65757">
 
                         <TextBlock
                         Margin="10"
@@ -219,56 +244,137 @@
 
                     </StackPanel>
 
-                    <TextBox
+                    <TextBox x:Name="NotesTextBox"
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="10"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    TextWrapping="Wrap" />
+                    TextWrapping="Wrap" 
+                    AcceptsReturn="True"/>
 
-                    <Grid
-                    x:Name="CampaignEditRight"
+                    <Grid x:Name="CampaignEditRightside"
                     Grid.Row="1"
                     Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
 
-                        <Image
-                        x:Name="CampaignImage"
+                        <Image x:Name="CampaignImage"
                         Grid.Row="0"
                         Margin="10"
-                        Source="../Assets/RødDrage.png"
-                        Stretch="UniformToFill" />
+                        Source="../Assets/LockScreenLogo.scale-200.png"
+                        Stretch="Uniform" />
 
-                        <StackPanel
-                        x:Name="PCListview"
-                        Grid.Row="1"
-                        Margin="10">
+                        <Grid x:Name="CampaignPCEdit"
+                            Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel x:Name="PlayerCharactersHeader"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderBrush="#FFE65757"
+                                BorderThickness="0,0,0,2"
+                                Margin="10">
+                                <TextBlock
+                                    FontSize="18"
+                                    Foreground="#FFE65757"
+                                    Text="Player Characters" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel x:Name="PCListview"
+                                        Grid.Row="1"
+                                        Margin="10" HorizontalAlignment="Left">
+                                <ListView x:Name="CampaignPCs"
+                                          HorizontalAlignment="Left"
+                                          ItemsSource="{Binding CampaignPCs,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedItem="{Binding SelectedCampaignPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding PcName}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+
+                            <StackPanel x:Name="AddCampaignPCs"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Margin="10"
+                                Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <ComboBox x:Name="PCSelection"
+                                          ItemsSource="{Binding UsersPCs}"
+                                          SelectedItem="{Binding SelectedUsersPC, Mode=TwoWay}" HorizontalAlignment="Left"
+                                >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding PcName}"
+                                                       HorizontalAlignment="Left"
+                                                       TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+
+                                </ComboBox>
+                                <Button Content="&#xE710;"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Background="#FF6CD43B"
+                                        Command="{Binding AddPcCommand}"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Height="32"
+                                        Margin="5,0,0,0">
+                                </Button>
+
+                            </StackPanel>
+
+                            <Button x:Name="RemoveCampaignPCs"
+                                Style="{StaticResource DeleteButton}"
+                                        Margin="10"
+                                        Grid.Column="0"
+                                        Grid.Row="2"
+                                        Click="ShowRemoveCampaignPcPopupOffsetClicked"/>
+
+                        </Grid>
+
+                        <Popup x:Name="RemoveCampaignPcPopUp"
+                               Grid.Row="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom" Margin="0,0,0,188">
 
                             <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            BorderBrush="#FFE65757"
-                            BorderThickness="0,0,0,2">
-                                <TextBlock
-                                FontSize="18"
-                                Foreground="#FFE65757"
-                                Text="Player Characters" />
+                                Style="{StaticResource StandardStackPanelStyle}"
+                                Padding="10">
+                                <TextBlock Margin="5"
+                                           Text="Are you sure you want to remove this PC from the Campaign?" 
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Margin="0,0,0,5"
+                                           Text="The PC will still be in your directory"
+                                           FontSize="10"/>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Button
+                                        Margin="5"
+                                        Click="CloseRemoveCampaignPcPopupClicked"
+                                        Content="No"
+                                        Style="{StaticResource StandardButton}"/>
+                                    <Button
+                                        Margin="5"
+                                        Click="CloseRemoveCampaignPcPopupClicked"
+                                        Command="{Binding RemovePcCommand}"
+                                        Content="Yes"
+                                        Style="{StaticResource RedButton}"/>
+                                </StackPanel>
                             </StackPanel>
-                            <ListView x:Name="PCs"
-                                HorizontalAlignment="Center"
-                                ItemsSource="{Binding PCs, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding SelectedPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding PcName}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
+                        </Popup>
 
                     </Grid>
 

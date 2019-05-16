@@ -26,5 +26,34 @@ namespace GameMastersTools.View
         {
             this.InitializeComponent();
         }
+
+        private void NavigateToChapterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChapterDetails));
+        }
+
+        private void ShowRemoveCampaignPcPopupOffsetClicked(object sender, RoutedEventArgs e)
+        {
+            // open the Popup if it isn't open already 
+            if (!RemoveCampaignPcPopUp.IsOpen) { RemoveCampaignPcPopUp.IsOpen = true; }
+        }
+
+        private void CloseRemoveCampaignPcPopupClicked(object sender, RoutedEventArgs e)
+        {
+            // if the Popup is open, then close it 
+            if (RemoveCampaignPcPopUp.IsOpen) { RemoveCampaignPcPopUp.IsOpen = false; }
+        }
+
+        private void ShowDeleteChapterPopupOffsetClicked(object sender, RoutedEventArgs e)
+        {
+            // open the Popup if it isn't open already 
+            if (!DeleteChapterPopUp.IsOpen) { DeleteChapterPopUp.IsOpen = true; }
+        }
+
+        private void CloseDeleteChapterPopupClicked(object sender, RoutedEventArgs e)
+        {
+            // if the Popup is open, then close it 
+            if (DeleteChapterPopUp.IsOpen) { DeleteChapterPopUp.IsOpen = false; }
+        }
     }
 }
