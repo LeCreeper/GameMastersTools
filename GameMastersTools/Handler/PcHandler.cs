@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using GameMastersTools.Model;
+using GameMastersTools.Persistency;
 using GameMastersTools.ViewModel;
 
 namespace GameMastersTools.Handler
@@ -24,10 +25,12 @@ namespace GameMastersTools.Handler
             PcViewModel.PcSingleton.PostPc(
                 PcViewModel.PcName,
                 PcViewModel.PcDescription);
-            
+
             // Making sure we update the sorted list whenever
             // an object is added or deleted from the main observable collection
-            PC pc = new PC(PcViewModel.PcName,PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
+
+
+            PC pc = new PC(PcViewModel.PcName, PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
             PcViewModel.UserPcs.Add(pc);
 
         }

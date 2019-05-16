@@ -116,7 +116,7 @@
                 <Border CornerRadius="2,2,2,2">
                     <Button
                         Background="White"
-                        BorderBrush="#323232"
+                        BorderBrush="Gray"
                         BorderThickness="1,1,1,1"
                         Click="Button_Click_2">
                         <StackPanel Orientation="Horizontal">
