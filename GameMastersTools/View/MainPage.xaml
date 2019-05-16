@@ -38,6 +38,17 @@
                 Source="../Assets/Version1-hvid.png"
                 Stretch="Uniform" />
         </Grid>
+
+        <Button
+            Style="{StaticResource StandardButton}"
+            Click="GoBackButtonClick"
+            Grid.Row="1"
+            Content="&#xE72B;"
+            FontFamily="Segoe MDL2 Assets"
+            FontSize="25"
+            Margin="80, 10, 0, 0" VerticalAlignment="Top"/>
+
+
         <!--  Splitview Menu  -->
 
         <!--  ListBox til sidemenu  -->
@@ -165,6 +176,7 @@
             <!--  MainFrame  -->
             <SplitView.Content>
                 <Frame Name="MainFrame" />
+
             </SplitView.Content>
         </SplitView>
     </Grid>

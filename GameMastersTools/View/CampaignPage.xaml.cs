@@ -45,8 +45,19 @@ namespace GameMastersTools.View
             if (DeletePopUp.IsOpen) { DeletePopUp.IsOpen = false; }
         }
 
+        private void CampaignGridview_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            CampaignDetails.Visibility = Visibility.Visible;
+        }
 
+        private void CloseCampaignDetails_OnClick(object sender, RoutedEventArgs e)
+        {
+            CampaignDetails.Visibility = Visibility.Collapsed;
+        }
 
+        private void CampaignGridview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

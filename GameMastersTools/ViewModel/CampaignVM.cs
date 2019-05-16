@@ -56,9 +56,17 @@ namespace GameMastersTools.ViewModel
             set
             {
                 _selectedCampaign = value;
+
+                try
+                {
+                    SelectedCampaignId = _selectedCampaign.CampaignId;
+                    SelectedCampaignName = _selectedCampaign.CampaignName;
+                }
+                catch (Exception e)
+                {
+
+                }
                 OnPropertyChanged();
-                SelectedCampaignId = _selectedCampaign.CampaignId;
-                _selectedCampaignName = _selectedCampaign.CampaignName;
             }
         }
 
@@ -97,7 +105,6 @@ namespace GameMastersTools.ViewModel
 
         public CampaignVM()
         {
-            Campaigns = new ObservableCollection<Campaign>();
             AddCommand = new RelayCommand(AddCampaign);
             DeleteCommand = new RelayCommand(DeleteCampaign);
             //UserViewModel.LoggedInUserId = 1;
@@ -123,7 +130,6 @@ namespace GameMastersTools.ViewModel
             if (nameAlreadyExists == false) 
             {
                 GenericDbPersistency<Campaign>.PostObj(new Campaign(Name, Description, UserViewModel.LoggedInUserId), "api/Campaigns");
-                Campaigns = new ObservableCollection<Campaign>();
                 LoadUsersCampaigns();
             }
 
@@ -148,7 +154,6 @@ namespace GameMastersTools.ViewModel
             try
             {
                 GenericDbPersistency<Campaign>.DeleteObj("api/Campaigns/", SelectedCampaignId);
-                Campaigns = new ObservableCollection<Campaign>();
                 LoadUsersCampaigns();
             }
             catch (Exception e)
@@ -161,6 +166,7 @@ namespace GameMastersTools.ViewModel
 
         public void LoadUsersCampaigns()
         {
+            Campaigns = new ObservableCollection<Campaign>();
             foreach (var campaign in GenericDbPersistency<Campaign>.GetObj("api/Campaigns").Result)
             {
                 if (campaign.UserId == UserViewModel.LoggedInUserId)
