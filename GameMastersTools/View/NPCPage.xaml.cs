@@ -88,6 +88,11 @@ namespace GameMastersTools.View
             
         }
 
+        /// <summary>
+        /// This method locks the Detailed NPC view, when the user selects a different NPC, as well as ensuring that the selectedNPC property is set correctly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EditButton.Content = "Edit Mode";
