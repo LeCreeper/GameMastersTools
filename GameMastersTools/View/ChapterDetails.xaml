@@ -5,10 +5,331 @@
     xmlns:local="using:GameMastersTools.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:GameMastersTools.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Page.Resources>
+
+    <Page.DataContext>
+        <viewModel:ChapterDetailsViewModel />
+    </Page.DataContext>
+
+    <Grid x:Name="PageGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ContentGrid"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="PageHeader"
+                Grid.Column="1"
+                Style="{StaticResource PageHeaderTextBlock}"
+                Text="{Binding Chapter.ChapterName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Grid x:Name="ChapterDetailsGrid"
+                  Grid.Row="1"
+                  Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="Noter">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Style="{StaticResource RedStackPanel}">
+                        <TextBlock 
+                            Style="{StaticResource WhiteHeaderText}"
+                            Text="Chapter Notes:"/>
+                    </StackPanel>
+                    <TextBox
+                        Grid.Row="1"
+                        Style="{StaticResource NoteField}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </Grid>
+
+                <Grid x:Name="Lists" 
+                    Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="NPCs"
+                          Style="{StaticResource ListViewBox}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel 
+                            Style="{StaticResource RedStackPanel}"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2">
+                            <TextBlock Text="NPCs"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <ListView 
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                        </ListView>
+                        <StackPanel x:Name="AddNPCs"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <ComboBox x:Name="NPCSelection">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                                                   HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <Button Style="{StaticResource SmallAddButton}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top">
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid x:Name="Locations"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          Style="{StaticResource ListViewBox}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel 
+                            Style="{StaticResource RedStackPanel}"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2">
+                            <TextBlock Text="Locations"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <ListView 
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                        </ListView>
+                        <StackPanel x:Name="AddLocations"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <ComboBox x:Name="LocationSelection">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                                                   HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <Button Style="{StaticResource SmallAddButton}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top">
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid x:Name="Encounters"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          Style="{StaticResource ListViewBox}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel 
+                            Style="{StaticResource RedStackPanel}"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2">
+                            <TextBlock Text="Encounters"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <ListView 
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                        </ListView>
+                        <StackPanel x:Name="AddEncounters"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <ComboBox x:Name="EncounterSelection">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                                                   HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <Button Style="{StaticResource SmallAddButton}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top">
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid x:Name="Items"
+                          Grid.Column="0"
+                          Grid.Row="1"
+                          Style="{StaticResource ListViewBox}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel 
+                            Style="{StaticResource RedStackPanel}"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2">
+                            <TextBlock Text="Items"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <ListView 
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                        </ListView>
+                        <StackPanel x:Name="AddItems"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <ComboBox x:Name="ItemSelection">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                                                   HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <Button Style="{StaticResource SmallAddButton}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top">
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!--<StackPanel x:Name="NPCs"
+                                Style="{StaticResource ListViewBox}">
+                        <StackPanel Style="{StaticResource RedStackPanel}">
+                            <TextBlock Text="NPCs" HorizontalAlignment="Center" Foreground="White"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </StackPanel>
+                        <ListView>
+
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel x:Name="Locations"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Style="{StaticResource ListViewBox}">
+                        <StackPanel Style="{StaticResource RedStackPanel}">
+                            <TextBlock Text="Locations" HorizontalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <ListView>
+
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel x:Name="Items"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Style="{StaticResource ListViewBox}">
+                        <StackPanel Style="{StaticResource RedStackPanel}">
+                            <TextBlock Text="Items" HorizontalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <ListView>
+
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel x:Name="Encounters"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Style="{StaticResource ListViewBox}">
+                        <StackPanel Style="{StaticResource RedStackPanel}">
+                            <TextBlock Text="Encounters" HorizontalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <ListView>
+
+                        </ListView>
+                    </StackPanel>-->
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
 
     </Grid>
 </Page>

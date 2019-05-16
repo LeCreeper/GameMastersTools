@@ -19,7 +19,7 @@ using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
 {
-    class CampaignVM : INotifyPropertyChanged
+    public class CampaignVM : INotifyPropertyChanged
     {
         #region Backingfields
 
@@ -28,6 +28,15 @@ namespace GameMastersTools.ViewModel
         private string _description;
         private static Campaign _selectedCampaign;
         private static string _selectedCampaignName;
+
+        #endregion
+
+        #region TestProperties
+
+        public bool NameAlreadyExists { get; set; }
+        public bool NameIsTooLong { get; set; }
+        public bool AddIsSuccessful { get; set; }
+        public bool DeleteIsSuccessful { get; set; }
 
         #endregion
 
@@ -118,26 +127,40 @@ namespace GameMastersTools.ViewModel
 
         public void AddCampaign()
         {
-            bool nameAlreadyExists = false;
-            foreach (var campaign in Campaigns)
+            ResetTestBools();
+
+            if (Name.Length > 60)
             {
-                if (Name == campaign.CampaignName)
-                {
-                    nameAlreadyExists = true;
-                }
+                NameIsTooLong = true;
             }
 
-            if (nameAlreadyExists == false) 
+            if (NameIsTooLong)
             {
-                GenericDbPersistency<Campaign>.PostObj(new Campaign(Name, Description, UserViewModel.LoggedInUserId), "api/Campaigns");
-                LoadUsersCampaigns();
+                //MessageDialogHelper.Show("Please choose a name with less than 60 characters", "Campaign name is too long");
             }
-
             else
             {
-                MessageDialogHelper.Show(
-                    "You already have a campaign with this name. Please choose a unique name for your campaign.",
-                    "Invalid campaign name");
+                foreach (var campaign in Campaigns)
+                {
+                    if (Name == campaign.CampaignName)
+                    {
+                        NameAlreadyExists = true;
+                    }
+                }
+
+                if (!NameAlreadyExists)
+                {
+                    GenericDbPersistency<Campaign>.PostObj(new Campaign(Name, Description, UserViewModel.LoggedInUserId), "api/Campaigns");
+                    LoadUsersCampaigns();
+                    AddIsSuccessful = true;
+                }
+
+                else
+                {
+                    //MessageDialogHelper.Show(
+                    //    "You already have a campaign with this name. Please choose a unique name for your campaign.",
+                    //    "Invalid campaign name");
+                }
             }
 
             ClearNameAndDescription();
@@ -151,10 +174,12 @@ namespace GameMastersTools.ViewModel
                 new MessageDialog("Please select a campaign to delete", "No campaign selected");
             }
 
-            try
+            else try
             {
                 GenericDbPersistency<Campaign>.DeleteObj("api/Campaigns/", SelectedCampaignId);
                 LoadUsersCampaigns();
+                DeleteIsSuccessful = true;
+                SelectedCampaign = null;
             }
             catch (Exception e)
             {
@@ -180,6 +205,14 @@ namespace GameMastersTools.ViewModel
         {
             Name = null;
             Description = null;
+        }
+
+        private void ResetTestBools()
+        {
+            NameIsTooLong = false;
+            NameAlreadyExists = false;
+            AddIsSuccessful = false;
+            DeleteIsSuccessful = false;
         }
 
         #endregion

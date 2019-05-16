@@ -55,6 +55,11 @@ namespace GameMastersTools.ViewModel
             {
                 _selectedChapter = value;
                 OnPropertyChanged();
+                try
+                {
+                    SelectedChapterId = _selectedChapter.ChapterId;
+                }
+                catch (Exception e) { }
             }
         }
 
@@ -87,6 +92,8 @@ namespace GameMastersTools.ViewModel
         public string Name { get; set; }
         public string Description { get; set; }
 
+        public static int SelectedChapterId { get; set; }
+
         #endregion
 
         #region Constructor
@@ -101,7 +108,9 @@ namespace GameMastersTools.ViewModel
             LoadChapters();
             LoadUsersPCs();
             LoadCampaignPCs();
-            _selectedChapter = null;
+            SelectedChapter = null;
+            SelectedChapterId = 0;
+            SelectedCampaignPC = null;
 
         }
 
