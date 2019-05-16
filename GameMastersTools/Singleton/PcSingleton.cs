@@ -36,21 +36,21 @@ namespace GameMastersTools.Singleton
         public async void PostPc(string name, string description)
         {
             // Creating a new user to be added, with the values coming in from the view, through the PcHandler and PcViewModel - UserId is the one belonging to the logged in user
-            try
-            {
+
                 PC newPc = new PC(name, description, UserViewModel.LoggedInUserId);
                 // Trying to post the user to the database, if successful, it returns and then adds it to the list in the app to be shown in the UI
-                GenericDbPersistency<PC>.PostObj(newPc, "api/pcs");
-
+                try
+                {
+                    GenericDbPersistency<PC>.PostObj(newPc, "api/pcs");
+                    
+                    // Hvordan stopper jeg dette hvis http post metoden ikke er succesfuld??
+                    
+                } 
+                catch (Exception e)
+                {
+                    await new MessageDialog(newPc.PcName + " did not get added in the database\n\n" + e.Message).ShowAsync();
+                }
                 Pcs.Add(newPc);
-            }
-            catch (Exception e)
-            {
-                await new MessageDialog("ERROR" + e.Message).ShowAsync();
-            }
-
-
-            
         }
 
         public void DeletePc(PC pc)

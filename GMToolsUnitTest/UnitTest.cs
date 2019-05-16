@@ -66,7 +66,7 @@ namespace GMToolsUnitTest
 
 
 
-        #region CreateUserTest
+        #region CreateUserTest WIP
         // Name is empty, password is empty, password is below limit, password is below limit, both are below limit
 
         [TestMethod]
@@ -116,6 +116,18 @@ namespace GMToolsUnitTest
 
         #endregion
 
+        #region PlayerCharacterTest
 
+        public void NameCanBe_TheSameAsExisting_ReturnFalse()
+        {
+            // Arrange
+
+
+
+            // Act
+            // Assert
+        }
+
+        #endregion
     }
 }

@@ -28,8 +28,8 @@ namespace GameMastersTools.ViewModel
         private ICommand _selectedPcCommand;
         private ICommand _deletePcCommand;
         private ICommand _updatePcCommand;
+        
         // Properties
-
         public PcSingleton PcSingleton { get; set; }
 
         public ObservableCollection<PC> UserPcs
@@ -63,7 +63,7 @@ namespace GameMastersTools.ViewModel
                 FilterPc();
             }
         }
-
+        // ICommands
         public ICommand SelectedPcCommand
         {
             get { return _selectedPcCommand ?? (_selectedPcCommand = new RelayArgCommand<PC>(pc => PcHandler.SetSelectedPc(pc))); }
@@ -73,19 +73,13 @@ namespace GameMastersTools.ViewModel
         public ICommand CreatePcCommand
         {
             get { return _createPcCommand ?? (_createPcCommand = new RelayCommand(PcHandler.CreatePc)); }
-            set
-            {
-                _createPcCommand = value;
-            }
+            set { _createPcCommand = value; }
         }
         
         public ICommand DeletePcCommand
         {
             get { return _deletePcCommand ?? (_deletePcCommand = new RelayCommand(PcHandler.DeletePc)); }
-            set
-            {
-                _deletePcCommand = value;
-            }
+            set { _deletePcCommand = value; }
         }
 
         public ICommand UpdatePcCommand
@@ -93,16 +87,13 @@ namespace GameMastersTools.ViewModel
             get { return _updatePcCommand ?? (_updatePcCommand = new RelayCommand(PcHandler.UpdatePc));}
             set { _updatePcCommand = value; }
         }
-
-
-
+        
         // Constructor
         public PcViewModel()
         {
             PcSingleton = PcSingleton.Instance;
             PcHandler = new PcHandler(this);
-
-
+            
             // Having all the Players in the database loaded into the list from the start, then we sort it later, so it fits the logged in user
             UserPcs = PcSingleton.Pcs;
             
@@ -126,6 +117,10 @@ namespace GameMastersTools.ViewModel
           
         }
 
+
+        /// <summary>
+        /// Making sure the TextBox property _filterText isn't null, then getting all the players that belong to the User loaded in, then updating the list based on input from the filters
+        /// </summary>
         public void FilterPc()
         {
             if (_filterText == null) _filterText = "";
@@ -138,9 +133,7 @@ namespace GameMastersTools.ViewModel
                 ));
         }
 
-        // ||e.PcDescription.ToLower().Contains(FilterText.ToLower())
-
-
+ 
         // More testing needed - Can this change the frame in frame where it's needed in PlayerDetailsPage
         public void GoBack()
         {

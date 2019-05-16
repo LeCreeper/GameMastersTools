@@ -58,10 +58,17 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     var response = await client.PostAsJsonAsync(api, obj);
+
+                    if (!(response.IsSuccessStatusCode))
+                    {
+                        
+                        throw new Exception("Something went wrong\n\n" + response.StatusCode);
+                    }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
+                    //throw new Exception(ex.Message);
+                    await new MessageDialog(ex.Message).ShowAsync();
                     
                 }
             }
@@ -86,7 +93,7 @@ namespace GameMastersTools.Persistency
                 catch (Exception e)
                 {
                     MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
-                  
+                   
                 }
             }
         }
@@ -112,6 +119,40 @@ namespace GameMastersTools.Persistency
                 }
             }
         }
+
+        public static T GetSingleObj(string api, int id)
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+
+            handler.UseDefaultCredentials = true;
+
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+
+                try
+                {
+
+                    var response = client.GetAsync(api + id).Result;
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var obj = response.Content.ReadAsAsync<T>().Result;
+                        return obj;
+
+                    }
+                    return default(T);
+                }
+                catch (Exception e)
+                {
+                    MessageDialogHelper.Show("Hej med", "dig!" + e.Message);
+                    throw;
+
+                }
+            }
+        }
+
 
         private class MessageDialogHelper
         {
