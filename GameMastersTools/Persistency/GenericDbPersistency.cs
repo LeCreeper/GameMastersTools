@@ -9,7 +9,7 @@ using GameMastersTools.Model;
 
 namespace GameMastersTools.Persistency
 {
-    class GenericDbPersistency<T>
+    public class GenericDbPersistency<T>
     {
         private const string serverUrl = "https://gamemastertools3.azurewebsites.net";
 

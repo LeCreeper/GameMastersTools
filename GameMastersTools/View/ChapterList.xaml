@@ -179,14 +179,10 @@
                     Style="{StaticResource StandardStackPanelStyle}">
                         <StackPanel
                         x:Name="CampaignHeader"
-                        Margin="0,0,0,5"
-                        Padding="10"
-                        Background="#FFE65757">
+                        Style="{StaticResource RedStackPanel}">
 
                             <TextBlock
-                            HorizontalAlignment="Center"
-                            FontSize="25"
-                            Foreground="White"
+                            Style="{StaticResource WhiteHeaderText}"
                             Text="Chapters" />
 
                         </StackPanel>
@@ -232,15 +228,12 @@
 
                     <StackPanel x:Name="CampaignDetailsHeader"
                         Grid.ColumnSpan="2" 
-                        Background="#FFE65757">
+                        Style="{StaticResource RedStackPanel}">
 
                         <TextBlock
-                        Margin="10"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="25"
-                        Foreground="White"
-                        Text="Campaign Details" />
+                        Style="{StaticResource WhiteHeaderText}"
+                        Text="Campaign Details"
+                        VerticalAlignment="Center" />
 
                     </StackPanel>
 
@@ -250,8 +243,7 @@
                     Margin="10"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    TextWrapping="Wrap" 
-                    AcceptsReturn="True"/>
+                    Style="{StaticResource NoteField}"/>
 
                     <Grid x:Name="CampaignEditRightside"
                     Grid.Row="1"
@@ -325,14 +317,10 @@
                                     </ComboBox.ItemTemplate>
 
                                 </ComboBox>
-                                <Button Content="&#xE710;"
-                                        FontFamily="Segoe MDL2 Assets"
-                                        Background="#FF6CD43B"
+                                <Button Style="{StaticResource SmallAddButton}"
                                         Command="{Binding AddPcCommand}"
                                         HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Height="32"
-                                        Margin="5,0,0,0">
+                                        VerticalAlignment="Top">
                                 </Button>
 
                             </StackPanel>

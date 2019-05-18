@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameMastersTools.Model
 {
-    class Campaign
+    public class Campaign
     {
         #region Properties
 
@@ -34,8 +34,6 @@ namespace GameMastersTools.Model
         {
             CampaignName = name;
             CampaignDescription = description;
-            PCs = new ObservableCollection<PC>();
-            Chapters = new ObservableCollection<Chapter>();
             UserId = userId;
 
         }
