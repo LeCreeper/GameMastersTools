@@ -9,18 +9,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
+
     <Page.DataContext>
         <viewModel:PcViewModel />
     </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="180" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="0">
             <StackPanel Padding="4">
                 <Border Background="#eeeeee">
                     <TextBlock
@@ -43,15 +43,16 @@
             </StackPanel>
         </ScrollViewer>
         <StackPanel
-            Grid.Row="2"
+            Grid.Row="1"
             Padding="4"
             Orientation="Horizontal">
 
             <!--  ArrowLeft  -->
             <Button
                 Background="#FFE65757"
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1"
                 Click="ButtonBase_OnClick"
-                RelativePanel.AlignRightWithPanel="True"
                 ToolTipService.ToolTip="Back to players page">
                 <TextBlock
                     FontFamily="Segoe MDL2 Assets"
@@ -61,28 +62,27 @@
 
             </Button>
 
-            <!--  Edit  -->
+            <!--  Edit Button  -->
             <Button
                 Margin="4,0,0,0"
                 Background="#FFE65757"
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1"
                 Click="Button_Click"
-                RelativePanel.AlignRightWithPanel="True"
                 ToolTipService.ToolTip="Edit player">
                 <TextBlock
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="30"
                     Foreground="White"
                     Text="&#xE70F;" />
-
-
-
             </Button>
 
-            <!--  Add New  -->
+            <!--  Add Player to Campaign Button | non functional  -->
             <Button
                 Margin="4,0,0,0"
                 Background="#FFE65757"
-                RelativePanel.AlignRightWithPanel="True">
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontFamily="Segoe MDL2 Assets"
@@ -97,56 +97,95 @@
                 </StackPanel>
 
             </Button>
+
+            <!--  Delete Player Button  -->
+            <Button
+                Margin="4,0,0,0"
+                Background="#FFE65757"
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1"
+                Command="{Binding DeletePcCommand}"
+                ToolTipService.ToolTip="Delete Player">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="&#xE74D;" />
+                </StackPanel>
+            </Button>
+
+
+
         </StackPanel>
 
-        <StackPanel
-            Name="PopupEditStackPanel"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Width="600"
-            Height="400"
-            Padding="5"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            BorderBrush="#cfcfcf"
-            BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
-            <StackPanel.Background>
-                <SolidColorBrush Opacity="0.9" Color="White" />
-            </StackPanel.Background>
-            <RelativePanel>
+        <!--  Grid to hold the Edit Panel that pops up  -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <!--  Edit Player Panel  -->
+            <RelativePanel
+                Name="PopUpEditRelativePanel"
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="5"
+                BorderBrush="#cfcfcf"
+                BorderThickness="2,2,2,2"
+                Visibility="Collapsed">
+                <RelativePanel.Background>
+                    <SolidColorBrush Opacity="0.9" Color="White" />
+                </RelativePanel.Background>
                 <TextBox
                     Name="PopUpNameTextBox"
-                    MinWidth="350"
-                    HorizontalAlignment="Left"
+                    MinWidth="300"
                     FontSize="20"
                     Foreground="#323232"
-                    PlaceholderText="Name Name"
+                    PlaceholderText="Name"
                     Text="{Binding SelectedPc.PcName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
                 <TextBox
                     Name="PopUpDescriptionTextBox"
-                    Width="580"
-                    Height="300"
                     Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
                     AcceptsReturn="True"
                     FontSize="20"
                     Foreground="#323232"
+                    GotFocus="PopUpDescriptionTextBox_GotFocus"
+                    LostFocus="PopUpDescriptionTextBox_LostFocus"
                     PlaceholderText="Description"
+                    RelativePanel.Above="PopupButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.Below="PopUpNameTextBox"
                     Text="{Binding SelectedPc.PcDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
+
                 <Button
                     Name="PopupButton"
                     Margin="0,5,0,0"
                     Background="#FFE65757"
+                    BorderBrush="#323232"
+                    BorderThickness="1,1,1,1"
                     Command="{Binding UpdatePcCommand}"
-                    Content="Add"
+                    Content="Update player"
+                    FontWeight="Bold"
                     Foreground="White"
-                    RelativePanel.Below="PopUpDescriptionTextBox" />
+                    RelativePanel.AlignBottomWithPanel="True" />
                 <Button
+                    Name="PopUpCloseButton"
+                    HorizontalAlignment="Right"
                     Background="#FFE65757"
+                    BorderBrush="#323232"
+                    BorderThickness="1,1,1,1"
                     Click="Button_Click_1"
                     RelativePanel.AlignRightWithPanel="True">
                     <TextBlock
@@ -155,9 +194,20 @@
                         FontWeight="Bold"
                         Foreground="White"
                         Text="&#xE711;" />
-
                 </Button>
+
+                <!--  Saved TextBox  -->
+                <TextBlock
+                    Name="SaveTextBlock"
+                    Margin="0,0,15,0"
+                    HorizontalAlignment="Right"
+                    FontSize="20"
+                    Foreground="#323232"
+                    RelativePanel.AlignBottomWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Text="" />
+
             </RelativePanel>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>

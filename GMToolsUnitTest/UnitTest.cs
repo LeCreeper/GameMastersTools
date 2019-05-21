@@ -2,6 +2,9 @@
 using System;
 using Windows.Security.Cryptography.Core;
 using Windows.UI.Popups;
+using GameMastersTools.Handler;
+using GameMastersTools.Model;
+using GameMastersTools.Persistency;
 using GameMastersTools.View;
 using GameMastersTools.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,7 +72,7 @@ namespace GMToolsUnitTest
         #region CreateUserTest WIP
         // Name is empty, password is empty, password is below limit, password is below limit, both are below limit
 
-        [TestMethod]
+        //[TestMethod]
         public void NameCanBe_BelowLimit_ReturnFalse()
         {
             // Arrange
@@ -91,7 +94,7 @@ namespace GMToolsUnitTest
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void NameCanBe_WithinTheLimit_ReturnTrue()
         {
             // Arrange
@@ -117,16 +120,46 @@ namespace GMToolsUnitTest
         #endregion
 
         #region PlayerCharacterTest
-
+        // Still succeeds despite ...
+        //[TestMethod] 
         public void NameCanBe_TheSameAsExisting_ReturnFalse()
         {
             // Arrange
+            PcViewModel pcvm = new PcViewModel();
 
+            pcvm.PcName = "Crane";
+            pcvm.PcDescription = "UnitTest";
+            UserViewModel.LoggedInUserId = 8;
+          
+
+            pcvm.PcHandler.CreatePc();
 
 
             // Act
             // Assert
         }
+
+        #endregion
+
+        #region AddPlayer to database
+        //[TestMethod]
+        public void Player_HasBeenAdded_PlayerListPlusOne()
+        {
+            PcViewModel pcvm = new PcViewModel();
+
+            int beforeAdd = pcvm.PcCount();
+
+            
+
+            pcvm.UserPcs.Add(new PC("UnitTests", "A description", 8));
+
+          
+
+            int afterAdd = beforeAdd + 1;
+
+            Assert.IsTrue(beforeAdd == afterAdd );
+        }
+        
 
         #endregion
     }

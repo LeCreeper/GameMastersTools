@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameMastersTools.Model
 {
-    class PC
+    public class PC
     {
         //TODO Image property
         public int PcId { get; set; }

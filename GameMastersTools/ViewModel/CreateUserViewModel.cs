@@ -4,9 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.ServiceModel.Channels;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -177,25 +180,55 @@ namespace GameMastersTools.ViewModel
         {
             User user = new User(name, password);
             
+
             if (name != null && name.Length > 5 && name.Length < 21)
             {
-                if (password.Length > 7)
-                {
-                    if (UserPassword == UserPasswordRepeat)
-                    { 
-                        //await Persistency.DatabasePersistency.CheckThenPost(user, name);
-                        try
-                        {
-                            await Persistency.DatabasePersistency.CheckThenPost(user, name);
-                        }
-                        catch (Exception e)
-                        {
-                            await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
-                        
+                if (!Regex.IsMatch(name, "\\W"))
+                { 
+                    if (password.Length > 7)
+                    {
+                        if (UserPassword == UserPasswordRepeat)
+                        { 
+                            //await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                            try
+                            {
+                                await Persistency.DatabasePersistency.CheckThenPost(user, name);
+                            }
+                            catch (Exception e)
+                            {
+                                await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
+                            
+                            }
                         }
                     }
                 }
+
+                // If you try and make a name with any special characters
+                UserErrorMessage = "Name can not contain any special characters";
+
             }
+        }
+
+        public string CheckForSpecialChars(string input)
+        {
+            try
+            {
+                bool isPossible = Regex.IsMatch(input, "\\W");
+                if (isPossible)
+                {
+                    throw new ArgumentException("Name can only be normal letters and numbers");
+                }
+
+                return input;
+            }
+            catch (ArgumentException ex)
+            {
+                new MessageDialog(ex.Message);
+                return null;
+            }
+
+            
+
         }
 
         #region OnPropertyChanged

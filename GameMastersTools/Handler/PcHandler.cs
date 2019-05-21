@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
+using GameMastersTools.View;
 using GameMastersTools.ViewModel;
 
 namespace GameMastersTools.Handler
 {
-    class PcHandler
+    public class PcHandler
     {
         public PcViewModel PcViewModel { get; set; }
 
@@ -20,19 +23,29 @@ namespace GameMastersTools.Handler
             PcViewModel = pcViewModel;
         }
 
-        public void CreatePc()
+        public async void CreatePc()
         {
-            PcViewModel.PcSingleton.PostPc(
-                PcViewModel.PcName,
-                PcViewModel.PcDescription);
+            try
+            {
+                    // Checks if playername exists, if yes throw an exception
+                    PlayerNameExists();
+                
+                    PcViewModel.PcSingleton.PostPc(
+                    PcViewModel.PcName,
+                    PcViewModel.PcDescription);
 
-            // Making sure we update the sorted list whenever
-            // an object is added or deleted from the main observable collection
+                // Making sure we update the sorted list whenever
+                // an object is added or deleted from the main observable collection
 
 
-            PC pc = new PC(PcViewModel.PcName, PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
-            PcViewModel.UserPcs.Add(pc);
-
+                PC pc = new PC(PcViewModel.PcName, PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
+                PcViewModel.UserPcs.Add(pc);
+            }
+            catch (Exception e)
+            {
+                // Catching the exception and displays the message to the user
+                await new MessageDialog(e.Message).ShowAsync();
+            }
         }
 
         public void SetSelectedPc(PC selectedPc)
@@ -68,6 +81,17 @@ namespace GameMastersTools.Handler
 
             // Making sure we update the sorted list whenever an object is added or deleted to the main observable collection
             PcViewModel.UserPcs.Remove(PcViewModel.SelectedPc);
+            
+            // Temp solution | navigates to frontpage
+            //
+            //Frame frame = Window.Current.Content as Frame;
+            //frame?.Navigate(typeof(MainPage));
+
+            //if (frame != null && frame.CanGoBack)
+            //{
+            //    frame.GoBack();
+            //}
+
         }
 
         public void UpdatePc()
@@ -75,6 +99,18 @@ namespace GameMastersTools.Handler
             PcViewModel.PcSingleton.UpdatePc(PcViewModel.SelectedPc);
         }
 
+        public bool PlayerNameExists()
+        {
+            foreach (var player in PcViewModel.UserPcs)
+            {
+                if (PcViewModel.PcName == player.PcName)
+                {
+                    throw new Exception("Player name already exists");
+
+                }
+            }
+            return true;
+        }
 
     }
 }
