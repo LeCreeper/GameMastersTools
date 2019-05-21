@@ -14,7 +14,7 @@ namespace GMToolsUnitTest
     [TestClass]
     public class UnitTest1
     {
-        //#region Login/Logout
+        #region Login/Logout
 
 
         //private UserViewModel userViewModel = new UserViewModel();
@@ -67,9 +67,9 @@ namespace GMToolsUnitTest
         //    mainPageViewModel.LogOut();
         //    Assert.IsNull(UserViewModel.LoggedInUser); }
        
-      //#endregion
+       #endregion
 
-        //#region CreateUserTest WIP
+        #region CreateUserTest WIP
         //// Name is empty, password is empty, password is below limit, password is below limit, both are below limit
 
         //[TestMethod]
@@ -117,9 +117,9 @@ namespace GMToolsUnitTest
         //    }
         //}
 
-        //#endregion
+        #endregion
 
-        //#region PlayerCharacterTest
+        #region PlayerCharacterTest
 
         //public void NameCanBe_TheSameAsExisting_ReturnFalse()
         //{
@@ -131,15 +131,9 @@ namespace GMToolsUnitTest
         //    // Assert
         //}
 
-        //#endregion
+        #endregion
 
-        [TestMethod]
-        public void LogOutTest2()
-        {   // Test whether the LogOut() method sets LoggedInUser = null
-            MainPageViewModel mainPageViewModel = new MainPageViewModel();
-            mainPageViewModel.LogOut();
-            Assert.IsNull(UserViewModel.LoggedInUser); }
-      
+       
         #region Create Campaign
 
         private CampaignVM campaignVm = new CampaignVM(); 
@@ -154,13 +148,6 @@ namespace GMToolsUnitTest
         }
 
       
-       
-
-         
-
-        
-
-
         public void CampaignNameAlreadyExistsTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
             //Tests that you can only add a campaign if the user doesn't already have a campaign with that name
