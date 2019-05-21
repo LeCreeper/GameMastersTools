@@ -67,7 +67,7 @@ namespace GMToolsUnitTest
             Assert.IsNull(UserViewModel.LoggedInUser); }
         #endregion
 
-
+         
 
         
     }
