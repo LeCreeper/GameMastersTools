@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GameMastersTools.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,7 +27,9 @@ namespace GameMastersTools.View
         public PCPage()
         {
             this.InitializeComponent();
+            
         }
+        NPCViewModel npcViewModel = new NPCViewModel();
 
         private void EnkanpButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -38,12 +41,17 @@ namespace GameMastersTools.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+
             PopUpAddNewRelativePanel.Visibility = Visibility.Collapsed;
+            npcViewModel.NPCTemplate();
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+
             PopUpAddNewRelativePanel.Visibility = Visibility.Visible;
+           
         }
 
         private void Page_Tapped(object sender, TappedRoutedEventArgs e)

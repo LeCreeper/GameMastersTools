@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameMastersTools.Model
 {
-    class Chapter
+    public class Chapter
     {
         public int CampaignId { get; set; }
 

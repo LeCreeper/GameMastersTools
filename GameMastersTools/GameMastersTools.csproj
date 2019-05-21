@@ -125,6 +125,7 @@
     <Compile Include="Handler\UserHandler.cs" />
     <Compile Include="Model\BaseProperties.cs" />
     <Compile Include="Model\Campaign.cs" />
+    <Compile Include="Model\CampaignPC.cs" />
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Encounter.cs" />
     <Compile Include="Model\Item.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\PcSingleton.cs" />
+    <Compile Include="ViewModel\ChapterDetailsViewModel.cs" />
     <Compile Include="ViewModel\ChapterListViewModel.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
@@ -149,6 +151,9 @@
     <Compile Include="ViewModel\CampaignVM.cs" />
     <Compile Include="View\CampaignPage.xaml.cs">
       <DependentUpon>CampaignPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChapterDetails.xaml.cs">
+      <DependentUpon>ChapterDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ChapterList.xaml.cs">
       <DependentUpon>ChapterList.xaml</DependentUpon>
@@ -238,6 +243,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="View\CampaignPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChapterDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

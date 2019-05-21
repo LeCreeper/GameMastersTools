@@ -9,7 +9,7 @@ using GameMastersTools.Model;
 
 namespace GameMastersTools.Persistency
 {
-    class GenericDbPersistency<T>
+    public class GenericDbPersistency<T>
     {
         private const string serverUrl = "https://gamemastertools3.azurewebsites.net";
 
@@ -118,6 +118,7 @@ namespace GameMastersTools.Persistency
                 try
                 {
                     var response = await client.PutAsJsonAsync(api, obj);
+                   
                 }
                 catch (Exception e)
                 {

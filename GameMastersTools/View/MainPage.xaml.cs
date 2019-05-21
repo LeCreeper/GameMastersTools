@@ -65,5 +65,13 @@ namespace GameMastersTools.View
                 MainFrame.Navigate(typeof(LorePage));
             }
         }
+
+        private void GoBackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                MainFrame.GoBack();
+            }
+        }
     }
 }
