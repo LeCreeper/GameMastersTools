@@ -21,8 +21,9 @@
 
         <RelativePanel
             Grid.Column="0"
+            Margin="20,0,0,0"
             Padding="25,0,0,0"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             BorderBrush="White"
             BorderThickness="2,2,2,2"

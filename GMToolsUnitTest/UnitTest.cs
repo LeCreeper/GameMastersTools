@@ -2,6 +2,7 @@
 using System;
 using Windows.Security.Cryptography.Core;
 using Windows.UI.Popups;
+using GameMastersTools.Handler;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 using GameMastersTools.View;
@@ -65,7 +66,8 @@ namespace GMToolsUnitTest
         //    MainPageViewModel mainPageViewModel = new MainPageViewModel();
         //    mainPageViewModel.LogOut();
         //    Assert.IsNull(UserViewModel.LoggedInUser); }
-        //#endregion
+       
+      //#endregion
 
         //#region CreateUserTest WIP
         //// Name is empty, password is empty, password is below limit, password is below limit, both are below limit
@@ -131,6 +133,13 @@ namespace GMToolsUnitTest
 
         //#endregion
 
+        [TestMethod]
+        public void LogOutTest2()
+        {   // Test whether the LogOut() method sets LoggedInUser = null
+            MainPageViewModel mainPageViewModel = new MainPageViewModel();
+            mainPageViewModel.LogOut();
+            Assert.IsNull(UserViewModel.LoggedInUser); }
+      
         #region Create Campaign
 
         private CampaignVM campaignVm = new CampaignVM(); 
@@ -144,7 +153,13 @@ namespace GMToolsUnitTest
             Assert.IsFalse(campaignVm.AddIsSuccessful);
         }
 
-        [TestMethod]
+      
+       
+
+         
+
+        
+
 
         public void CampaignNameAlreadyExistsTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
@@ -180,5 +195,6 @@ namespace GMToolsUnitTest
         }
 
         #endregion
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,7 +20,7 @@ using GameMastersTools.Singleton;
 
 namespace GameMastersTools.ViewModel
 {
-    class PcViewModel : INotifyPropertyChanged
+    public class PcViewModel : INotifyPropertyChanged
     {
         // Fields
         private ObservableCollection<PC> _userPcs;
@@ -46,6 +47,7 @@ namespace GameMastersTools.ViewModel
 
         public static PC SelectedPc { get; set; }
         public PcHandler PcHandler { get; set; }
+        
         public string  PcName { get; set; }
         public string PcDescription { get; set; }
         public int UserId { get; set; }
@@ -63,6 +65,9 @@ namespace GameMastersTools.ViewModel
                 FilterPc();
             }
         }
+
+        public string SaveMessage { get; set; }
+
         // ICommands
         public ICommand SelectedPcCommand
         {
@@ -146,6 +151,12 @@ namespace GameMastersTools.ViewModel
                 }
             }
         }
+
+        public int PcCount()
+        {
+            return UserPcs.Count();
+        } 
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
