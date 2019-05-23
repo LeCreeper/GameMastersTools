@@ -183,5 +183,91 @@ namespace GMToolsUnitTest
 
         #endregion
 
+        #region CreateUserUnitTests
+        // Name is belowlimit, password is belowlimit, Name is null, password is null, password is below limit, Name contains special characters.
+
+        [TestMethod]
+        public void UserNameCanBe_BelowLimit_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+            // Add
+            vm.UserName = "Bob";
+            vm.UserPassword = "123456";
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+     }
+
+        [TestMethod]
+        public void UserNameCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = null;
+            vm.UserPassword = "123456";
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+            }
+
+        [TestMethod]
+        public void UserPasswordCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "ASuitableUserName";
+            vm.UserPassword = null;
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+            }
+
+        [TestMethod]
+        public void UserPasswordCanBe_BelowLimit_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "Bobbiezz";
+            vm.UserPassword = "12345";
+
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void UserNameCanHave_SpecialCharacters_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "#13337!";
+            vm.UserPassword = "12345678";
+
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+        }
+
+        #endregion
+
+
+
     }
 }
