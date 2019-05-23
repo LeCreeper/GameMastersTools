@@ -194,6 +194,8 @@ namespace GameMastersTools.Persistency
             }
         }
 
+
+
         /// <summary>
         /// Checks if username already exists, if it does, returns null. Otherwise, go and create the user in the database and navigate to login page
         /// </summary>
@@ -231,7 +233,7 @@ namespace GameMastersTools.Persistency
                                 {
                                     // If name already exist, inform the user then return null 
                                     //usm.UserErrorMessage = $"Name {name} is already in use. ";
-                                    await new MessageDialog($"Name {name} is already in use.").ShowAsync();
+                                    throw new Exception();
                                     return null;
                                 }
                             }
@@ -260,7 +262,9 @@ namespace GameMastersTools.Persistency
                 }
                 catch (Exception e)
                 {
-                    await new MessageDialog(e.Message).ShowAsync();
+                    await new MessageDialog($"Name {name} is already in use.\n\n" + e.Message).ShowAsync();
+
+                    //await new MessageDialog(e.Message).ShowAsync();
                     //TODO remember to catch
                     throw;
                 }

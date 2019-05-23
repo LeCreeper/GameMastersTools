@@ -66,10 +66,10 @@ namespace GameMastersTools.Persistency
 
                     if (!(response.IsSuccessStatusCode))
                     {
-                        throw new HttpRequestException("Player did not get added to the database, please try again\n\n" + response.StatusCode);
+                        throw new HttpRequestException("Something went wrong, your object did not get added to the database, please try again\n\n" + response.StatusCode);
                     }
 
-                    
+
                 }
                 catch (HttpRequestException ex)
                 {

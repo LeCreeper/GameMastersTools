@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Networking.NetworkOperators;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -17,6 +18,7 @@ using GameMastersTools.Annotations;
 using GameMastersTools.Common;
 using GameMastersTools.Handler;
 using GameMastersTools.Model;
+using GameMastersTools.Persistency;
 using GameMastersTools.View;
 
 namespace GameMastersTools.ViewModel
@@ -35,12 +37,12 @@ namespace GameMastersTools.ViewModel
                 UserErrorMessage = "Ok";
                 _userName = value;
 
-                if (value.Length < 6)
+                if (value != null && value.Length < 4)
                 {
                     NameErrorVisibility = "Visible";
-                    UserErrorMessage = $"Your username length needs to be greater than {_userName.Length} characters | At least 6";
+                    UserErrorMessage = $"Your username length needs to be greater than {_userName.Length} characters | At least 4";
                 }
-                else if (value.Length > 20)
+                else if (value != null && value.Length > 20)
                 {
                     NameErrorVisibility = "Visible";
                     UserErrorMessage = $"Username needs to be less than {_userName.Length} | Max 20 characters";
@@ -62,9 +64,9 @@ namespace GameMastersTools.ViewModel
 
                 PasswordErrorMessage = "Ok";
 
-                if (value.Length < 8)
+                if (value != null && value.Length < 6)
                 {
-                    PasswordErrorMessage = $"Password length needs to be greater than {_userPassword.Length} characters | At least 8";
+                    PasswordErrorMessage = $"Password length needs to be greater than {_userPassword.Length} characters | At least 6";
                 }
             }
         }
@@ -122,7 +124,6 @@ namespace GameMastersTools.ViewModel
         #endregion
 
 
-        // HandlerClass | Ikke helt sikker på hvad formålet med den her er endnu, om vi overhovedet vil beholde den
         public UserHandler UserHandler { get; set; }
 
         // AddUser ICommand -> RelayCommand
@@ -141,6 +142,8 @@ namespace GameMastersTools.ViewModel
             set { _goBackCommand = value; }
         }
 
+        public List<User> Users { get; set; }
+
         //private string _goBack;
         //public string GoBack
         //{
@@ -153,11 +156,14 @@ namespace GameMastersTools.ViewModel
         //    }
         //} 
 
+
         // Constructor
         public CreateUserViewModel()
         {
 
             UserHandler = new Handler.UserHandler(this);
+
+            Users = GenericDbPersistency<User>.GetObj("api/users").Result;
 
         }
 
@@ -176,60 +182,40 @@ namespace GameMastersTools.ViewModel
         // Add user method | Tjekker om navn og password har de rigtige længder,
         // hvis det er tilfældet, kører den en database metode (Hold musen over CheckThenPost metode for mere info)
 
+
+        
+
+        
+
         public async void Add(string name, string password)
         {
             User user = new User(name, password);
-            
 
-            if (name != null && name.Length > 5 && name.Length < 21)
-            {
-                if (!Regex.IsMatch(name, "\\W"))
-                { 
-                    if (password.Length > 7)
-                    {
-                        if (UserPassword == UserPasswordRepeat)
-                        { 
-                            //await Persistency.DatabasePersistency.CheckThenPost(user, name);
-                            try
-                            {
-                                await Persistency.DatabasePersistency.CheckThenPost(user, name);
-                            }
-                            catch (Exception e)
-                            {
-                                await new MessageDialog("Noget er gået galt\n" + e.Message).ShowAsync();
-                            
-                            }
-                        }
-                    }
-                }
 
-                // If you try and make a name with any special characters
-                UserErrorMessage = "Name can not contain any special characters";
-
-            }
+            //try
+            //  {
+            GenericDbPersistency<User>.PostObj(user, "api/users");
+            UserHandler.NavigateFrontPage();
+            await new MessageDialog($"Succesfully added {name} to the database. You can now log in.").ShowAsync();
+            //}                 
+            //catch (Exception e)
+            //
+            /// //                {
+            // await new MessageDialog(e.Message).ShowAsync();
+            //                }
         }
 
-        public string CheckForSpecialChars(string input)
-        {
-            try
-            {
-                bool isPossible = Regex.IsMatch(input, "\\W");
-                if (isPossible)
-                {
-                    throw new ArgumentException("Name can only be normal letters and numbers");
-                }
 
-                return input;
-            }
-            catch (ArgumentException ex)
-            {
-                new MessageDialog(ex.Message);
-                return null;
-            }
 
-            
 
-        }
+
+
+
+
+
+        
+
+        
 
         #region OnPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

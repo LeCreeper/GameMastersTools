@@ -102,6 +102,21 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal">
 
 
+                <!--  ArrowLeft  -->
+                <Button
+                    Margin="5,5,0,5"
+                    Background="#FFE65757"
+                    BorderBrush="#323232"
+                    BorderThickness="1,1,1,1"
+                    Click="ButtonBase_OnClick"
+                    ToolTipService.ToolTip="Back to players page">
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="25"
+                        Foreground="White"
+                        Text="&#xE72B;" />
+
+                </Button>
                 <Button
                     Margin="5,5,0,5"
                     Background="#00a651"
@@ -156,7 +171,7 @@
                 MinWidth="300"
                 FontSize="20"
                 Foreground="#323232"
-                PlaceholderText="Name"
+                PlaceholderText="Name (required)"
                 Text="{Binding PcName, Mode=TwoWay}" />
             <TextBox
                 Name="PopUpDescriptionTextBox"
@@ -164,7 +179,7 @@
                 AcceptsReturn="True"
                 FontSize="17"
                 Foreground="#323232"
-                PlaceholderText="Description"
+                PlaceholderText="Description (required)"
                 RelativePanel.Above="PopupButton"
                 RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.AlignRightWithPanel="True"

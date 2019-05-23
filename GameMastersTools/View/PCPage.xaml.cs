@@ -68,5 +68,12 @@ namespace GameMastersTools.View
         //{
         //    EditStackPanel.Visibility = Visibility.Collapsed;
         //}
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
+        }
     }
 }
