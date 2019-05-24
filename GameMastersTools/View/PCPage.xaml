@@ -162,7 +162,8 @@
             VerticalAlignment="Center"
             BorderBrush="#cfcfcf"
             BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
+            Visibility="Collapsed"
+            >
             <RelativePanel.Background>
                 <SolidColorBrush Opacity="0.9" Color="White" />
             </RelativePanel.Background>
