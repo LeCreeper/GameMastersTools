@@ -280,7 +280,55 @@ namespace GMToolsUnitTest
 
         #endregion
 
+        #region CreatePCTests
 
+        [TestMethod]
+        //[ExpectedException(typeof(Exception), "You need a name")]
+        public void PlayerNameCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = null;
+            pcvm.PcDescription = "A description";
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            //Assert.ThrowsException<>()
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void PlayerDescriptionCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = "ANamename";
+            pcvm.PcDescription = null;
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void PlayerNameCanBe_AlreadyExists_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = "Crane";
+            pcvm.PcDescription = "A description";
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+        #endregion
 
     }
 }

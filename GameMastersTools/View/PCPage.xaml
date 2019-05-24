@@ -162,7 +162,7 @@
             VerticalAlignment="Center"
             BorderBrush="#cfcfcf"
             BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
+            Visibility="Visible">
             <RelativePanel.Background>
                 <SolidColorBrush Opacity="0.9" Color="White" />
             </RelativePanel.Background>
@@ -173,6 +173,14 @@
                 Foreground="#323232"
                 PlaceholderText="Name (required)"
                 Text="{Binding PcName, Mode=TwoWay}" />
+            <TextBlock
+                Name="ErrorTextBox"
+                Padding="8,0,0,0"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="Crimson"
+                RelativePanel.RightOf="PopUpNameTextBox"
+                Text="{Binding ErrorMessage}" />
             <TextBox
                 Name="PopUpDescriptionTextBox"
                 Margin="0,5,0,0"
