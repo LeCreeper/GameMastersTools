@@ -41,8 +41,8 @@ namespace GameMastersTools.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
         public ICommand TemplateCommand { get; set; }
-        
-        
+
+        public static NPC StaticSelectedNpc { get; set; }
 
         /// <summary> This property is used to filter the list of NPCs. </summary>
         public string FilterText
@@ -66,6 +66,7 @@ namespace GameMastersTools.ViewModel
             set
             {
                 _selectedNpc = value;
+                StaticSelectedNpc = _selectedNpc;
                 OnPropertyChanged();
             }
         }
@@ -115,6 +116,7 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+        
 
         #endregion
 
@@ -143,6 +145,8 @@ namespace GameMastersTools.ViewModel
         {
             Description = "Gender: \nRace: \nVoice: \nPersonality: \nLikes: \nDislikes: \nQuirks: ";
         }
+
+        
 
         /// <summary> This method adds NPCs, whose names doesn't already exist, to the database, and reloads the list of NPCs.(NPCs) </summary>
         public void AddNPC()
@@ -173,18 +177,26 @@ namespace GameMastersTools.ViewModel
            
         }
 
+        
+        
+
+
         /// <summary> This method loads NPCs from the database that matches the logged in user's ID, as well as refreshing NPCsToBeFiltered </summary>
         public void GetNPCs()
         {
+           
             foreach (var npc in GenericDbPersistency<NPC>.GetObj(PostNGet).Result)
             {
                 if (npc.UserId == UserViewModel.LoggedInUserId)
                 {
                     NPCs.Add(npc);
-                    NPCsToBeFiltered = NPCs;
                     OnPropertyChanged();
                 }
+                
             }
+            
+            NPCsToBeFiltered = NPCs;
+            
         }
 
         
@@ -204,12 +216,12 @@ namespace GameMastersTools.ViewModel
         }
 
         /// <summary> This method updates the selected NPC that is being edited. It is called from NPCPage.xaml.cs </summary>
-        public void UpdateNPC()
+        public static void UpdateNPC()
         {
             
-            if (selectedNPC != null)
+            if (StaticSelectedNpc != null)
             {
-                GenericDbPersistency<NPC>.UpdateObj(selectedNPC, PutNDelete + selectedNPC.NPCId);
+                GenericDbPersistency<NPC>.UpdateObj(StaticSelectedNpc, PutNDelete + StaticSelectedNpc.NPCId);
             }
             else
             {
