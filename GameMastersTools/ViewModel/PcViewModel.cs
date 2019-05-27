@@ -29,11 +29,14 @@ namespace GameMastersTools.ViewModel
         private ICommand _selectedPcCommand;
         private ICommand _deletePcCommand;
         private ICommand _updatePcCommand;
+        private ICommand _timerCommand;
         private string _errorMessage;
 
 
         // Properties
         public PcSingleton PcSingleton { get; set; }
+
+        public List<PC> ppp;
 
         public ObservableCollection<PC> UserPcs
         {
@@ -106,6 +109,12 @@ namespace GameMastersTools.ViewModel
             set { _updatePcCommand = value; }
         }
 
+        //public ICommand TimerCommand
+        //{
+        //    get { return _timerCommand ?? (_timerCommand = new RelayCommand(PcHandler.Timer)); }
+        //    set { _timerCommand = value; }
+        //}
+
         // Constructor
         public PcViewModel()
         {
@@ -117,11 +126,13 @@ namespace GameMastersTools.ViewModel
 
             SortPc();
 
+            ErrorMessage = "";
+
         }
 
         public void SortPc()
         {
-            UserPcs = new ObservableCollection<PC>(PcSingleton.Pcs.Where(e => e.UserId == UserViewModel.LoggedInUserId));
+            UserPcs = new ObservableCollection<PC>(PcSingleton.Pcs.Where(e => e.UserId == UserViewModel.LoggedInUserId).OrderBy(e => e.PcName));
 
             //var userPcs = from pc in PcSingleton.Pcs
             //    where pc.UserId == UserViewModel.LoggedInUserId
@@ -148,7 +159,7 @@ namespace GameMastersTools.ViewModel
                     e.UserId == UserViewModel.LoggedInUserId &&
                     (e.PcName.ToLower().Contains(FilterText.ToLower()) ||
                     e.PcDescription.ToLower().Contains(FilterText.ToLower()))
-                ));
+                ).OrderBy(e => e.PcName));
         }
 
 
@@ -164,6 +175,8 @@ namespace GameMastersTools.ViewModel
                 }
             }
         }
+
+
 
         public int PcCount()
         {

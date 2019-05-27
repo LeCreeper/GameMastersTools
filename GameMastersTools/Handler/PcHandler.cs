@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,6 +17,8 @@ namespace GameMastersTools.Handler
 {
     public class PcHandler
     {
+        private Timer timer;
+
         public PcViewModel PcViewModel { get; set; }
         public bool IsSuccesful = false;
         
@@ -105,7 +109,7 @@ namespace GameMastersTools.Handler
             PcViewModel.PcSingleton.UpdatePc(PcViewModel.SelectedPc);
         }
 
-        public async void PlayerNameExists()
+        public void PlayerNameExists()
         {
             //try
             //{
@@ -146,6 +150,74 @@ namespace GameMastersTools.Handler
             //}
 
             
+        }
+
+        
+
+
+
+        public void Timer()
+        {
+
+
+
+
+            timer = new Timer(SaveObj, null, 3000, 5000);
+
+
+
+            ResetTimer();
+
+            //PcViewModel.ErrorMessage = "";
+
+            
+            //await Task.Delay(3000);
+           
+
+          
+            //    PcViewModel.ErrorMessage = "Changes saved";
+            //    await Task.Delay(1000);
+            //    PcViewModel.ErrorMessage = "";
+                
+            
+            
+            
+            
+
+        }
+
+ 
+
+        public void ResetTimer()
+        {
+            
+            timer.Change(TimeSpan.FromMilliseconds(3000), TimeSpan.FromMilliseconds(5000));
+        }
+
+        public async void SaveObj(object state)
+        {
+            
+
+             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    async () =>
+                {
+                    PcViewModel.ErrorMessage = "Saving...";
+
+                    await Task.Delay(1000);
+
+                    PcViewModel.ErrorMessage = "Changes has been saved";
+
+           
+
+
+                    // await Task.Delay(1000);
+
+                    // PcViewModel.ErrorMessage = "_";
+
+
+                }
+            );
+     
         }
 
     }
