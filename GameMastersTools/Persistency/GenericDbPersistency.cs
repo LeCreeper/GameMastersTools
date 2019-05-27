@@ -13,14 +13,10 @@ namespace GameMastersTools.Persistency
     {
         private const string serverUrl = "https://gamemastertools3.azurewebsites.net";
 
-
         public static async Task<List<T>> GetObj(string api)
         {
-            
             HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
-
-            
 
             using (HttpClient client = new HttpClient(handler))
             {

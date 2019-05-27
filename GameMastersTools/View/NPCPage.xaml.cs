@@ -25,12 +25,12 @@ namespace GameMastersTools.View
     public sealed partial class NPCPage : Page
     {
 
-        private NPCViewModel npcViewModel;
+       
         private bool EditInProgress { get; set; }
         public NPCPage()
         {
             this.InitializeComponent();
-            npcViewModel = new NPCViewModel();
+         
             EditInProgress = false;
         }
         
@@ -54,7 +54,7 @@ namespace GameMastersTools.View
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             PopupAddNewStackPanel.Visibility = Visibility.Visible;
-            npcViewModel.Description = "Gender: \nRace: \nVoice: \nPersonality: \nLikes: \nDislikes: \nQuirks: ";
+           
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace GameMastersTools.View
 
                 case true:
                     
-                    npcViewModel.UpdateNPC();
+                    NPCViewModel.UpdateNPC();
                     EditButton.Content = "Edit Mode";
                     EditInProgress = false;
                     DetailedNPCDescription.IsReadOnly = true;
@@ -98,7 +98,7 @@ namespace GameMastersTools.View
             EditButton.Content = "Edit Mode";
             EditInProgress = false;
             DetailedNPCDescription.IsReadOnly = true;
-            npcViewModel.selectedNPC = (NPC) ListNPCS.SelectedItem;
+            NPCViewModel.StaticSelectedNpc = (NPC) ListNPCS.SelectedItem;
 
         }
 
