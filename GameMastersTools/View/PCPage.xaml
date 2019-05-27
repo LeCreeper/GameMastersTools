@@ -24,13 +24,14 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height ="180"/>
+                <RowDefinition Height ="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height ="1*" />
             </Grid.RowDefinitions>
 
             <Border
-                Grid.Row="0"
+                Grid.Row="1"
                 Background="#eeeeee"
                 CornerRadius="2,2,2,2">
                 <TextBox
@@ -43,7 +44,7 @@
             </Border>
             <GridView
                 x:Name="PcGridView"
-                Grid.Row="1"
+                Grid.Row="2"
                 Padding="0,4,0,0"
                 ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -99,11 +100,11 @@
 
             </GridView>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
 
 
                 <!--  ArrowLeft  -->
-                <Button
+                <!--<Button
                     Margin="5,5,0,5"
                     Background="#FFE65757"
                     BorderBrush="#323232"
@@ -116,7 +117,7 @@
                         Foreground="White"
                         Text="&#xE72B;" />
 
-                </Button>
+                </Button>-->
                 <Button
                     Margin="5,5,0,5"
                     Background="#00a651"

@@ -18,11 +18,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height ="180"/>
+            <RowDefinition Height ="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height ="1*" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="1">
             <StackPanel Padding="4">
                 <Border Background="#eeeeee">
                     <TextBlock
@@ -31,26 +33,26 @@
                         FontSize="24"
                         FontWeight="Bold"
                         Foreground="#323232"
-                        Text="{Binding SelectedPc.PcName}" />
+                        Text="{Binding SelectedPc.PcName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
                 <Border Background="#eeeeee">
                     <TextBlock
                         Margin="4"
                         FontSize="20"
                         Foreground="#323232"
-                        Text="{Binding SelectedPc.PcDescription}"
+                        Text="{Binding SelectedPc.PcDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap" />
                 </Border>
 
             </StackPanel>
         </ScrollViewer>
         <StackPanel
-            Grid.Row="1"
+            Grid.Row="3"
             Padding="4"
             Orientation="Horizontal">
 
             <!--  ArrowLeft  -->
-            <Button
+            <!--<Button
                 Background="#FFE65757"
                 BorderBrush="#323232"
                 BorderThickness="1,1,1,1"
@@ -62,7 +64,7 @@
                     Foreground="White"
                     Text="&#xE72B;" />
 
-            </Button>
+            </Button>-->
 
             <!--  Edit Button  -->
             <Button
@@ -123,7 +125,7 @@
         </StackPanel>
 
         <!--  Grid to hold the Edit Panel that pops up  -->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="*" />
@@ -139,6 +141,7 @@
             <RelativePanel
                 Name="PopUpEditRelativePanel"
                 Grid.Row="1"
+                Grid.RowSpan="2"
                 Grid.Column="1"
                 Padding="5"
                 BorderBrush="#cfcfcf"

@@ -37,6 +37,9 @@ namespace GameMastersTools.ViewModel
         public PcSingleton PcSingleton { get; set; }
 
         public List<PC> ppp;
+        private string _pcDescription;
+        private string _pcName;
+        private static PC _selectedPc;
 
         public ObservableCollection<PC> UserPcs
         {
@@ -61,11 +64,34 @@ namespace GameMastersTools.ViewModel
 
         //public ObservableCollection<string> Avatars { get; set; }
 
-        public static PC SelectedPc { get; set; }
+        public static PC SelectedPc
+        {
+            get => _selectedPc;
+            set { _selectedPc = value; }
+        }
+
         public PcHandler PcHandler { get; set; }
 
-        public string PcName { get; set; }
-        public string PcDescription { get; set; }
+        public string PcName
+        {
+            get => _pcName;
+            set
+            {
+                _pcName = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string PcDescription
+        {
+            get => _pcDescription;
+            set
+            {
+                _pcDescription = value; 
+                OnPropertyChanged();
+            }
+        }
+
         public int UserId { get; set; }
 
         public string FilterText
