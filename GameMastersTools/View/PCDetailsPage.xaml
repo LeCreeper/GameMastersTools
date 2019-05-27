@@ -18,7 +18,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height ="180"/>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+        <Grid.RowDefinitions>
             <RowDefinition Height ="1*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height ="1*" />
@@ -221,5 +226,6 @@
 
             </RelativePanel>
         </Grid>
+    </Grid>
     </Grid>
 </Page>
