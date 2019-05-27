@@ -30,13 +30,24 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height ="0"/>
+                <RowDefinition Height ="1*"/>
                 <RowDefinition Height ="1*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height ="1*" />
             </Grid.RowDefinitions>
 
-            <Border
+            <TextBlock
+                Grid.Row="0"
+                Text="PCs"
+                Margin="15"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="45"
+                FontWeight="Bold"
+                Foreground="#FFE65757"
+            />
+
+                <Border
                 Grid.Row="1"
                 Background="#eeeeee"
                 CornerRadius="2,2,2,2">
