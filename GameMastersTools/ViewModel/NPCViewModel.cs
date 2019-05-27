@@ -119,8 +119,7 @@ namespace GameMastersTools.ViewModel
         
 
         #endregion
-
-
+        
         #region Constructor
 
         public NPCViewModel()
