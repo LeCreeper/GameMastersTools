@@ -134,7 +134,7 @@ namespace GMToolsUnitTest
         #region Create Campaign
 
         private CampaignVM campaignVm = new CampaignVM(); 
-        [TestMethod]
+        //[TestMethod]
         public void CampaignNameIsTooLongTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
             //This method tests if the campaign name has a length below the valid limit
@@ -144,7 +144,7 @@ namespace GMToolsUnitTest
             Assert.IsFalse(campaignVm.AddIsSuccessful);
         }
 
-        [TestMethod]
+        //[TestMethod]
 
         public void CampaignNameAlreadyExistsTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
@@ -171,7 +171,7 @@ namespace GMToolsUnitTest
             Assert.IsTrue(campaignVm.DeleteIsSuccessful);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void DeleteNullCampaignTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
             //Tests that you can't delete a campaign before selecting one
@@ -180,5 +180,43 @@ namespace GMToolsUnitTest
         }
 
         #endregion
+
+        private ChapterListViewModel chaptervm = new ChapterListViewModel();
+
+        // Tests that the method creates an object of Chapter
+        [TestMethod]
+        public void CreateChapter()
+        {
+            UserViewModel.LoggedInUserId = 1;
+            CampaignVM.SelectedCampaignId = 1;
+            chaptervm.Name = "A chapter2";
+            chaptervm.Description = "geh";
+            chaptervm.AddChapter();
+            Assert.IsTrue(chaptervm.CreateChapterIsSuccessful);
+        }
+
+        [TestMethod]
+
+        public void ChapterNameAlreadyExists()
+        {
+            UserViewModel.LoggedInUserId = 1;
+            CampaignVM.SelectedCampaignId = 1;
+            chaptervm.LoadChapters();
+            chaptervm.Name = "A Chapter";
+            chaptervm.Description = "geh";
+            chaptervm.AddChapter();
+            Assert.IsTrue(chaptervm.NameAlreadyExists);
+        }
+
+        [TestMethod]
+
+        public void DeleteChapterTest()
+        {
+            Chapter chapter = new Chapter("Et Kapitel", "En beskrivelse", 1);
+            GenericDbPersistency<Chapter>.PostObj(chapter, "api/Chapters");
+            chaptervm.SelectedChapter = chapter;
+            chaptervm.DeleteChapter();
+            Assert.IsTrue(chaptervm.DeleteChapterIsSuccessful);
+        }
     }
 }

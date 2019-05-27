@@ -139,6 +139,10 @@
                         <ColumnDefinition Width="1.75*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
 
                     <Popup x:Name="DeleteChapterPopUp"
                            Grid.Column="0"
@@ -173,6 +177,7 @@
 
                     <StackPanel x:Name="ChapterListView"
                     Grid.Column="0"
+                    Grid.RowSpan="2"
                     Margin="10"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -202,12 +207,12 @@
 
                     <StackPanel x:Name="SeachBarStackPanel"
                     Grid.Column="1"
-                    Margin="10,55,10,0"
+                    Grid.Row="1"
+                    
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
+                    VerticalAlignment="Top">
 
-                        <TextBlock Margin="10" Text="Seach Chapters" />
+                        <TextBlock Margin="0,0,0,5" Text="Search Chapters" />
                         <SearchBox />
                     </StackPanel>
                 </Grid>

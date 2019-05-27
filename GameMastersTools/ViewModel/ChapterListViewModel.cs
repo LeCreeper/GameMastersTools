@@ -15,7 +15,7 @@ using GameMastersTools.Persistency;
 
 namespace GameMastersTools.ViewModel
 {
-    class ChapterListViewModel : INotifyPropertyChanged
+    public class ChapterListViewModel : INotifyPropertyChanged
     {
         #region BackingFields
 
@@ -94,6 +94,12 @@ namespace GameMastersTools.ViewModel
 
         public static int SelectedChapterId { get; set; }
 
+        public bool CreateChapterIsSuccessful { get; set; }
+
+        public bool NameAlreadyExists { get; set; }
+
+        public bool DeleteChapterIsSuccessful { get; set; }
+
         #endregion
 
         #region Constructor
@@ -169,20 +175,22 @@ namespace GameMastersTools.ViewModel
 
         public void AddChapter()
         {
-            bool nameAlreadyExists = false;
+            NameAlreadyExists = false;
+            CreateChapterIsSuccessful = false;
+
             foreach (var chapter in Chapters)
             {
                 if (Name == chapter.ChapterName)
                 {
-                    nameAlreadyExists = true;
+                    NameAlreadyExists = true;
                 }
             }
 
-            if (nameAlreadyExists == false)
+            if (NameAlreadyExists == false)
             {
                 GenericDbPersistency<Chapter>.PostObj(new Chapter(Name, Description, CampaignVM.SelectedCampaignId), "api/Chapters");
-                Chapters = new ObservableCollection<Chapter>();
                 LoadChapters();
+                CreateChapterIsSuccessful = true;
             }
 
             else
@@ -204,17 +212,19 @@ namespace GameMastersTools.ViewModel
             }
 
             else try
-            {
-                GenericDbPersistency<Chapter>.DeleteObj("api/Chapters/", SelectedChapter.ChapterId);
-                Chapters = new ObservableCollection<Chapter>();
-                LoadChapters();
-            }
-            catch (Exception e)
-            {
-                new MessageDialog(e.Message);
-            }
+                {
+                    GenericDbPersistency<Chapter>.DeleteObj("api/Chapters/", SelectedChapter.ChapterId);
+                    Chapters = new ObservableCollection<Chapter>();
+                    LoadChapters();
+                    DeleteChapterIsSuccessful = true;
+
+                }
+                catch (Exception e)
+                {
+                    new MessageDialog(e.Message);
+                }
+
         }
-        //CampaignDBPersistency.LoadCampaigns().Result
 
         private void ClearNameAndDescription()
         {
