@@ -29,7 +29,7 @@ namespace GameMastersTools.Singleton
         public ObservableCollection<PC> Pcs { get; set; }
         
   
-        public PcSingleton()
+        private PcSingleton()
         {
            Pcs = new ObservableCollection<PC>();
             
