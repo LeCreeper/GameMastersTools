@@ -16,6 +16,8 @@ namespace GameMastersTools.Handler
     public class PcHandler
     {
         public PcViewModel PcViewModel { get; set; }
+        public bool IsSuccesful = false;
+        
 
         // Making sure the PcHandler is instantiated with the correct viewModel
         public PcHandler(PcViewModel pcViewModel)
@@ -27,19 +29,23 @@ namespace GameMastersTools.Handler
         {
             try
             {
-                    // Checks if playername exists, if yes throw an exception
-                    PlayerNameExists();
-                
+                // Checks if playername exists, if yes throw an exception
+                PlayerNameExists();
+                if (IsSuccesful)
+                {
                     PcViewModel.PcSingleton.PostPc(
-                    PcViewModel.PcName,
-                    PcViewModel.PcDescription);
+                        PcViewModel.PcName,
+                        PcViewModel.PcDescription);
 
-                // Making sure we update the sorted list whenever
-                // an object is added or deleted from the main observable collection
+                    // Making sure we update the sorted list whenever
+                    // an object is added or deleted from the main observable collection
 
+                    PC pc = new PC(PcViewModel.PcName, PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
+                    PcViewModel.UserPcs.Add(pc);
+                }
+                    
+                
 
-                PC pc = new PC(PcViewModel.PcName, PcViewModel.PcDescription, UserViewModel.LoggedInUserId);
-                PcViewModel.UserPcs.Add(pc);
             }
             catch (Exception e)
             {
@@ -99,17 +105,47 @@ namespace GameMastersTools.Handler
             PcViewModel.PcSingleton.UpdatePc(PcViewModel.SelectedPc);
         }
 
-        public bool PlayerNameExists()
+        public async void PlayerNameExists()
         {
-            foreach (var player in PcViewModel.UserPcs)
-            {
-                if (PcViewModel.PcName == player.PcName)
+            //try
+            //{
+                PcViewModel.ErrorMessage = "";
+;                if (PcViewModel.PcName == null)
                 {
-                    throw new Exception("Player name already exists");
-
+                    IsSuccesful = false;
+                    PcViewModel.ErrorMessage = "You need a name";
+                    return;
+                    //  throw new Exception("You need a name");
                 }
-            }
-            return true;
+
+                if (PcViewModel.PcDescription == null)
+                {
+                    IsSuccesful = false;
+                    PcViewModel.ErrorMessage = "Needs a description";
+                    return;
+                    //throw new Exception("Needs a description");
+                }
+
+                foreach (var player in PcViewModel.UserPcs)
+                {
+                    if (PcViewModel.PcName == player.PcName)
+                    {
+                        IsSuccesful = false;
+                        PcViewModel.ErrorMessage = "Player name already exists";
+                        return;
+                        //throw new Exception("Player name already exists");
+                    }
+                }
+
+            IsSuccesful = true;
+            //}
+
+            //catch (Exception e)
+            //{
+            //    await new MessageDialog(e.Message).ShowAsync();
+            //}
+
+            
         }
 
     }

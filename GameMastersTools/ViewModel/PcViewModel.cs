@@ -29,7 +29,9 @@ namespace GameMastersTools.ViewModel
         private ICommand _selectedPcCommand;
         private ICommand _deletePcCommand;
         private ICommand _updatePcCommand;
-        
+        private string _errorMessage;
+
+
         // Properties
         public PcSingleton PcSingleton { get; set; }
 
@@ -43,12 +45,23 @@ namespace GameMastersTools.ViewModel
             }
         }
 
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         //public ObservableCollection<string> Avatars { get; set; }
 
         public static PC SelectedPc { get; set; }
         public PcHandler PcHandler { get; set; }
-        
-        public string  PcName { get; set; }
+
+        public string PcName { get; set; }
         public string PcDescription { get; set; }
         public int UserId { get; set; }
 
@@ -80,7 +93,7 @@ namespace GameMastersTools.ViewModel
             get { return _createPcCommand ?? (_createPcCommand = new RelayCommand(PcHandler.CreatePc)); }
             set { _createPcCommand = value; }
         }
-        
+
         public ICommand DeletePcCommand
         {
             get { return _deletePcCommand ?? (_deletePcCommand = new RelayCommand(PcHandler.DeletePc)); }
@@ -89,37 +102,37 @@ namespace GameMastersTools.ViewModel
 
         public ICommand UpdatePcCommand
         {
-            get { return _updatePcCommand ?? (_updatePcCommand = new RelayCommand(PcHandler.UpdatePc));}
+            get { return _updatePcCommand ?? (_updatePcCommand = new RelayCommand(PcHandler.UpdatePc)); }
             set { _updatePcCommand = value; }
         }
-        
+
         // Constructor
         public PcViewModel()
         {
             PcSingleton = PcSingleton.Instance;
             PcHandler = new PcHandler(this);
-            
+
             // Having all the Players in the database loaded into the list from the start, then we sort it later, so it fits the logged in user
             UserPcs = PcSingleton.Pcs;
-            
+
             SortPc();
-            
+
         }
 
         public void SortPc()
         {
             UserPcs = new ObservableCollection<PC>(PcSingleton.Pcs.Where(e => e.UserId == UserViewModel.LoggedInUserId));
-            
+
             //var userPcs = from pc in PcSingleton.Pcs
             //    where pc.UserId == UserViewModel.LoggedInUserId
             //    select pc;
-            
+
 
             //foreach (var pc in userPcs)
             //{
             //    UserPcs.Add(pc);
             //}
-          
+
         }
 
 
@@ -131,14 +144,14 @@ namespace GameMastersTools.ViewModel
             if (_filterText == null) _filterText = "";
 
             UserPcs = new ObservableCollection<PC>(PcSingleton.Instance.Pcs.Where(
-                e => 
+                e =>
                     e.UserId == UserViewModel.LoggedInUserId &&
-                    (e.PcName.ToLower().Contains(FilterText.ToLower()) || 
+                    (e.PcName.ToLower().Contains(FilterText.ToLower()) ||
                     e.PcDescription.ToLower().Contains(FilterText.ToLower()))
                 ));
         }
 
- 
+
         // More testing needed - Can this change the frame in frame where it's needed in PlayerDetailsPage
         public void GoBack()
         {
@@ -155,7 +168,7 @@ namespace GameMastersTools.ViewModel
         public int PcCount()
         {
             return UserPcs.Count();
-        } 
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
