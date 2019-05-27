@@ -20,7 +20,7 @@
     <Grid>
 <Grid.Background>
     <ImageBrush
-        Stretch="None"
+        Stretch="UniformToFill"
         ImageSource="../Assets/LoginBackground.jpg"
         AlignmentY="Top"
         AlignmentX="Left"/>

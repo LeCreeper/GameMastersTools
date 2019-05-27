@@ -191,9 +191,6 @@
     <Compile Include="View\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SignUpPage2.xaml.cs">
-      <DependentUpon>SignUpPage2.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -299,10 +296,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SignUpPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SignUpPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
