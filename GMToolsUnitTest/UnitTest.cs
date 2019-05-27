@@ -2,6 +2,7 @@
 using System;
 using Windows.Security.Cryptography.Core;
 using Windows.UI.Popups;
+using GameMastersTools.Handler;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 using GameMastersTools.View;
@@ -13,7 +14,7 @@ namespace GMToolsUnitTest
     [TestClass]
     public class UnitTest1
     {
-        //#region Login/Logout
+        #region Login/Logout
 
 
         //private UserViewModel userViewModel = new UserViewModel();
@@ -65,9 +66,10 @@ namespace GMToolsUnitTest
         //    MainPageViewModel mainPageViewModel = new MainPageViewModel();
         //    mainPageViewModel.LogOut();
         //    Assert.IsNull(UserViewModel.LoggedInUser); }
-        //#endregion
+       
+       #endregion
 
-        //#region CreateUserTest WIP
+        #region CreateUserTest WIP
         //// Name is empty, password is empty, password is below limit, password is below limit, both are below limit
 
         //[TestMethod]
@@ -115,9 +117,9 @@ namespace GMToolsUnitTest
         //    }
         //}
 
-        //#endregion
+        #endregion
 
-        //#region PlayerCharacterTest
+        #region PlayerCharacterTest
 
         //public void NameCanBe_TheSameAsExisting_ReturnFalse()
         //{
@@ -129,8 +131,9 @@ namespace GMToolsUnitTest
         //    // Assert
         //}
 
-        //#endregion
+        #endregion
 
+       
         #region Create Campaign
 
         private CampaignVM campaignVm = new CampaignVM(); 
@@ -144,8 +147,8 @@ namespace GMToolsUnitTest
             Assert.IsFalse(campaignVm.AddIsSuccessful);
         }
 
-        //[TestMethod]
 
+        //[TestMethod]
         public void CampaignNameAlreadyExistsTest() //Husk at udkommentere message diaglogues, da testen ellers ikke vil køre!
         {
             //Tests that you can only add a campaign if the user doesn't already have a campaign with that name
@@ -180,6 +183,7 @@ namespace GMToolsUnitTest
         }
 
         #endregion
+
 
         private ChapterListViewModel chaptervm = new ChapterListViewModel();
 
@@ -218,5 +222,141 @@ namespace GMToolsUnitTest
             chaptervm.DeleteChapter();
             Assert.IsTrue(chaptervm.DeleteChapterIsSuccessful);
         }
+
+        #region CreateUserUnitTests
+        // Name is belowlimit, password is belowlimit, Name is null, password is null, password is below limit, Name contains special characters.
+
+        [TestMethod]
+        public void UserNameCanBe_BelowLimit_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+            // Add
+            vm.UserName = "Bob";
+            vm.UserPassword = "123456";
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+     }
+
+        [TestMethod]
+        public void UserNameCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = null;
+            vm.UserPassword = "123456";
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+            }
+
+        [TestMethod]
+        public void UserPasswordCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "ASuitableUserName";
+            vm.UserPassword = null;
+            
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+            }
+
+        [TestMethod]
+        public void UserPasswordCanBe_BelowLimit_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "Bobbiezz";
+            vm.UserPassword = "12345";
+
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void UserNameCanHave_SpecialCharacters_ReturnFalse()
+        {
+            // Arrange
+            CreateUserViewModel vm = new CreateUserViewModel();
+
+            // Add
+            vm.UserName = "#13337!";
+            vm.UserPassword = "12345678";
+
+            vm.UserHandler.CreateUser();
+
+            // Assert
+            Assert.IsFalse(vm.UserHandler.IsSuccesful);
+        }
+
+        #endregion
+
+        #region CreatePCTests
+
+        [TestMethod]
+        //[ExpectedException(typeof(Exception), "You need a name")]
+        public void PlayerNameCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = null;
+            pcvm.PcDescription = "A description";
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            //Assert.ThrowsException<>()
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void PlayerDescriptionCanBe_null_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = "ANamename";
+            pcvm.PcDescription = null;
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+
+        [TestMethod]
+        public void PlayerNameCanBe_AlreadyExists_ReturnFalse()
+        {
+            // Arrange
+            PcViewModel pcvm = new PcViewModel();
+            // Add
+            pcvm.PcName = "Crane";
+            pcvm.PcDescription = "A description";
+
+            pcvm.PcHandler.CreatePc();
+
+            // Assert
+            Assert.IsFalse(pcvm.PcHandler.IsSuccesful);
+        }
+        #endregion
+
+
     }
 }

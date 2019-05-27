@@ -92,10 +92,7 @@
                         Name="IconsListbox"
                         Grid.Row="1"
                         SelectionChanged="IconsListbox_OnSelectionChanged">
-
-
                         <ListBoxItem Name="Campaign">
-
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource MenuIcon}" Text="&#xE82D;" />
                                 <TextBlock Style="{StaticResource MenuValues}" Text="Campaigns" />
@@ -172,12 +169,11 @@
                 </Grid>
             </SplitView.Pane>
 
-
             <!--  MainFrame  -->
             <SplitView.Content>
                 <Frame Name="MainFrame" />
-
             </SplitView.Content>
         </SplitView>
+
     </Grid>
 </Page>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,14 +41,39 @@ namespace GameMastersTools.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PopupAddNewStackPanel.Visibility = Visibility.Collapsed;
+
+            PopUpAddNewRelativePanel.Visibility = Visibility.Collapsed;
             npcViewModel.NPCTemplate();
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            PopupAddNewStackPanel.Visibility = Visibility.Visible;
+
+            PopUpAddNewRelativePanel.Visibility = Visibility.Visible;
            
+        }
+
+        private void Page_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PCDetailsPage), sender);
+        }
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PCDetailsPage), sender);
+        }
+
+        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    EditStackPanel.Visibility = Visibility.Collapsed;
+        //}
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
         }
     }
 }

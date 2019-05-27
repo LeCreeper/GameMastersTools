@@ -15,9 +15,7 @@ namespace GameMastersTools.Persistency
 
         public static async Task<List<T>> GetObj(string api)
         {
-            
             HttpClientHandler handler = new HttpClientHandler();
-
             handler.UseDefaultCredentials = true;
 
             using (HttpClient client = new HttpClient(handler))
@@ -45,11 +43,14 @@ namespace GameMastersTools.Persistency
             }
         }
 
-
+        
         public static async void PostObj(T obj, string api)
         {
+            
             HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
+
+            
 
             using (HttpClient client = new HttpClient(handler))
             {
@@ -61,15 +62,17 @@ namespace GameMastersTools.Persistency
 
                     if (!(response.IsSuccessStatusCode))
                     {
-                        
-                        throw new Exception("Something went wrong\n\n" + response.StatusCode);
+                        throw new HttpRequestException("Something went wrong, your object did not get added to the database, please try again\n\n" + response.StatusCode);
                     }
+
+
                 }
-                catch (Exception ex)
+                catch (HttpRequestException ex)
                 {
                     //throw new Exception(ex.Message);
                     await new MessageDialog(ex.Message).ShowAsync();
-                    
+                
+                   
                 }
             }
         }

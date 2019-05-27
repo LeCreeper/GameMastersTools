@@ -24,14 +24,13 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="180" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border
-                Grid.Row="1"
+                Grid.Row="0"
                 Background="#eeeeee"
                 CornerRadius="2,2,2,2">
                 <TextBox
@@ -44,9 +43,8 @@
             </Border>
             <GridView
                 x:Name="PcGridView"
-                Grid.Row="2"
+                Grid.Row="1"
                 Padding="0,4,0,0"
-
                 ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <GridView.ItemTemplate>
@@ -57,7 +55,8 @@
                             HorizontalAlignment="Left"
                             Background="#eeeeee"
                             BorderBrush="#cfcfcf"
-                            BorderThickness="1,1,1,1">
+                            BorderThickness="1,1,1,1"
+                            Tapped="Grid_Tapped">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -68,10 +67,11 @@
                             <Border
                                 Name="TextBlockBorder2"
                                 Grid.Row="0"
-                                BorderBrush="#FFE65757"
+                                BorderBrush="#cfcfcf"
                                 BorderThickness="0,0,0,3">
                                 <TextBlock
                                     Name="PcNameTextBlock2"
+                                    Padding="4,0,0,0"
                                     FontSize="25"
                                     Foreground="#323232"
                                     Text="{Binding PcName}" />
@@ -86,21 +86,7 @@
                                 TextWrapping="WrapWholeWords" />
 
 
-                            <Border
-                                Grid.Row="2"
-                                Padding="5"
-                                CornerRadius="3,3,3,3">
-                                <Button
-                                    Name="EnkanpButton2"
-                                    Width="200"
-                                    HorizontalAlignment="Center"
-                                    Background="#FFE65757"
-                                    BorderBrush="White"
-                                    BorderThickness="1,1,1,1"
-                                    Click="EnkanpButton_OnClick"
-                                    Content="Details"
-                                    Foreground="White" />
-                            </Border>
+
                         </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
@@ -113,52 +99,60 @@
 
             </GridView>
 
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <Border CornerRadius="2,2,2,2">
-                    <Button
-                        Background="White"
-                        BorderBrush="Gray"
-                        BorderThickness="1,1,1,1"
-                        Click="Button_Click_2">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="20"
-                                FontWeight="Bold"
-                                Foreground="#323232"
-                                Text="&#xE710;" />
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
 
-                            <TextBlock
-                                Padding="4,0,0,0"
-                                Foreground="#323232"
-                                Text="Add new" />
-                        </StackPanel>
-                    </Button>
-                </Border>
 
-                <Border CornerRadius="2,2,2,2">
-                    <Button
-                        Background="#FFE65757"
-                        BorderBrush="#FFE65757"
-                        BorderThickness="1,1,1,1"
-                        Command="{Binding DeletePcCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="20"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="&#xE74D;" />
+                <!--  ArrowLeft  -->
+                <Button
+                    Margin="5,5,0,5"
+                    Background="#FFE65757"
+                    BorderBrush="#323232"
+                    BorderThickness="1,1,1,1"
+                    Click="ButtonBase_OnClick"
+                    ToolTipService.ToolTip="Back to players page">
+                    <TextBlock
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="25"
+                        Foreground="White"
+                        Text="&#xE72B;" />
 
-                        </StackPanel>
-                    </Button>
-                </Border>
+                </Button>
+                <Button
+                    Margin="5,5,0,5"
+                    Background="#00a651"
+                    BorderBrush="#323232"
+                    BorderThickness="1,1,1,1"
+                    Click="Button_Click_2">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="25"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="&#xE710;" />
+
+                        <TextBlock
+                            Padding="6,0,0,0"
+                            VerticalAlignment="Bottom"
+                            FontSize="17"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Add new" />
+                    </StackPanel>
+                </Button>
+
+
+
+
+
             </StackPanel>
         </Grid>
 
-        <!--  Popup stackpanel  -->
-        <StackPanel
-            Name="PopupAddNewStackPanel"
+        <!--  Popup StackPanel | Add new Player  -->
+
+        <RelativePanel
+            Name="PopUpAddNewRelativePanel"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Width="600"
@@ -168,51 +162,123 @@
             VerticalAlignment="Center"
             BorderBrush="#cfcfcf"
             BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
-            <StackPanel.Background>
+            Visibility="Collapsed"
+            >
+            <RelativePanel.Background>
                 <SolidColorBrush Opacity="0.9" Color="White" />
-            </StackPanel.Background>
-            <RelativePanel>
-                <TextBox
-                    Name="PopUpNameTextBox"
-                    HorizontalAlignment="Left"
+            </RelativePanel.Background>
+            <TextBox
+                Name="PopUpNameTextBox"
+                MinWidth="300"
+                FontSize="20"
+                Foreground="#323232"
+                PlaceholderText="Name (required)"
+                Text="{Binding PcName, Mode=TwoWay}" />
+            <TextBlock
+                Name="ErrorTextBox"
+                Padding="8,0,0,0"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="Crimson"
+                RelativePanel.RightOf="PopUpNameTextBox"
+                Text="{Binding ErrorMessage}" />
+            <TextBox
+                Name="PopUpDescriptionTextBox"
+                Margin="0,5,0,0"
+                AcceptsReturn="True"
+                FontSize="17"
+                Foreground="#323232"
+                PlaceholderText="Description (required)"
+                RelativePanel.Above="PopupButton"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.Below="PopUpNameTextBox"
+                Text="{Binding PcDescription, Mode=TwoWay}"
+                TextWrapping="Wrap" />
+            <Button
+                Name="PopupButton"
+                Margin="0,5,0,0"
+                Padding="4"
+                Background="#FFE65757"
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1"
+                Command="{Binding CreatePcCommand}"
+                Content="Add player"
+                FontWeight="Bold"
+                Foreground="White"
+                RelativePanel.AlignBottomWithPanel="True" />
+            <Button
+                Background="#FFE65757"
+                BorderBrush="#323232"
+                BorderThickness="1,1,1,1"
+                Click="Button_Click_1"
+                RelativePanel.AlignRightWithPanel="True">
+                <TextBlock
+                    FontFamily="Segoe MDL2 Assets"
                     FontSize="20"
-                    Foreground="#323232"
-                    PlaceholderText="Name"
-                    Text="{Binding PcName, Mode=TwoWay}" />
-                <TextBox
-                    Name="PopUpDescriptionTextBox"
-                    Width="400"
-                    Height="200"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
-                    AcceptsReturn="True"
-                    FontSize="17"
-                    Foreground="#323232"
-                    PlaceholderText="Description"
-                    RelativePanel.Below="PopUpNameTextBox"
-                    Text="{Binding PcDescription, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
-                <Button
-                    Name="PopupButton"
-                    Margin="0,5,0,0"
-                    Background="#FFE65757"
-                    Command="{Binding CreatePcCommand}"
-                    Content="Add"
+                    FontWeight="Bold"
                     Foreground="White"
-                    RelativePanel.Below="PopUpDescriptionTextBox" />
-                <Button
-                    Background="#FFE65757"
-                    Click="Button_Click_1"
-                    RelativePanel.AlignRightWithPanel="True">
-                    <TextBlock
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="&#xE711;" />
-                </Button>
-            </RelativePanel>
-        </StackPanel>
+                    Text="&#xE711;" />
+            </Button>
+        </RelativePanel>
+
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <!--  Edit StackPanel  -->
+            <!--<StackPanel
+                Name="EditStackPanel"
+                Grid.Row="1"
+                Grid.Column="1"
+                CornerRadius="3,3,3,3"
+                Visibility="Collapsed">
+                <StackPanel.Background>
+                    <SolidColorBrush Opacity="0.8" Color="White" />
+                </StackPanel.Background>
+                <RelativePanel Padding="4">
+                    <Border Background="#eeeeee">
+                        <TextBlock
+                            Name="TextBlockSelectedPcName"
+                            MinWidth="200"
+                            Margin="4"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#323232"
+                            Text="{Binding SelectedPc.PcName}" />
+                    </Border>
+                    <Border Background="#eeeeee">
+                        <TextBlock
+                            Name="TextBlockSelectedPcDescription"
+                            Margin="4"
+                            FontSize="20"
+                            Foreground="#323232"
+                            RelativePanel.Below="TextBlockSelectedPcName"
+                            Text="{Binding SelectedPc.PcDescription}"
+                            TextWrapping="Wrap" />
+                    </Border>
+                    <Button
+                        Background="#FFE65757"
+                        Click="ButtonBase_OnClick"
+                        RelativePanel.AlignRightWithPanel="True">
+                        <TextBlock
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="&#xE711;" />
+                    </Button>
+                </RelativePanel>
+            </StackPanel>-->
+        </Grid>
     </Grid>
 </Page>
