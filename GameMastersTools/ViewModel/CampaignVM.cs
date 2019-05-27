@@ -157,9 +157,9 @@ namespace GameMastersTools.ViewModel
 
                 else
                 {
-                    //MessageDialogHelper.Show(
-                    //    "You already have a campaign with this name. Please choose a unique name for your campaign.",
-                    //    "Invalid campaign name");
+                    MessageDialogHelper.Show(
+                        "You already have a campaign with this name. Please choose a unique name for your campaign.",
+                        "Invalid campaign name");
                 }
             }
 
