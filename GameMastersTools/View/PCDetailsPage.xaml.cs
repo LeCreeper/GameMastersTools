@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GameMastersTools.ViewModel;
 using System.Threading;
+using Windows.UI.Popups;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 
@@ -174,7 +175,32 @@ namespace GameMastersTools.View
         {
 
         }
-      
-   
+
+
+        private void ShowRemovePcPopupOffsetClicked(object sender, RoutedEventArgs e)
+        {
+            // open the Popup if it isn't open already 
+            if (!RemovePcPopUp.IsOpen) { RemovePcPopUp.IsOpen = true; }
+        }
+
+        private void CloseRemovePcPopupClicked(object sender, RoutedEventArgs e)
+        {
+            // if the Popup is open, then close it 
+            if (RemovePcPopUp.IsOpen) { RemovePcPopUp.IsOpen = false; }
+        }
+
+        private void DeleteAndNavigateBack(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                GenericDbPersistency<PC>.DeleteObj("api/PCs/", PcViewModel.SelectedPc.PcId);
+            }
+            catch (Exception)
+            {
+                new MessageDialog("Error: PC could not be deleted");
+            }
+
+            Frame.Navigate(typeof(PCPage));
+        }
     }
 }

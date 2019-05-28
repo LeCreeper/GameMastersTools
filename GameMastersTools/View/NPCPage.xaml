@@ -2,251 +2,272 @@
     x:Class="GameMastersTools.View.NPCPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:GameMastersTools.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GameMastersTools.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:GameMastersTools.ViewModel"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary Source="Dictionary.xaml" />
     </Page.Resources>
 
     <Page.DataContext>
-        <viewModel:NPCViewModel/>
+        <viewModel:NPCViewModel />
     </Page.DataContext>
 
-    <Grid>
+    <Grid x:Name="PageGrid">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition />
+            <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height ="1*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height ="1*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="ContentGrid" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
 
             <TextBlock
                 Grid.Row="0"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Text="NPCs"
+                Grid.Column="1"
                 Margin="15"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="45"
                 FontWeight="Bold"
                 Foreground="#FFE65757"
-                />
+                Text="NPCs" />
 
-        <!-- ListView With NPCs -->
-        <ListView Name="ListNPCS" Grid.Row="2" Grid.Column="1" 
-            Width="Auto"
-            HorizontalAlignment="Center"
-            MinWidth="170"
-            
-            ItemsSource="{Binding NPCsToBeFiltered, Mode=TwoWay, 
-            UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding selectedNPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListView_SelectionChanged"
-             >
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.75*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
 
-            <ListView.ItemTemplate>
-            <DataTemplate>
-            <TextBlock 
-             Name="Name" 
-             Text="{Binding NPCName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
-             Padding="5,5,5,5"
-             />
-                    
-                   
-            </DataTemplate>
-        </ListView.ItemTemplate>
+                <!--  ListView With NPCs  -->
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <TextBox
+                        MinWidth="50"
+                        MinHeight="50"
+                        PlaceholderText="Search For Name Or Description"
+                        Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
+                    <ListView
+                        Name="ListNPCS"
+                        Width="Auto"
+                        MinWidth="170"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding NPCsToBeFiltered, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding selectedNPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionChanged="ListView_SelectionChanged">
 
-        </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Name="Name"
+                                    Padding="5,5,5,5"
+                                    Text="{Binding NPCName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <!-- Buttons for adding and deleting -->
-        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            
-            <!-- AddButton -->
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
-                <TextBlock Text="Add NPC" VerticalAlignment="Center" Margin="10"/> 
-                <Button Command="{Binding TemplateCommand}"  Click="Button_Click_2" Style="{StaticResource AddButton}"/>
-            </StackPanel>
 
-            
-            <!-- RemoveButton -->
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StandardStackPanelStyle}" Margin="5">
-                <TextBlock Text="Remove NPC" VerticalAlignment="Center" Margin="10"/>
-                <Button  Style="{StaticResource DeleteButton}" Click="ShowDeletePopupOffsetClicked"/>
-            </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
 
-        </StackPanel>
-
-        <!-- Create NPC Popup -->
-        <StackPanel 
-            Name="PopupAddNewStackPanel"
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
-            
-            
-            
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            BorderBrush="#cfcfcf"
-            BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
-            <StackPanel.Background>
-                <SolidColorBrush Opacity="0.9" Color="White" />
-            </StackPanel.Background>
-            <RelativePanel>
-                <TextBox
-                    Name="PopUpNameTextBox"
-                    HorizontalAlignment="Left"
-                    FontSize="20"
-                    Foreground="#323232"
-                    PlaceholderText="Name"
-                    Text="{Binding Name, Mode=TwoWay}" />
-                <TextBox
-                    Name="PopUpDescriptionTextBox"
-                    Width="400"
-                    Height="200"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Center"
-                    AcceptsReturn="True"
-                    FontSize="17"
-                    Foreground="#323232"
-                    PlaceholderText="Description"
-                    RelativePanel.Below="PopUpNameTextBox"
-                    Text="{Binding Description, Mode=TwoWay}"
-                    TextWrapping="Wrap" VerticalAlignment="Center" />
-                <Button
-                    Name="PopupButton"
-                    Margin="0,5,0,0"
-                    Background="#FFE65757"
-                    Command="{Binding AddCommand}"
-                    Click="Button_Click_1"
-                    Content="Add"
-                    Foreground="White"
-                    RelativePanel.Below="PopUpDescriptionTextBox" />
-                <Button
-                    Background="#FFE65757"
-                    Click="Button_Click_1"
-                    RelativePanel.AlignRightWithPanel="True">
-                    <TextBlock
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="&#xE711;" />
-                </Button>
-            </RelativePanel>
-        </StackPanel>
-
-        <!-- DetailView -->
-        
-        <StackPanel 
-            Grid.Row="2"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            
-            Width="400"
-
-            Margin="0,0,25,0"
-            Padding="5"
-            BorderBrush="#cfcfcf"
-            BorderThickness="2,2,2,2"
-            Visibility="Visible"
-            >
-
-           <StackPanel>
-            <StackPanel.Background>
-                <SolidColorBrush Opacity="0.9" Color="White" />
-            </StackPanel.Background>
-            <TextBox Name="DetailedNPCName" Text="{Binding selectedNPC.NPCName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Center" 
-                     PlaceholderText="Name"
-                     Foreground="#323232"
-                     FontSize="20"
-                     TextWrapping="Wrap"
-                     />
-            <TextBlock Text="Description"
-                       FontSize="20"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom"
-                       Foreground="#323232"
-                       Margin="0,5,0,0"
-                       />
-            <TextBox Name="DetailedNPCDescription"
-                     
-                     Text="{Binding selectedNPC.NPCDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
-                     MinHeight="230"
-                     AcceptsReturn="True"
-                     Margin="0,10,0,0"
-                     
-                     />
-           </StackPanel>
-            <StackPanel
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Button
-                    Name="EditButton"
-                   
-                    Margin="0,3,0,0"
-                    Background="#FFE65757"
-                    Click="EditMode"
-                    Content="Edit Mode"
-                    Foreground="White"
-                    RelativePanel.Below="PopUpDescriptionTextBox" />
-                
-            </StackPanel>
-        </StackPanel>
-
-        <!-- Popup for deleting -->
-        <Popup
-            x:Name="DeletePopUp"
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="200"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <StackPanel
-                Style="{StaticResource StandardStackPanelStyle}"
-                Padding="10">
-                <TextBlock Margin="5" Text="Are you sure you want to delete this NPC?" />
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button
-                        Margin="5"
-                        Click="CloseDeletePopupClicked"
-                        Content="No"
-                        Style="{StaticResource StandardButton}"/>
-                    <Button
-                        Margin="5"
-                        Click="CloseDeletePopupClicked"
-                        Command="{Binding RemoveCommand}"
-                        Content="Yes"
-                        Style="{StaticResource RedButton}"/>
+                    </ListView>
                 </StackPanel>
+
+                <!--  DetailView  -->
+                <Border x:Name="NPCDetails"
+                    Grid.Column="1"
+                    BorderBrush="Gray"
+                    BorderThickness="2"
+                    Visibility="Collapsed">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="CloseNPCDetails"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Click="CloseNPCDetails_OnClick"
+                                Content="&#xE711;"
+                                FontFamily="Segoe MDL2 Assets"
+                                Style="{StaticResource RedButton}"
+                                Margin="0,0,0,10"/>
+
+                        <StackPanel
+                            x:Name="CampaignInformation"
+                            Grid.Row="2"
+                            Margin="10"
+                            Style="{StaticResource StandardStackPanelStyle}">
+                            <StackPanel Padding="10" Background="#FFE65757">
+                                <TextBox
+                                    Name="DetailedNPCName"
+                                    HorizontalAlignment="Center"
+                                    FontSize="20"
+                                    Foreground="#323232"
+                                    PlaceholderText="Name"
+                                    Text="{Binding selectedNPC.NPCName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap" />
+
+                            </StackPanel>
+                            <TextBox
+                                Name="DetailedNPCDescription"
+                                MinHeight="230"
+                                Margin="0,10,0,0"
+                                AcceptsReturn="True"
+                                Text="{Binding selectedNPC.NPCDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+                        </StackPanel>
+
+                        <Button
+                            Name="EditButton"
+                            Click="EditMode"
+                            Content="Edit Mode"
+                            RelativePanel.Below="PopUpDescriptionTextBox"
+                            Style="{StaticResource StandardButton}"
+                            Margin="10"
+                            Grid.Row="3"/>
+
+                    </Grid>
+                </Border>
+
+                <!--  Create NPC Popup  -->
+                <StackPanel x:Name="PopupAddNewStackPanel"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    BorderBrush="#cfcfcf"
+                    BorderThickness="2,2,2,2"
+                    Visibility="Collapsed">
+                    <StackPanel.Background>
+                        <SolidColorBrush Opacity="0.9" Color="White" />
+                    </StackPanel.Background>
+                    <RelativePanel>
+                        <TextBox
+                            Name="PopUpNameTextBox"
+                            HorizontalAlignment="Left"
+                            FontSize="20"
+                            Foreground="#323232"
+                            PlaceholderText="Name"
+                            Text="{Binding Name, Mode=TwoWay}" />
+                        <TextBox
+                            Name="PopUpDescriptionTextBox"
+                            Width="400"
+                            Height="200"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            AcceptsReturn="True"
+                            FontSize="17"
+                            Foreground="#323232"
+                            PlaceholderText="Description"
+                            RelativePanel.Below="PopUpNameTextBox"
+                            Text="{Binding Description, Mode=TwoWay}"
+                            TextWrapping="Wrap" />
+                        <Button
+                            Name="PopupButton"
+                            Margin="0,5,0,0"
+                            Background="#FF6CD43B"
+                            Click="Button_Click_1"
+                            Command="{Binding AddCommand}"
+                            Content="Add"
+                            Foreground="White"
+                            RelativePanel.Below="PopUpDescriptionTextBox" />
+                        <Button
+                            Background="#FFE65757"
+                            Click="Button_Click_1"
+                            RelativePanel.AlignRightWithPanel="True">
+                            <TextBlock
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="&#xE711;" />
+                        </Button>
+                    </RelativePanel>
+                </StackPanel>
+
+                <!--  Popup for deleting  -->
+                <Popup
+                    x:Name="DeletePopUp"
+                    Grid.Column="0"
+                    Width="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <StackPanel Padding="10" Style="{StaticResource StandardStackPanelStyle}">
+                        <TextBlock Margin="5" Text="Are you sure you want to delete this NPC?" />
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Button
+                                Margin="5"
+                                Click="CloseDeletePopupClicked"
+                                Content="No"
+                                Style="{StaticResource StandardButton}" />
+                            <Button
+                                Margin="5"
+                                Click="CloseDeletePopupClicked"
+                                Command="{Binding RemoveCommand}"
+                                Content="Yes"
+                                Style="{StaticResource RedButton}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Popup>
+            </Grid>
+
+            <!--  Buttons for adding and deleting  -->
+            <StackPanel x:Name="AddAndDelete"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+
+                <!--  AddButton  -->
+                <StackPanel
+                    Margin="5"
+                    Orientation="Horizontal"
+                    Style="{StaticResource StandardStackPanelStyle}">
+                    <TextBlock
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        Text="Add NPC" />
+                    <Button
+                        Click="Button_Click_2"
+                        Command="{Binding TemplateCommand}"
+                        Style="{StaticResource AddButton}" />
+                </StackPanel>
+
+
+                <!--  RemoveButton  -->
+                <StackPanel
+                    Margin="5"
+                    Orientation="Horizontal"
+                    Style="{StaticResource StandardStackPanelStyle}">
+                    <TextBlock
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        Text="Remove NPC" />
+                    <Button Click="ShowDeletePopupOffsetClicked" Style="{StaticResource DeleteButton}" />
+                </StackPanel>
+
             </StackPanel>
-        </Popup>
-
-       <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <TextBox PlaceholderText="Search For Name Or Description" MinWidth="50" MinHeight="50" Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
-
-    </Grid>
+        </Grid>
     </Grid>
 </Page>

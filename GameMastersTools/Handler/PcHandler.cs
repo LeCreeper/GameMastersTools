@@ -67,20 +67,26 @@ namespace GameMastersTools.Handler
         {
             if (PcViewModel.SelectedPc != null)
             {
-                var messageDialog = new MessageDialog("Er Du sikker på du vil slette den her spiller: " + PcViewModel.SelectedPc.PcName + "?");
+                PcViewModel.PcSingleton.DeletePc(PcViewModel.SelectedPc);
 
-                // If yes, run the UICommand: CommandInvokedHandler 
-                messageDialog.Commands.Add(new UICommand("Ret sikker", new UICommandInvokedHandler(this.CommandInvokedHandler)));
-                messageDialog.Commands.Add(new UICommand("Please god no", null));
 
-                // Set the command that will be invoked by default
-                messageDialog.DefaultCommandIndex = 0;
+                // Making sure we update the sorted list whenever an object is added or deleted to the main observable collection
+                PcViewModel.UserPcs.Remove(PcViewModel.SelectedPc);
 
-                // Set the command to be invoked when escape is pressed
-                messageDialog.CancelCommandIndex = 1;
+                //var messageDialog = new MessageDialog("Er Du sikker på du vil slette den her spiller: " + PcViewModel.SelectedPc.PcName + "?");
 
-                // Show the message dialog
-                await messageDialog.ShowAsync();
+                //// If yes, run the UICommand: CommandInvokedHandler 
+                //messageDialog.Commands.Add(new UICommand("Ret sikker", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                //messageDialog.Commands.Add(new UICommand("Please god no", null));
+
+                //// Set the command that will be invoked by default
+                //messageDialog.DefaultCommandIndex = 0;
+
+                //// Set the command to be invoked when escape is pressed
+                //messageDialog.CancelCommandIndex = 1;
+
+                //// Show the message dialog
+                //await messageDialog.ShowAsync();
             }
         }
 

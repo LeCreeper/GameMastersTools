@@ -15,6 +15,10 @@
         <viewModel:PcViewModel />
     </Page.DataContext>
 
+    <Page.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -23,21 +27,21 @@
 
         <Grid Padding="4" Grid.Row="1">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+            <Grid x:Name="ContentGrid" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height ="1*"/>
-                <RowDefinition Height ="1*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height ="1*" />
-            </Grid.RowDefinitions>
-
-            <TextBlock
+                <TextBlock
                 Grid.Row="0"
+                Grid.Column="1"
                 Text="PCs"
                 Margin="15"
                 HorizontalAlignment="Center"
@@ -46,22 +50,21 @@
                 FontWeight="Bold"
                 Foreground="#FFE65757"
             />
-
-                <Border
-                Grid.Row="1"
-                Background="#eeeeee"
-                CornerRadius="2,2,2,2">
-                <TextBox
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="1">
+                    <TextBox
                     Height="40"
                     HorizontalAlignment="Stretch"
                     FontFamily="Calibri"
                     FontSize="20"
                     PlaceholderText="Find player..."
-                    Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Border>
-            <GridView
+                    Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" />
+
+                    <GridView
                 x:Name="PcGridView"
-                Grid.Row="2"
+                Grid.Row="1"
+                Grid.Column="1"
                 Padding="0,4,0,0"
                 ItemsSource="{Binding UserPcs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -85,13 +88,14 @@
                             <Border
                                 Name="TextBlockBorder2"
                                 Grid.Row="0"
-                                BorderBrush="#cfcfcf"
-                                BorderThickness="0,0,0,3">
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,3"
+                                Background="#FFE65757">
                                 <TextBlock
                                     Name="PcNameTextBlock2"
                                     Padding="4,0,0,0"
                                     FontSize="25"
-                                    Foreground="#323232"
+                                    Foreground="White"
                                     Text="{Binding PcName}" />
                             </Border>
                             <TextBlock
@@ -100,7 +104,7 @@
                                 Padding="5"
                                 FontSize="18"
                                 Foreground="#323232"
-                                Text="{Binding PcDescription}"
+                                Text="{Binding PcDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="WrapWholeWords" />
 
 
@@ -116,8 +120,9 @@
                 </interactivity:Interaction.Behaviors>
 
             </GridView>
+                </StackPanel>
 
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
 
 
                 <!--  ArrowLeft  -->
@@ -136,25 +141,21 @@
 
                 </Button>-->
                 <Button
-                    Margin="5,5,0,5"
-                    Background="#00a651"
-                    BorderBrush="#323232"
-                    BorderThickness="1,1,1,1"
+                    Margin="10"
+                    Style="{StaticResource AddButton2}"
                     Click="Button_Click_2">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="25"
-                            FontWeight="Bold"
                             Foreground="White"
                             Text="&#xE710;" />
 
                         <TextBlock
                             Padding="6,0,0,0"
                             VerticalAlignment="Bottom"
-                            FontSize="17"
-                            FontWeight="Bold"
+                            FontSize="18"
                             Foreground="White"
                             Text="Add new" />
                     </StackPanel>
@@ -172,7 +173,6 @@
         <RelativePanel
             Name="PopUpAddNewRelativePanel"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             Width="600"
             Height="400"
             Padding="5"
@@ -180,7 +180,8 @@
             VerticalAlignment="Center"
             BorderBrush="#cfcfcf"
             BorderThickness="2,2,2,2"
-            Visibility="Collapsed">
+            Visibility="Collapsed"
+>
             <RelativePanel.Background>
                 <SolidColorBrush Opacity="0.9" Color="White" />
             </RelativePanel.Background>
@@ -214,16 +215,13 @@
                 TextWrapping="Wrap" />
             <Button
                 Name="PopupButton"
-                Margin="0,5,0,0"
-                Padding="4"
-                Background="#FFE65757"
-                BorderBrush="#323232"
+                Margin="10"
+                Style="{StaticResource AddButton2}"
                 BorderThickness="1,1,1,1"
                 Command="{Binding CreatePcCommand}"
                 Content="Add player"
-                FontWeight="Bold"
-                Foreground="White"
-                RelativePanel.AlignBottomWithPanel="True" />
+                RelativePanel.AlignBottomWithPanel="True"
+                Click="Button_Click_1"/>
             <Button
                 Background="#FFE65757"
                 BorderBrush="#323232"

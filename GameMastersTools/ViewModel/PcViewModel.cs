@@ -67,7 +67,10 @@ namespace GameMastersTools.ViewModel
         public static PC SelectedPc
         {
             get => _selectedPc;
-            set { _selectedPc = value; }
+            set
+            {
+                _selectedPc = value;
+            }
         }
 
         public PcHandler PcHandler { get; set; }
@@ -134,6 +137,8 @@ namespace GameMastersTools.ViewModel
             get { return _updatePcCommand ?? (_updatePcCommand = new RelayCommand(PcHandler.UpdatePc)); }
             set { _updatePcCommand = value; }
         }
+
+        public ICommand DeletePcCommand2 { get; set; }
 
         //public ICommand TimerCommand
         //{

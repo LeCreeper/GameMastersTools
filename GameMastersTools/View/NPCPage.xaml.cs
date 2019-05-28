@@ -95,6 +95,7 @@ namespace GameMastersTools.View
         /// <param name="e"></param>
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            NPCDetails.Visibility = Visibility.Visible;
             EditButton.Content = "Edit Mode";
             EditInProgress = false;
             DetailedNPCDescription.IsReadOnly = true;
@@ -102,6 +103,10 @@ namespace GameMastersTools.View
 
         }
 
-        
+        private void CloseNPCDetails_OnClick(object sender, RoutedEventArgs e)
+        {
+            NPCDetails.Visibility = Visibility.Collapsed;
+        }
+
     }
 }

@@ -69,7 +69,6 @@ namespace GameMastersTools.ViewModel
                 try
                 {
                     SelectedCampaignId = _selectedCampaign.CampaignId;
-                    SelectedCampaignName = _selectedCampaign.CampaignName;
                 }
                 catch (Exception e)
                 {
@@ -101,12 +100,6 @@ namespace GameMastersTools.ViewModel
         }
 
         public static int SelectedCampaignId { get; set; }
-
-        public static string SelectedCampaignName
-        {
-            get => _selectedCampaignName;
-            set => _selectedCampaignName = value;
-        }
 
         #endregion
 

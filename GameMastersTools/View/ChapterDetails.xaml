@@ -54,6 +54,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Style="{StaticResource RedStackPanel}">
                         <TextBlock 
@@ -64,7 +65,21 @@
                         Grid.Row="1"
                         Style="{StaticResource NoteField}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Text="{Binding Chapter.ChapterDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button
+                        Grid.Row="2"
+                        Style="{StaticResource StandardButton}"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE74E;"
+                        Margin="10"
+                        Height="40"
+                        Width="40"
+                        FontSize="18"
+                        Command="{Binding SaveChapterCommand}"/>
+
+
                 </Grid>
 
                 <Grid x:Name="Lists" 

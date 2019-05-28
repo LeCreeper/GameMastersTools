@@ -6,8 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.UI.Popups;
 using GameMastersTools.Annotations;
+using GameMastersTools.Common;
 using GameMastersTools.Model;
 using GameMastersTools.Persistency;
 
@@ -19,6 +21,8 @@ namespace GameMastersTools.ViewModel
         private ObservableCollection<Location> _locations;
         private ObservableCollection<Item> _items;
         private ObservableCollection<Encounter> _encounters;
+
+        public ICommand SaveChapterCommand { get; set; }
         public Chapter Chapter { get; set; }
 
         public ObservableCollection<NPC> NPCs
@@ -65,6 +69,16 @@ namespace GameMastersTools.ViewModel
         {
             Chapter = GenericDbPersistency<Chapter>.GetSingleObj("api/Chapters/",
                 ChapterListViewModel.SelectedChapterId);
+            SaveChapterCommand = new RelayCommand(SaveChapterDetails);
+        }
+
+        public void SaveChapterDetails()
+        {
+            try
+            {
+                GenericDbPersistency<Chapter>.UpdateObj(Chapter, $"api/Chapters/{Chapter.ChapterId}");
+            }
+            catch { }
         }
 
         #region MessageDialogHelper

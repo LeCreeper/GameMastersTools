@@ -8,7 +8,53 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Black">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="15"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="45"
+                FontWeight="Bold"
+                Foreground="#FFE65757"
+                Text="Locations" />
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                <TextBlock Text="Coming Soon..."
+                           FontSize="30"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,30"/>
+                <Image
+                    Source="../Assets/Version6.png"
+                    Height="300"/>
+
+            </StackPanel>
+
+        </Grid>
 
     </Grid>
 </Page>

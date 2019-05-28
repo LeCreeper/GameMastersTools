@@ -16,22 +16,39 @@
         <viewModel:PcViewModel />
     </Page.DataContext>
 
+    <Page.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="ContentGrid" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!--<Grid Grid.Row="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height ="1*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height ="1*" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
 
             <TextBlock
                 Grid.Row="0"
+                Grid.Column="1"
                 Text="{Binding SelectedPc.PcName}"
                 Margin="15"
                 HorizontalAlignment="Center"
@@ -41,21 +58,24 @@
                 Foreground="#FFE65757"
             />
 
-            <ScrollViewer Grid.Row="1">
-            <StackPanel Padding="4">
-                <Border Background="#eeeeee">
+            <ScrollViewer Grid.Row="1" Grid.Column="1">
+                <StackPanel Background="#eeeeee">
+                    <Border Background="#FFE65757">
                     <TextBlock
                         MinWidth="200"
-                        Margin="4"
+                        Margin="10"
                         FontSize="24"
                         FontWeight="Bold"
-                        Foreground="#323232"
+                        Foreground="White"
                         Text="{Binding SelectedPc.PcName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
-                <Border Background="#eeeeee">
-                    <TextBlock
-                        Margin="4"
+                <Border>
+                    <TextBox
+                        Margin="10"
                         FontSize="20"
+                        AcceptsReturn="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                         Foreground="#323232"
                         Text="{Binding SelectedPc.PcDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap" />
@@ -64,8 +84,9 @@
             </StackPanel>
         </ScrollViewer>
         <StackPanel
-            Grid.Row="3"
-            Padding="4"
+            Grid.Row="2"
+            Grid.Column="1"
+            Padding="10"
             Orientation="Horizontal">
 
             <!--  ArrowLeft  -->
@@ -84,22 +105,20 @@
             </Button>-->
 
             <!--  Edit Button  -->
-            <Button
-                Margin="4,0,0,0"
-                Background="#FFE65757"
-                BorderBrush="#323232"
-                BorderThickness="1,1,1,1"
-                Click="Button_Click"
+                <Button
+                Style="{StaticResource StandardButton}"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE74E;"
+                Margin="10"
+                Height="40"
+                Width="40"
+                FontSize="18"
+                Command="{Binding UpdatePcCommand}"
                 ToolTipService.ToolTip="Edit player">
-                <TextBlock
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="30"
-                    Foreground="White"
-                    Text="&#xE70F;" />
-            </Button>
+                </Button>
 
             <!--  Add Player to Campaign Button | non functional  -->
-            <Button
+            <!--<Button
                 Margin="4,0,0,0"
                 Background="#FFE65757"
                 BorderBrush="#323232"
@@ -117,31 +136,47 @@
                         Text="Add player to campaign" />
                 </StackPanel>
 
-            </Button>
+            </Button>-->
 
             <!--  Delete Player Button  -->
-            <Button
-                Margin="4,0,0,0"
-                Background="#FFE65757"
-                BorderBrush="#323232"
-                BorderThickness="1,1,1,1"
-                Command="{Binding DeletePcCommand}"
-                ToolTipService.ToolTip="Delete Player">
-                <StackPanel Orientation="Horizontal">
+                <Button
+                Margin="10"
+                Style="{StaticResource DeleteButton}"
+                Click="ShowRemovePcPopupOffsetClicked"
+                >
+                </Button>
+
+            </StackPanel>
+
+            <Popup
+                x:Name="RemovePcPopUp"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom">
+
+                <StackPanel Padding="10" Style="{StaticResource StandardStackPanelStyle}">
                     <TextBlock
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="30"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="&#xE74D;" />
+                        Margin="5"
+                        Text="Are you sure you want to delete this PC?"
+                        TextWrapping="Wrap" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            Margin="5"
+                            Click="CloseRemovePcPopupClicked"
+                            Content="No"
+                            Style="{StaticResource StandardButton}" />
+                        <Button
+                            Margin="5"
+                            Click="DeleteAndNavigateBack"
+                            Content="Yes"
+                            Style="{StaticResource RedButton}" 
+                            Command="{Binding DeletePcCommand}"/>
+                    </StackPanel>
                 </StackPanel>
-            </Button>
+            </Popup>
 
-
-
-        </StackPanel>
-
-        <!--  Grid to hold the Edit Panel that pops up  -->
+            <!--  Grid to hold the Edit Panel that pops up  -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />

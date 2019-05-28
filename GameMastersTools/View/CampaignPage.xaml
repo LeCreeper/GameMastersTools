@@ -143,8 +143,7 @@
                             Grid.Row="3"
                             Orientation="Horizontal">
 
-                            <StackPanel
-                                x:Name="DeleteCampaign"
+                            <StackPanel x:Name="DeleteCampaign"
                                 Margin="10"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
@@ -164,8 +163,7 @@
                         </StackPanel>
 
                         <!--  Pop-up til Deleteknap  -->
-                        <Popup
-                            x:Name="DeletePopUp"
+                        <Popup x:Name="DeletePopUp"
                             Grid.Row="1"
 
                             HorizontalAlignment="Center"

@@ -34,6 +34,7 @@ namespace GameMastersTools.ViewModel
         public ICommand AddPcCommand { get; set; }
         public ICommand RemovePcCommand { get; set; }
 
+        public ICommand SaveCampaignCommand { get; set; }
         #endregion
 
         #region Properties
@@ -86,8 +87,7 @@ namespace GameMastersTools.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public string SelectedCampaignName { get; set; }
+        public Campaign SelectedCampaign { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -110,7 +110,9 @@ namespace GameMastersTools.ViewModel
             DeleteChapterCommand = new RelayCommand(DeleteChapter);
             AddPcCommand = new RelayCommand(AddPCToCampaign);
             RemovePcCommand = new RelayCommand(RemovePCFromCampaign);
-            SelectedCampaignName = CampaignVM.SelectedCampaignName;
+            SaveCampaignCommand = new RelayCommand(SaveCampaignDetails);
+            SelectedCampaign =
+                GenericDbPersistency<Campaign>.GetSingleObj("api/Campaigns/", CampaignVM.SelectedCampaignId);
             LoadChapters();
             LoadUsersPCs();
             LoadCampaignPCs();
@@ -166,6 +168,22 @@ namespace GameMastersTools.ViewModel
                         }
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region CampaignMethods
+
+        public void SaveCampaignDetails()
+        {
+            try
+            {
+                GenericDbPersistency<Campaign>.UpdateObj(SelectedCampaign, $"api/Campaigns/{SelectedCampaign.CampaignId}");
+            }
+            catch (Exception e)
+            {
+
             }
         }
 

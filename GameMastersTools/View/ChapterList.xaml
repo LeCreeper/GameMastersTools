@@ -19,8 +19,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
@@ -36,21 +36,23 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel x:Name="AddAndDeleteStackPanel"
-            Grid.Row="2"
-            Grid.Column="1"
-            VerticalAlignment="Top"
-            Orientation="Horizontal">
+            <StackPanel
+                x:Name="AddAndDeleteStackPanel"
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
 
-                <StackPanel x:Name="AddChapter"
-                Margin="10"
-                Orientation="Horizontal"
-                Style="{StaticResource StandardStackPanelStyle}">
-                    <TextBlock
+                <StackPanel
+                    x:Name="AddChapter"
                     Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Text="Add Chapter" />
+                    Orientation="Horizontal"
+                    Style="{StaticResource StandardStackPanelStyle}">
+                    <TextBlock
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Add Chapter" />
                     <Button Style="{StaticResource AddButton}">
                         <Button.Flyout>
                             <Flyout Placement="Right">
@@ -66,305 +68,345 @@
 
                                     <TextBlock Margin="0,0,2,0" Text="Name:" />
                                     <TextBox
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    PlaceholderText="Enter a chapter name"
-                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        PlaceholderText="Enter a chapter name"
+                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Button
-                                    Grid.Row="1"
-                                    Command="{Binding AddChapterCommand}"
-                                    Content="Add Chapter"
-                                    Style="{StaticResource StandardButton}" />
+                                        Grid.Row="1"
+                                        Command="{Binding AddChapterCommand}"
+                                        Content="Add Chapter"
+                                        Style="{StaticResource StandardButton}" />
                                 </Grid>
                             </Flyout>
                         </Button.Flyout>
                     </Button>
                 </StackPanel>
 
-                <StackPanel x:Name="DeleteChapter"
-                Margin="10"
-                Orientation="Horizontal"
-                Style="{StaticResource StandardStackPanelStyle}">
-                    <TextBlock
+                <StackPanel
+                    x:Name="DeleteChapter"
                     Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Foreground="#FFE65757"
-                    Text="Delete Chapter" />
-                    <Button Style="{StaticResource DeleteButton}"
-                            Click="ShowDeleteChapterPopupOffsetClicked"/>
+                    Orientation="Horizontal"
+                    Style="{StaticResource StandardStackPanelStyle}">
+                    <TextBlock
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#FFE65757"
+                        Text="Delete Chapter" />
+                    <Button Click="ShowDeleteChapterPopupOffsetClicked" Style="{StaticResource DeleteButton}" />
                 </StackPanel>
 
             </StackPanel>
 
 
 
-            <Button x:Name="NavigationButton"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="10,0,0,0"
-                    Style="{StaticResource StandardButton}"
-                    Padding="10" VerticalAlignment="Bottom"
-                    Click="NavigateToChapterButton_Click">
+            <Button
+                x:Name="NavigationButton"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                Padding="10"
+                VerticalAlignment="Bottom"
+                Click="NavigateToChapterButton_Click"
+                Style="{StaticResource StandardButton}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Navigate To Chapter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock
-                            Margin="10,0,0,0"
-                            Text="&#xF0D2;"
-                            FontFamily="Segoe MDL2 Assets"
-                            FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Navigate To Chapter" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="18"
+                        Text="&#xF0D2;" />
                 </StackPanel>
             </Button>
 
-            <StackPanel x:Name="PageHeader"
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Orientation="Horizontal">
-                <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="{Binding SelectedCampaignName}" />
+            <StackPanel
+                x:Name="PageHeader"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <TextBlock Style="{StaticResource PageHeaderTextBlock}" Text="{Binding SelectedCampaign.CampaignName}" />
             </StackPanel>
 
 
-            <Grid x:Name="ContentGrid"
-            Grid.Row="1"
-            Grid.Column="1">
+            <Grid
+                x:Name="ContentGrid"
+                Grid.Row="1"
+                Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.75*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.75*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="6*" />
                     </Grid.RowDefinitions>
 
-                    <Popup x:Name="DeleteChapterPopUp"
-                           Grid.Column="0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           HorizontalOffset="100" >
+                    <Popup
+                        x:Name="DeleteChapterPopUp"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        HorizontalOffset="100">
 
-                        <StackPanel
-                            Style="{StaticResource StandardStackPanelStyle}"
-                            Padding="10">
-                            <TextBlock Margin="5"
-                                       Text="Are you sure you want to delete this chapter?" 
-                                       TextWrapping="Wrap"/>
-                            <TextBlock Margin="0,0,0,5"
-                                       Text="Any work within the chapter will be permanently deleted"
-                                       FontSize="10"/>
+                        <StackPanel Padding="10" Style="{StaticResource StandardStackPanelStyle}">
+                            <TextBlock
+                                Margin="5"
+                                Text="Are you sure you want to delete this chapter?"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="10"
+                                Text="Any work within the chapter will be permanently deleted" />
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                 <Button
                                     Margin="5"
                                     Click="CloseDeleteChapterPopupClicked"
                                     Content="No"
-                                    Style="{StaticResource StandardButton}"/>
+                                    Style="{StaticResource StandardButton}" />
                                 <Button
                                     Margin="5"
                                     Click="CloseDeleteChapterPopupClicked"
                                     Command="{Binding DeleteChapterCommand}"
                                     Content="Yes"
-                                    Style="{StaticResource RedButton}"/>
+                                    Style="{StaticResource RedButton}" />
                             </StackPanel>
                         </StackPanel>
                     </Popup>
 
-                    <StackPanel x:Name="ChapterListView"
-                    Grid.Column="0"
-                    Grid.RowSpan="2"
-                    Margin="10"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource StandardStackPanelStyle}">
-                        <StackPanel
-                        x:Name="CampaignHeader"
-                        Style="{StaticResource RedStackPanel}">
+                    <StackPanel
+                        x:Name="ChapterListView"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="10"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Style="{StaticResource StandardStackPanelStyle}">
+                        <StackPanel x:Name="CampaignHeader" Style="{StaticResource RedStackPanel}">
 
-                            <TextBlock
-                            Style="{StaticResource WhiteHeaderText}"
-                            Text="Chapters" />
+                            <TextBlock Style="{StaticResource WhiteHeaderText}" Text="Chapters" />
 
                         </StackPanel>
 
                         <ListView
-                        ItemsSource="{Binding Chapters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        ScrollViewer.VerticalScrollMode="Enabled"
-                        SelectedItem="{Binding SelectedChapter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            ItemsSource="{Binding Chapters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                            ScrollViewer.VerticalScrollMode="Enabled"
+                            SelectedItem="{Binding SelectedChapter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ChapterName,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="{Binding ChapterName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
 
-                    <StackPanel x:Name="SeachBarStackPanel"
+                    <!--<StackPanel x:Name="SeachBarStackPanel"
                     Grid.Column="1"
                     Grid.Row="1"
-                    
+
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top">
 
                         <TextBlock Margin="0,0,0,5" Text="Search Chapters" />
                         <SearchBox />
-                    </StackPanel>
+                    </StackPanel>-->
+
                 </Grid>
 
-                <Grid x:Name="CampaignEdit"
-                Grid.Column="1"
-                Margin="10"
-                BorderBrush="Gray"
-                BorderThickness="2">
+                <Grid
+                    x:Name="CampaignEdit"
+                    Grid.Column="1"
+                    Margin="10"
+                    BorderBrush="Gray"
+                    BorderThickness="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel x:Name="CampaignDetailsHeader"
-                        Grid.ColumnSpan="2" 
+                    <StackPanel
+                        x:Name="CampaignDetailsHeader"
+                        Grid.ColumnSpan="2"
                         Style="{StaticResource RedStackPanel}">
 
                         <TextBlock
-                        Style="{StaticResource WhiteHeaderText}"
-                        Text="Campaign Details"
-                        VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Style="{StaticResource WhiteHeaderText}"
+                            Text="Campaign Details" />
 
                     </StackPanel>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBox
+                            x:Name="NotesTextBox"
+                            Grid.Row="0"
+                            Margin="10"
+                            AcceptsReturn="True"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Style="{StaticResource NoteField}"
+                            Text="{Binding SelectedCampaign.CampaignDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Row="1"
+                            Style="{StaticResource StandardButton}"
+                            FontFamily="Segoe MDL2 Assets"
+                            Content="&#xE74E;"
+                            Margin="10"
+                            Height="40"
+                            Width="40"
+                            FontSize="18"
+                            Command="{Binding SaveCampaignCommand}"/>
+                    </Grid>
 
-                    <TextBox x:Name="NotesTextBox"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="10"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    Style="{StaticResource NoteField}"/>
-
-                    <Grid x:Name="CampaignEditRightside"
-                    Grid.Row="1"
-                    Grid.Column="1">
+                    <Grid
+                        x:Name="CampaignEditRightside"
+                        Grid.Row="1"
+                        Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition />
-                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
-                        <Image x:Name="CampaignImage"
-                        Grid.Row="0"
-                        Margin="10"
-                        Source="../Assets/LockScreenLogo.scale-200.png"
-                        Stretch="Uniform" />
+                        <Image
+                            x:Name="CampaignImage"
+                            Grid.Row="0"
+                            Margin="10"
+                            Source="../Assets/LockScreenLogo.scale-200.png"
+                            Stretch="Uniform" />
 
-                        <Grid x:Name="CampaignPCEdit"
-                            Grid.Row="1">
+                        <Grid x:Name="CampaignPCEdit" Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <StackPanel x:Name="PlayerCharactersHeader"
+                            <StackPanel
+                                x:Name="PlayerCharactersHeader"
                                 Grid.ColumnSpan="2"
+                                Margin="10"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 BorderBrush="#FFE65757"
-                                BorderThickness="0,0,0,2"
-                                Margin="10">
+                                BorderThickness="0,0,0,2">
                                 <TextBlock
+                                    HorizontalAlignment="Center"
                                     FontSize="18"
                                     Foreground="#FFE65757"
-                                    Text="Player Characters" HorizontalAlignment="Center"/>
+                                    Text="Player Characters" />
                             </StackPanel>
 
-                            <StackPanel x:Name="PCListview"
-                                        Grid.Row="1"
-                                        Margin="10" HorizontalAlignment="Left">
-                                <ListView x:Name="CampaignPCs"
-                                          HorizontalAlignment="Left"
-                                          ItemsSource="{Binding CampaignPCs,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          SelectedItem="{Binding SelectedCampaignPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <StackPanel
+                                x:Name="PCListview"
+                                Grid.Row="1"
+                                Margin="10"
+                                HorizontalAlignment="Left">
+                                <ListView
+                                    x:Name="CampaignPCs"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{Binding CampaignPCs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding SelectedCampaignPC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding PcName}"/>
+                                            <TextBlock Text="{Binding PcName}" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </StackPanel>
 
-                            <StackPanel x:Name="AddCampaignPCs"
-                                Grid.Column="1"
+                            <StackPanel
+                                x:Name="AddCampaignPCs"
                                 Grid.Row="1"
+                                Grid.Column="1"
                                 Margin="10"
-                                Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                <ComboBox x:Name="PCSelection"
-                                          ItemsSource="{Binding UsersPCs}"
-                                          SelectedItem="{Binding SelectedUsersPC, Mode=TwoWay}" HorizontalAlignment="Left"
-                                >
+                                HorizontalAlignment="Stretch"
+                                Orientation="Horizontal">
+                                <ComboBox
+                                    x:Name="PCSelection"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{Binding UsersPCs}"
+                                    SelectedItem="{Binding SelectedUsersPC, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding PcName}"
-                                                       HorizontalAlignment="Left"
-                                                       TextWrapping="Wrap"/>
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding PcName}"
+                                                TextWrapping="Wrap" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
 
                                 </ComboBox>
-                                <Button Style="{StaticResource SmallAddButton}"
-                                        Command="{Binding AddPcCommand}"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top">
-                                </Button>
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding AddPcCommand}"
+                                    Style="{StaticResource SmallAddButton}" />
 
                             </StackPanel>
 
-                            <Button x:Name="RemoveCampaignPCs"
-                                Style="{StaticResource DeleteButton}"
-                                        Margin="10"
-                                        Grid.Column="0"
-                                        Grid.Row="2"
-                                        Click="ShowRemoveCampaignPcPopupOffsetClicked"/>
+                            <Button
+                                x:Name="RemoveCampaignPCs"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="10"
+                                Click="ShowRemoveCampaignPcPopupOffsetClicked"
+                                Style="{StaticResource DeleteButton}" />
 
                         </Grid>
 
-                        <Popup x:Name="RemoveCampaignPcPopUp"
-                               Grid.Row="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom" Margin="0,0,0,188">
+                        <Popup
+                            x:Name="RemoveCampaignPcPopUp"
+                            Grid.Row="1"
+                            Margin="0,0,0,188"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom">
 
-                            <StackPanel
-                                Style="{StaticResource StandardStackPanelStyle}"
-                                Padding="10">
-                                <TextBlock Margin="5"
-                                           Text="Are you sure you want to remove this PC from the Campaign?" 
-                                           TextWrapping="Wrap"/>
-                                <TextBlock Margin="0,0,0,5"
-                                           Text="The PC will still be in your directory"
-                                           FontSize="10"/>
+                            <StackPanel Padding="10" Style="{StaticResource StandardStackPanelStyle}">
+                                <TextBlock
+                                    Margin="5"
+                                    Text="Are you sure you want to remove this PC from the Campaign?"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    FontSize="10"
+                                    Text="The PC will still be in your directory" />
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <Button
                                         Margin="5"
                                         Click="CloseRemoveCampaignPcPopupClicked"
                                         Content="No"
-                                        Style="{StaticResource StandardButton}"/>
+                                        Style="{StaticResource StandardButton}" />
                                     <Button
                                         Margin="5"
                                         Click="CloseRemoveCampaignPcPopupClicked"
                                         Command="{Binding RemovePcCommand}"
                                         Content="Yes"
-                                        Style="{StaticResource RedButton}"/>
+                                        Style="{StaticResource RedButton}" />
                                 </StackPanel>
                             </StackPanel>
                         </Popup>
